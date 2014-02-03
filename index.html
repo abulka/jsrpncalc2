@@ -10,6 +10,34 @@
 		<link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
 </head>
 <body ng-app>
+
+<div data-role="page" id="main">
+
+    <div data-role="header">
+        <h1>jsrpncalc2 main</h1>
+    </div>
+    <!-- /header -->
+
+    <div data-role="content">
+
+        <p><a href="#foo">Goto Page 1</a></p>
+        <p><a href="#bar">Goto Page 2</a></p>
+
+
+
+    </div>
+    <!-- /content -->
+
+    <div data-role="footer">
+        <h4>My Footer</h4>
+    </div>
+    <!-- /footer -->
+
+</div>
+<!-- /page -->
+
+
+
 <div data-role="page" id="foo">
 
     <div data-role="header">
@@ -21,6 +49,7 @@
         <p ng-show="sometext" ng-cloak>Hello world {{ sometext | uppercase }}</p>
         <input type="text" ng-model="sometext" />
 
+        <p><a href="#main">Back to main</a></p>
         <p><a href="#bar">Goto Page 2</a></p>
 
 		<div ng-controller="AndyController">
@@ -96,6 +125,7 @@
         <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that
             references my id is being clicked.</p>
 
+        <p><a href="#main">Back to main</a></p>
         <p><a href="#foo">Back to page 1</a></p>
 
         <form>
