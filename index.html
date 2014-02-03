@@ -22,19 +22,21 @@
 
         <p><a href="#foo">Goto Page 1</a></p>
         <p><a href="#bar">Goto Page 2</a></p>
+        <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View Options...</a>
 
-        <a href="#popupLogin" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup" data-position-to="origin">View</a>
-
-        <a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">View</a>
-        <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+        <div data-role="popup" id="popupViewOptions" data-theme="a" class="ui-corner-all">
             <form>
                 <div style="padding:10px 20px;">
-                    <h3>Please sign in</h3>
-                    <label for="un" class="ui-hidden-accessible">Username:</label>
-                    <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a">
-                    <label for="pw" class="ui-hidden-accessible">Password:</label>
-                    <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a">
-                    <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+                    <h3>Gui elements</h3>
+                    <fieldset data-role="controlgroup">
+                        <legend>Top Row:</legend>
+                        <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+                        <label for="checkbox-v-2a">RPN Stack</label>
+                        <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+                        <label for="checkbox-v-2b">Html Canvas</label>
+                        <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+                        <label for="checkbox-v-2c">Printer Tape</label>
+                    </fieldset>
                 </div>
             </form>
         </div>
