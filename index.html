@@ -30,11 +30,11 @@
                     <h3>Gui elements</h3>
                     <fieldset data-role="controlgroup">
                         <legend>Top Row:</legend>
-                        <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+                        <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a" class="needsclick">
                         <label for="checkbox-v-2a">RPN Stack</label>
-                        <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+                        <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b" class="needsclick">
                         <label for="checkbox-v-2b">Html Canvas</label>
-                        <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+                        <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c" class="needsclick">
                         <label for="checkbox-v-2c">Printer Tape</label>
                     </fieldset>
                 </div>
@@ -46,7 +46,17 @@
             <div class="ui-block-a">
                 <div class="ui-body ui-body-d">
                     <h2>Apple schedules 'iPad Mini' event for October 23</h2>
-                    <p>One of the worst-kept secrets in tech has been confirmed: Apple will hold an event October 23 in San Jose, California, at which the company is widely expected to unveil a smaller, cheaper version of its popular iPad called "Mini".</p>
+                    <div class="ui-field-contain">
+                        <fieldset data-role="controlgroup">
+                            <legend>Vertical controlgroup, checkbox:</legend>
+                            <input type="checkbox" name="checkbox-v-1a" id="checkbox-v-1a" class="needsclick">
+                            <label for="checkbox-v-1a">One</label>
+                            <input type="checkbox" name="checkbox-v-1b" id="checkbox-v-1b" class="needsclick">
+                            <label for="checkbox-v-1b">Two</label>
+                            <input type="checkbox" name="checkbox-v-1c" id="checkbox-v-1c" class="needsclick">
+                            <label for="checkbox-v-1c">Three</label>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
             <!-- secondary story block #1 -->
@@ -151,6 +161,17 @@
                      <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
                 </div>
             </div>
+            <div class="ui-grid-b">
+                <div class="ui-block-a">
+                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
+                </div>
+                <div class="ui-block-b">
+                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
+                </div>
+                <div class="ui-block-c">
+                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
+                </div>
+            </div>
 		</div>
 
 
@@ -202,13 +223,16 @@
 
 	<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
 	<script src="js/angular-1.2.9.min.js"></script>
-    <script src="js/angular-touch-1.2.9.min.js"></script>
+    <!--<script src="js/angular-touch-1.2.9.min.js"></script>-->
 	<script type='application/javascript' src='js/fastclick.js'></script>
 	<script type="text/javascript">
 		$(function() {
-			FastClick.attach(document.body);
+            // Huh? we don't need this as normal buttons are fast enough?
+            // Plus fastclick inteferes with a few things.  need to add needsclick in places, and even then
+            // we get residual blue halos around checkboxes etc.
+			//FastClick.attach(document.body);
 		});
-        angular.module('myApp', ['ngTouch']);  // doesn't seem to help
+        //angular.module('myApp', ['ngTouch']);  // doesn't seem to help
 	    app.initialize();
 
 		function AndyController($scope) {
@@ -234,14 +258,39 @@
         // Wire up the non angular buttons and input box
         var current_in = $('#current');
         var btns = $('#click4,#click5,#click6');
+        var btns2 = $('#click7,#click8,#click9');
+
+        var mLastClickTime = 0;
+        var lastDigit = '';
+
         function appendDigit(s) {
             current_in.val(current_in.val() + s).keyup();
         }
         btns.on('vmousedown', function(event, ui) {
+
+            // $.vmouse.resetTimerDuration (default: 1500ms) – More time than this, then it is not a touch event. Scroll, TouchMove and TouchEnd events use this. The block list is cleared.
+
+//            if (event.target.text == lastDigit && new Date().getTime() - mLastClickTime < 1000){
+//                console.log('prevented a double!! ' + event.target.text);
+//                return;
+//            }
+//            mLastClickTime = new Date().getTime();
+//            lastDigit = event.target.text;
+            event.preventDefault();
+
             appendDigit(event.target.text);
             if (current_in.val().length > 25)
                 current_in.val('');
         });
+        btns2.on('click', function(event, ui) {
+
+
+            appendDigit(event.target.text);
+            if (current_in.val().length > 25)
+                current_in.val('');
+        });
+
+
 
 	</script>
         
