@@ -45,17 +45,7 @@
             <div class="ui-block-a">
                 <div class="ui-body ui-body-d">
                     <h2>Apple schedules 'iPad Mini' event for October 23</h2>
-                    <div class="ui-field-contain">
-                        <fieldset data-role="controlgroup">
-                            <legend>Vertical controlgroup, checkbox:</legend>
-                            <input type="checkbox" name="checkbox-v-1a" id="checkbox-v-1a">
-                            <label for="checkbox-v-1a">One</label>
-                            <input type="checkbox" name="checkbox-v-1b" id="checkbox-v-1b">
-                            <label for="checkbox-v-1b">Two</label>
-                            <input type="checkbox" name="checkbox-v-1c" id="checkbox-v-1c">
-                            <label for="checkbox-v-1c">Three</label>
-                        </fieldset>
-                    </div>
+                    <p>We provide a set of "virtual" mouse events that attempt to abstract away mouse and touch events. This allows the developer to register listeners for the basic mouse events, such as mousedown, mousemove, mouseup, and click, and the plugin will take care of registering the correct listeners behind the scenes to invoke the listener at the fastest possible time for that device. In touch environments, the plugin retains the order of event firing that is seen in traditional mouse environments, so for example, vmouseup is always dispatched before vmousedown, and vmousedown before vclick, etc. The virtual mouse events also normalize how coordinate information is extracted from the event, so in touch based environments, coordinates are available from the pageX, pageY, screenX, screenY, clientX, and clientY properties, directly on the event object.</p>
                 </div>
             </div>
             <!-- secondary story block #1 -->
@@ -246,14 +236,13 @@
 
         // Wire up the non angular buttons and input box
         var current_in = $('#current');
-        var btns = $('#click4,#click5,#click6');
-        var btns2 = $('#click7,#click8,#click9');
+        var btns = $('#click4,#click5,#click6,#click7,#click8,#click9');
 
         function appendDigit(s) {
             current_in.val(current_in.val() + s).keyup();
         }
 
-        // fast
+        // fast click magic technique
         btns.on('vmousedown', function(event) {
             event.preventDefault();  // prevent ghost clicks
 
@@ -261,14 +250,6 @@
             if (current_in.val().length > 25)
                 current_in.val('');
         });
-
-        // slow normal
-        btns2.on('click', function(event, ui) {
-            appendDigit(event.target.text);
-            if (current_in.val().length > 25)
-                current_in.val('');
-        });
-
 
 
 	</script>
