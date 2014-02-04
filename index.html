@@ -27,14 +27,13 @@
         <div data-role="popup" id="popupViewOptions" data-theme="a" class="ui-corner-all">
             <form>
                 <div style="padding:10px 20px;">
-                    <h3>Gui elements</h3>
                     <fieldset data-role="controlgroup">
-                        <legend>Top Row:</legend>
-                        <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a" class="needsclick">
+                        <legend>Show:</legend>
+                        <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
                         <label for="checkbox-v-2a">RPN Stack</label>
-                        <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b" class="needsclick">
+                        <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
                         <label for="checkbox-v-2b">Html Canvas</label>
-                        <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c" class="needsclick">
+                        <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
                         <label for="checkbox-v-2c">Printer Tape</label>
                     </fieldset>
                 </div>
@@ -49,11 +48,11 @@
                     <div class="ui-field-contain">
                         <fieldset data-role="controlgroup">
                             <legend>Vertical controlgroup, checkbox:</legend>
-                            <input type="checkbox" name="checkbox-v-1a" id="checkbox-v-1a" class="needsclick">
+                            <input type="checkbox" name="checkbox-v-1a" id="checkbox-v-1a">
                             <label for="checkbox-v-1a">One</label>
-                            <input type="checkbox" name="checkbox-v-1b" id="checkbox-v-1b" class="needsclick">
+                            <input type="checkbox" name="checkbox-v-1b" id="checkbox-v-1b">
                             <label for="checkbox-v-1b">Two</label>
-                            <input type="checkbox" name="checkbox-v-1c" id="checkbox-v-1c" class="needsclick">
+                            <input type="checkbox" name="checkbox-v-1c" id="checkbox-v-1c">
                             <label for="checkbox-v-1c">Three</label>
                         </fieldset>
                     </div>
@@ -217,22 +216,12 @@
 </div>
 <!-- /page -->
 
-	<script type="text/javascript" src="phonegap.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
+	<script src="phonegap.js"></script>
+	<script src="js/index.js"></script>
 	<script src="js/jquery-2.1.0.js"></script>
-
 	<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
 	<script src="js/angular-1.2.9.min.js"></script>
-    <!--<script src="js/angular-touch-1.2.9.min.js"></script>-->
-	<script type='application/javascript' src='js/fastclick.js'></script>
 	<script type="text/javascript">
-		$(function() {
-            // Huh? we don't need this as normal buttons are fast enough?
-            // Plus fastclick inteferes with a few things.  need to add needsclick in places, and even then
-            // we get residual blue halos around checkboxes etc.
-			//FastClick.attach(document.body);
-		});
-        //angular.module('myApp', ['ngTouch']);  // doesn't seem to help
 	    app.initialize();
 
 		function AndyController($scope) {
@@ -260,31 +249,21 @@
         var btns = $('#click4,#click5,#click6');
         var btns2 = $('#click7,#click8,#click9');
 
-        var mLastClickTime = 0;
-        var lastDigit = '';
-
         function appendDigit(s) {
             current_in.val(current_in.val() + s).keyup();
         }
-        btns.on('vmousedown', function(event, ui) {
 
-            // $.vmouse.resetTimerDuration (default: 1500ms) – More time than this, then it is not a touch event. Scroll, TouchMove and TouchEnd events use this. The block list is cleared.
-
-//            if (event.target.text == lastDigit && new Date().getTime() - mLastClickTime < 1000){
-//                console.log('prevented a double!! ' + event.target.text);
-//                return;
-//            }
-//            mLastClickTime = new Date().getTime();
-//            lastDigit = event.target.text;
-            event.preventDefault();
+        // fast
+        btns.on('vmousedown', function(event) {
+            event.preventDefault();  // prevent ghost clicks
 
             appendDigit(event.target.text);
             if (current_in.val().length > 25)
                 current_in.val('');
         });
+
+        // slow normal
         btns2.on('click', function(event, ui) {
-
-
             appendDigit(event.target.text);
             if (current_in.val().length > 25)
                 current_in.val('');
