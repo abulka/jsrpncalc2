@@ -20,7 +20,7 @@
 
     <div data-role="content">
 
-        <p><a href="#foo">Goto Page 1</a></p>
+        <p><a href="#foo">Goto Page 1 ok</a></p>
         <p><a href="#bar">Goto Page 2</a></p>
         <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View Options...</a>
 
@@ -32,6 +32,8 @@
                         <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
                         <label for="checkbox-v-2a">RPN Stack</label>
                         <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+                        <label for="checkbox-view-keypad">Keypad</label>
+                        <input type="checkbox" name="checkbox-view-keypad" id="checkbox-view-keypad">
                         <label for="checkbox-v-2b">Html Canvas</label>
                         <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
                         <label for="checkbox-v-2c">Printer Tape</label>
@@ -51,8 +53,77 @@
             <!-- secondary story block #1 -->
             <div class="ui-block-b">
                 <div class="ui-body ui-body-d">
-                    <h4>Microsoft Surface tablet goes on sale for $499</h4>
-                    <p>The Microsoft Surface tablet picture has come into focus. The Redmond giant filled in the blanks on the new tablet's availability and specs.</p>
+                    <h4>Keypad</h4>
+                    <div>
+                        <input type="text" id="current"/>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickEnter">ENTER</a>
+                            </div>
+                            <div class="ui-block-b">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickAC">AC</a>
+                            </div>
+                            <div class="ui-block-c">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickC">C</a>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
+                            </div>
+                            <div class="ui-block-b">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
+                            </div>
+                            <div class="ui-block-c">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
+                            </div>
+                            <div class="ui-block-d">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_divide">/</a>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click4">4</a>
+                            </div>
+                            <div class="ui-block-b">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click5">5</a>
+                            </div>
+                            <div class="ui-block-c">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
+                            </div>
+                            <div class="ui-block-d">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_times">*</a>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click1">1</a>
+                            </div>
+                            <div class="ui-block-b">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click2">2</a>
+                            </div>
+                            <div class="ui-block-c">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click3">3</a>
+                            </div>
+                            <div class="ui-block-d">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_minus">-</a>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click0">0</a>
+                            </div>
+                            <div class="ui-block-b">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_dot">.</a>
+                            </div>
+                            <div class="ui-block-c">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_rs">R/S</a>
+                            </div>
+                            <div class="ui-block-d">
+                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_add">+</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- secondary story block #2 -->
@@ -136,32 +207,6 @@
 			</ul>
 		</div>
 
-		<!-- Key buttons (non angular, to see if its faster) -->
-        <div>
-			<input type="text" id="current"/>
-            <div class="ui-grid-b">
-                <div class="ui-block-a">
-                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click4">4</a>
-                </div>
-                <div class="ui-block-b">
-                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click5">5</a>
-                </div>
-                <div class="ui-block-c">
-                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
-                </div>
-            </div>
-            <div class="ui-grid-b">
-                <div class="ui-block-a">
-                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
-                </div>
-                <div class="ui-block-b">
-                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
-                </div>
-                <div class="ui-block-c">
-                     <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
-                </div>
-            </div>
-		</div>
 
 
     </div>
@@ -236,7 +281,7 @@
 
         // Wire up the non angular buttons and input box
         var current_in = $('#current');
-        var btns = $('#click4,#click5,#click6,#click7,#click8,#click9');
+        var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9');
 
         function appendDigit(s) {
             current_in.val(current_in.val() + s).keyup();
