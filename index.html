@@ -12,7 +12,7 @@
 </head>
 <body ng-app>
 
-<div data-role="page" id="main">
+<div data-role="page" id="main" class="ui-responsive-panel">
 
     <div data-role="header">
         <h1>jsrpncalc2 main</h1>
@@ -21,8 +21,25 @@
 
     <div data-role="content">
 
+        <ul id="nav" data-role="listview" data-inset="true">
+            <li><a href="#">Nav item</a></li>
+            <li><a href="#">Nav item</a></li>
+            <li><a href="#">Nav item</a></li>
+        </ul>
+
+        <div id="grid" class="ui-grid-b">
+            <div class="ui-block-a"><div class="ui-bar ui-bar-e">A</div></div>
+            <div class="ui-block-b"><div class="ui-bar ui-bar-e">B</div></div>
+            <div class="ui-block-c"><div class="ui-bar ui-bar-e">C</div></div>
+            <div class="ui-block-a"><div class="ui-bar ui-bar-e">A</div></div>
+            <div class="ui-block-b"><div class="ui-bar ui-bar-e">B</div></div>
+            <div class="ui-block-c"><div class="ui-bar ui-bar-e">C</div></div>
+        </div>
+
+
         <p><a href="#foo">Goto Page 1 ok</a></p>
         <p><a href="#bar">Goto Page 2</a></p>
+        <p><a id="hide_custom">Hide Custom</a></p>
         <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View Options...</a>
 
         <div data-role="popup" id="popupViewOptions" data-theme="a" class="ui-corner-all">
@@ -143,7 +160,7 @@
                 </div>
             </div>
             <!-- secondary story block #2 -->
-            <div class="ui-block-c">
+            <div id="custom_keys" class="ui-block-c">
                 <div class="ui-body ui-body-d">
                     <h4>Custom Soft Keys</h4>
                     <button class="ui-btn ui-btn-inline">Custom Button</button>
@@ -329,7 +346,10 @@
                 current_in.val('');
         });
 
-
+        // Misc
+        $('#hide_custom').on('click', function(e) {
+            $('#custom_keys').hide();
+        });
 	</script>
         
 </body>
