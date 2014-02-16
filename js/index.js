@@ -295,23 +295,47 @@ function ViewOptionsController($scope) {
                 break;
         }
     }
-
-    $scope.change_submode = function () {
-        console.log('change_submode', 'outer_mode = ', outer_mode);
+    $scope.go_two_col = function() {
+        console.log('$scope.go_two_col, $scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
+        switch ($scope.viewoptions.full_mode) {
+            case 'full':
+                go_two_col_full();
+                break;
+            case 'stack_only':
+                go_two_col_stack_only();
+                break;
+            case 'canvas_only':
+                go_two_col_canvas_only();
+                break;
+        }
+    }
+    $scope.go_three_col = function() {
+        console.log('$scope.go_three_col, $scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
+        switch ($scope.viewoptions.full_mode) {
+            case 'full':
+                go_three_col_full();
+                break;
+            case 'stack_only':
+                go_three_col_stack_only();
+                break;
+            case 'canvas_only':
+                go_three_col_canvas_only();
+                break;
+        }
+    }
+    $scope.$watch('viewoptions.full_mode', function() {
+        console.log('watch change', '$scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
         switch (outer_mode) {
             case '1col': // 1col or 2col or 3col
                 $scope.go_one_col();
                 break;
+            case '2col': // 1col or 2col or 3col
+                $scope.go_two_col();
+                break;
+            case '3col': // 1col or 2col or 3col
+                $scope.go_three_col();
+                break;
         }
-    }
+    }, true);
 
-    $scope.go_full = function () {
-        console.log('SUBMODE go_full');
-    }
-    $scope.go_stack_only = function () {
-        console.log('SUBMODE go_stack_only');
-    }
-    $scope.go_canvas_only = function () {
-        console.log('SUBMODE go_canvas_only');
-    }
 }
