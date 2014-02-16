@@ -39,6 +39,7 @@
 
         <p><a href="#foo">Goto Page 1 ok</a></p>
         <p><a href="#bar">Goto Page 2</a></p>
+        <p><a href="#col_layouts">Goto col_layouts</a></p>
         <p><a id="hide_custom">Hide Custom</a></p>
         <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View Options...</a>
 
@@ -301,12 +302,145 @@
 </div>
 <!-- /page -->
 
+
+    <div data-role="page" id="col_layouts" ng-controller="ViewOptionsController">
+        <div data-role="header" class="hdr">hp-js1 col layouts</div>
+        <div data-role="content">
+
+        <p><a href="#foo">Goto Page 1 ok</a>
+            <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
+        </p>
+
+        <div id="debug_area" ng-show="show_debug">
+            <p>One col mode: <span id="one_col_mode" class="col_mode"></span>
+            Two col mode: <span id="two_col_mode" class="col_mode"></span>
+            Three col mode: <span id="three_col_mode" class="col_mode"></span></p>
+
+            <a href="#" class="do" data-target="one-col-full">do 1col</a>
+            <a href="#" class="do" data-target="two-col-full">do 2col</a>
+            <a href="#" class="do" data-target="three-col-full">do 3col</a>
+            <a href="#" id="undo">undo</a>
+            <a href="#" id="tape_toggle">tape toggle</a>
+            <br>
+            <br>
+            <a href="#" id="one_col_full_layout">1col-full</a>
+            <a href="#" id="two_col_full_layout">2col-full</a>
+            <a href="#" id="three_col_full_layout">3col-full</a>
+            <br>
+            <a href="#" id="one_col_stack_only">1col-stack_only</a>
+            <a href="#" id="two_col_stack_only">2col-stack_only</a>
+            <a href="#" id="three_col_stack_only">3col-stack_only</a>
+            <br>
+            <a href="#" id="one_col_canvas_only">1col-canvas_only</a>
+            <a href="#" id="two_col_canvas_only">2col-canvas_only</a>
+            <a href="#" id="three_col_canvas_only">3col-canvas_only</a>
+        </div> <!-- debug area -->
+
+        <form>
+            is currently {{ viewoptions.full_mode }}
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.full_mode" value="full" checked="checked">
+                <label for="radio-choice-full">full</label>
+
+                <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.full_mode" value="stack_only">
+                <label for="radio-choice-stack_only">stack_only</label>
+
+                <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.full_mode" value="canvas_only">
+                <label for="radio-choice-canvas_only">canvas_only</label>
+
+                <input type="checkbox" id="checkbox-printout_tape" class="customzz" data-mini="true">
+                <label for="checkbox-printout_tape">printout_tape</label>
+            </fieldset>
+        </form>
+
+        <div class="spacer"></div>
+
+        <div id="one-col-full" class="container">
+          <table>
+            <tr>
+              <td class="tape">_tape</td>
+              <td class="calc">
+                <div class="row1 col">
+                    <div class="stack"></div>
+                    <div class="cmd"></div>
+                    <div class="keypad"></div>
+                </div>
+                <div class="row2 col">
+                    <div class="canvas"></div>
+                    <div class="custom"></div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div id="two-col-full" class="container">
+          <table>
+            <tr>
+              <td class="tape">_tape</td>
+              <td class="calc">
+                <div class="col1 col float50">
+                    <div class="stack"></div>
+                    <div class="cmd"></div>
+                    <div class="keypad"></div>
+                </div>
+                <div class="col2 col float50">
+                    <div class="canvas"></div>
+                    <div class="custom"></div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div id="three-col-full" class="container">
+          <table>
+            <tr>
+              <td class="tape">_tape</td>
+              <td class="calc">
+                  <div class="col1 col float33">
+                      <div class="stack"></div>
+                      <div class="cmd"></div>
+                      <div class="keypad"></div>
+                  </div>
+                  <div class="col2 col float33">
+                      <div class="canvas"></div>
+                  </div>
+                  <div class="col3 col float33">
+                      <div class="custom"></div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+        </div>
+
+        <div id="holding_area" class="spacer"></div>
+
+        <div id="stack" class="yellow widget">RPN Stack</div>
+        <div id="cmd" class="chartreuse widget">Cmd Input</div>
+        <div id="canvas" class="orange widget">Canvas</div>
+        <div id="keypad" class="cyan widget">Keypad</div>
+        <div id="custom" class="pink widget">Custom Buttons etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc maybe some widgets here too etc etc etc etc and lots more buttons potentially etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc </div>
+
+        </div> <!-- content -->
+      <div data-role="footer">The footer</div>
+    </div>
+
+
+
+
+
 	<script src="phonegap.js"></script>
-	<script src="js/index.js"></script>
 	<script src="js/jquery-2.1.0.js"></script>
 	<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
 	<script src="js/angular-1.2.9.min.js"></script>
+	<script src="js/index.js"></script>
 	<script type="text/javascript">
+
 	    app.initialize();
 
 		function AndyController($scope) {
