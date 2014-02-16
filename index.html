@@ -339,13 +339,13 @@
         <form>
             is currently {{ viewoptions.full_mode }}
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.full_mode" value="full" checked="checked">
+                <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.full_mode" value="full" ng-click="go_full();change_submode();" checked="checked">
                 <label for="radio-choice-full">full</label>
 
-                <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.full_mode" value="stack_only">
+                <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.full_mode" ng-click="go_stack_only();change_submode();" value="stack_only">
                 <label for="radio-choice-stack_only">stack_only</label>
 
-                <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.full_mode" value="canvas_only">
+                <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.full_mode" ng-click="go_canvas_only();change_submode();" value="canvas_only">
                 <label for="radio-choice-canvas_only">canvas_only</label>
 
                 <input type="checkbox" id="checkbox-printout_tape" class="customzz" data-mini="true">

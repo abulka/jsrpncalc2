@@ -264,7 +264,10 @@ function tape_toggle() {
 $(window).resize(function(){
     var calcwidth = $('#one-col-full').width();
     //console.log(calcwidth);
-    if (calcwidth < 400 && outer_mode != "1col") go_one_col_full();
+
+    if (calcwidth < 400 && outer_mode != "1col")
+        angular.element($('#col_layouts')).scope().go_one_col();
+        //go_one_col_full();
     else if (calcwidth > 400 && calcwidth < 450 && outer_mode != "2col") go_two_col_full();
     else if (calcwidth > 500 && calcwidth < 600 && outer_mode != "3col") go_three_col_full();
 });
@@ -278,19 +281,37 @@ function ViewOptionsController($scope) {
         full_mode: "full"
     };
 
-//    $scope.add = function() {
-//        $scope.contacts.push($scope.newcontact);
-//        $scope.newcontact = "";
-//        console.log($scope.contacts);
-//    }
-//
-//    $scope.zap = function() {
-//        $scope.contacts = [];
-//        $scope.newcontact = "";
-//    }
-//
-//    $scope.click1 = function(key) {
-//        $scope.newcontact += key;
-//    }
+    $scope.go_one_col = function() {
+        console.log('$scope.go_one_col, $scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
+        switch ($scope.viewoptions.full_mode) {
+            case 'full':
+                go_one_col_full();
+                break;
+            case 'stack_only':
+                go_one_col_stack_only();
+                break;
+            case 'canvas_only':
+                go_one_col_canvas_only();
+                break;
+        }
+    }
 
+    $scope.change_submode = function () {
+        console.log('change_submode', 'outer_mode = ', outer_mode);
+        switch (outer_mode) {
+            case '1col': // 1col or 2col or 3col
+                $scope.go_one_col();
+                break;
+        }
+    }
+
+    $scope.go_full = function () {
+        console.log('SUBMODE go_full');
+    }
+    $scope.go_stack_only = function () {
+        console.log('SUBMODE go_stack_only');
+    }
+    $scope.go_canvas_only = function () {
+        console.log('SUBMODE go_canvas_only');
+    }
 }
