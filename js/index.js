@@ -88,7 +88,7 @@ function col_mode_1col() {
     $('#two-col-full').hide();
     $('#three-col-full').hide();
     col_mode = "1col";
-    console.log('switched col mode to', col_mode);
+    //console.log('switched col mode to', col_mode);
 }
 function col_mode_2col() {
     //if (col_mode == "2col") return;
@@ -96,7 +96,7 @@ function col_mode_2col() {
     $('#two-col-full').show();
     $('#three-col-full').hide();
     col_mode = "2col";
-    console.log('switched col mode to', col_mode);
+    //console.log('switched col mode to', col_mode);
 }
 function col_mode_3col() {
     //if (col_mode == "3col") return;
@@ -104,7 +104,7 @@ function col_mode_3col() {
     $('#two-col-full').hide();
     $('#three-col-full').show();
     col_mode = "3col";
-    console.log('switched col mode to', col_mode);
+    //console.log('switched col mode to', col_mode);
 }
 
 function go_one_col_full() {
@@ -259,14 +259,14 @@ function tape_toggle() {
 
 $(window).resize(function(){
     var calcwidth = $('#one-col-full').width();
-    //console.log(calcwidth);
+    var layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
 
     if (calcwidth < 400 && col_mode != "1col")
-        switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode, "1col");
+        switch_mode(layout_mode, "1col");
     else if (calcwidth > 400 && calcwidth < 450 && col_mode != "2col")
-        switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode, "2col");
+        switch_mode(layout_mode, "2col");
     else if (calcwidth > 500 && calcwidth < 600 && col_mode != "3col")
-        switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode, "3col");
+        switch_mode(layout_mode, "3col");
 });
 
 
