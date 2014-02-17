@@ -262,10 +262,11 @@ $(window).resize(function(){
     //console.log(calcwidth);
 
     if (calcwidth < 400 && col_mode != "1col")
-        //angular.element($('#col_layouts')).scope().go_one_col();
-        go_one_col_full();
-    else if (calcwidth > 400 && calcwidth < 450 && col_mode != "2col") go_two_col_full();
-    else if (calcwidth > 500 && calcwidth < 600 && col_mode != "3col") go_three_col_full();
+        switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode, "1col");
+    else if (calcwidth > 400 && calcwidth < 450 && col_mode != "2col")
+        switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode, "2col");
+    else if (calcwidth > 500 && calcwidth < 600 && col_mode != "3col")
+        switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode, "3col");
 });
 
 
@@ -279,48 +280,54 @@ function ViewOptionsController($scope) {
     };
 
     $scope.$watch('viewoptions.layout_mode', function() {
-        console.log('watch angular layout_mode=', $scope.viewoptions.layout_mode, 'GLOBAL col_mode=', col_mode);
-        switch ($scope.viewoptions.layout_mode) {
-            case 'full':
-                switch (col_mode) {
-                    case '1col':
-                        go_one_col_full();
-                        break;
-                    case '2col':
-                        go_two_col_full();
-                        break;
-                    case '3col':
-                        go_three_col_full();
-                        break;
-                }
-                break;
-            case 'stack_only':
-                switch (col_mode) {
-                    case '1col':
-                        go_one_col_stack_only();
-                        break;
-                    case '2col':
-                        go_two_col_stack_only();
-                        break;
-                    case '3col':
-                        go_three_col_stack_only();
-                        break;
-                }
-                break;
-            case 'canvas_only':
-                switch (col_mode) {
-                    case '1col':
-                        go_one_col_canvas_only();
-                        break;
-                    case '2col':
-                        go_two_col_canvas_only();
-                        break;
-                    case '3col':
-                        go_three_col_canvas_only();
-                        break;
-                }
-                break;
-        }
+        console.log('angular watch');
+        switch_mode($scope.viewoptions.layout_mode, col_mode);
     }, true);
+
+}
+
+function switch_mode(layout_mode, col_mode) {
+    console.log('switch_mode', layout_mode, col_mode);
+    switch (layout_mode) {
+        case 'full':
+            switch (col_mode) {
+                case '1col':
+                    go_one_col_full();
+                    break;
+                case '2col':
+                    go_two_col_full();
+                    break;
+                case '3col':
+                    go_three_col_full();
+                    break;
+            }
+            break;
+        case 'stack_only':
+            switch (col_mode) {
+                case '1col':
+                    go_one_col_stack_only();
+                    break;
+                case '2col':
+                    go_two_col_stack_only();
+                    break;
+                case '3col':
+                    go_three_col_stack_only();
+                    break;
+            }
+            break;
+        case 'canvas_only':
+            switch (col_mode) {
+                case '1col':
+                    go_one_col_canvas_only();
+                    break;
+                case '2col':
+                    go_two_col_canvas_only();
+                    break;
+                case '3col':
+                    go_three_col_canvas_only();
+                    break;
+            }
+            break;
+    }
 
 }
