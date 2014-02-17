@@ -65,7 +65,7 @@ a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 #two-col-full .col2 .canvas { height: 40%; }
 #three-col-full .col2 .canvas { height: 100%; }
 
-.col_mode { background: orange }
+.layout_mode { background: orange }
 
 /*
 #mygrid { height: 250px; }
