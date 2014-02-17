@@ -5,7 +5,7 @@ var app = {
 
         // if not in phonegap then go straight away I guess.
         init();
-        update_modes();
+        calc_layout_modes();
         go_one_col_full();
 
     },
@@ -53,13 +53,13 @@ $('#one_col_canvas_only').on('click', function(e) { go_one_col_canvas_only(); })
 $('#two_col_canvas_only').on('click', function(e) { go_two_col_canvas_only(); });
 $('#three_col_canvas_only').on('click', function(e) { go_three_col_canvas_only(); });
 
-var outer_mode = undefined;  // 1col or 2col or 3col
+var col_mode = undefined;                // 1col or 2col or 3col
 
-var one_col_mode = 'full';
-var two_col_mode = 'full';
-var three_col_mode = 'full';
+var one_col_layout_mode = 'full';        // full, stack_only, canvas_only
+var two_col_layout_mode = 'full';        // full, stack_only, canvas_only
+var three_col_layout_mode = 'full';      // full, stack_only, canvas_only
 
-function _update_mode($outer) {
+function _calc_layout_mode_for($outer) {
     var stack_visible = $outer.find('.stack').is(":visible");
     var canvas_visible = $outer.find('.canvas').is(":visible");
     if (stack_visible && canvas_visible)
@@ -68,97 +68,99 @@ function _update_mode($outer) {
         return 'stack_only';
     else if (!stack_visible && canvas_visible)
         return 'canvas_only';
-    else
+    else {
         console.log('unknown mode - neither stack or canvas are visible.', $outer, $outer.is(":visible"));
+        return undefined;
+    }
 }
-function update_modes() {
-    one_col_mode = _update_mode($('#one-col-full'));
-    two_col_mode = _update_mode($('#two-col-full'));
-    three_col_mode = _update_mode($('#three-col-full'));
-    $('#one_col_mode').text(one_col_mode);
-    $('#two_col_mode').text(two_col_mode);
-    $('#three_col_mode').text(three_col_mode);
+function calc_layout_modes() {
+    one_col_layout_mode = _calc_layout_mode_for($('#one-col-full'));
+    two_col_layout_mode = _calc_layout_mode_for($('#two-col-full'));
+    three_col_layout_mode = _calc_layout_mode_for($('#three-col-full'));
+    $('#one_col_mode').text(one_col_layout_mode);
+    $('#two_col_mode').text(two_col_layout_mode);
+    $('#three_col_mode').text(three_col_layout_mode);
 }
 
-function show_one() {
-    if (outer_mode == "1col") return;
+function col_mode_1col() {
+    if (col_mode == "1col") return;
     $('#one-col-full').show();
     $('#two-col-full').hide();
     $('#three-col-full').hide();
-    outer_mode = "1col";
-    console.log('switched mode to', outer_mode);
+    col_mode = "1col";
+    console.log('switched mode to', col_mode);
 }
-function show_two() {
-    if (outer_mode == "2col") return;
+function col_mode_2col() {
+    if (col_mode == "2col") return;
     $('#one-col-full').hide();
     $('#two-col-full').show();
     $('#three-col-full').hide();
-    outer_mode = "2col";
-    console.log('switched mode to', outer_mode);
+    col_mode = "2col";
+    console.log('switched mode to', col_mode);
 }
-function show_three() {
-    if (outer_mode == "3col") return;
+function col_mode_3col() {
+    if (col_mode == "3col") return;
     $('#one-col-full').hide();
     $('#two-col-full').hide();
     $('#three-col-full').show();
-    outer_mode = "3col";
-    console.log('switched mode to', outer_mode);
+    col_mode = "3col";
+    console.log('switched mode to', col_mode);
 }
 
 function go_one_col_full() {
-    reset_to_full(); build($('#one-col-full')); show_one(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); build($('#one-col-full')); col_mode_1col(); }
 function go_one_col_stack_only() {
-    reset_to_full(); one_col_stack_only(); build($('#one-col-full')); show_one(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); one_col_layout_toggle_stack_only(); build($('#one-col-full')); col_mode_1col(); }
 function go_one_col_canvas_only() {
-    reset_to_full(); one_col_canvas_only(); build($('#one-col-full')); show_one(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); one_col_layout_toggle_canvas_only(); build($('#one-col-full')); col_mode_1col(); }
 
 function go_two_col_full() {
-    reset_to_full(); build($('#two-col-full')); show_two(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); build($('#two-col-full')); col_mode_2col(); }
 function go_two_col_stack_only() {
-    reset_to_full(); two_col_stack_only(); build($('#two-col-full')); show_two(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); two_col_layout_toggle_stack_only(); build($('#two-col-full')); col_mode_2col(); }
 function go_two_col_canvas_only() {
-    reset_to_full(); two_col_canvas_only(); build($('#two-col-full')); show_two(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); two_col_layout_toggle_canvas_only(); build($('#two-col-full')); col_mode_2col(); }
 
 function go_three_col_full() {
-    reset_to_full(); build($('#three-col-full')); show_three(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); build($('#three-col-full')); col_mode_3col(); }
 function go_three_col_stack_only() {
-    reset_to_full(); three_col_stack_only();
-    build($('#three-col-full')); show_three(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); three_col_layout_toggle_stack_only();
+    build($('#three-col-full')); col_mode_3col(); }
 function go_three_col_canvas_only() {
-    reset_to_full(); three_col_canvas_only();
-    build($('#three-col-full')); show_three(); }
+    reset_all_to_full_layout_and_show_all_col_modes(); three_col_layout_toggle_canvas_only();
+    build($('#three-col-full')); col_mode_3col(); }
 
-function reset_to_full() {
+function reset_all_to_full_layout_and_show_all_col_modes() {
     // Show all outer modes so that logic isn't corrupted by child visibility issues
     $('#one-col-full').show();
     $('#two-col-full').show();
     $('#three-col-full').show();
 
-    if (one_col_mode == 'stack_only')
-        one_col_stack_only();  // toggle it back to full
-    else if (one_col_mode == 'canvas_only')
-        one_col_canvas_only();  // toggle it back to full
+    if (one_col_layout_mode == 'stack_only')
+        one_col_layout_toggle_stack_only();  // toggle it back to full
+    else if (one_col_layout_mode == 'canvas_only')
+        one_col_layout_toggle_canvas_only();  // toggle it back to full
 
-    if (two_col_mode == 'stack_only')
-        two_col_stack_only();  // toggle it back to full
-    else if (two_col_mode == 'canvas_only')
-        two_col_canvas_only();  // toggle it back to full
+    if (two_col_layout_mode == 'stack_only')
+        two_col_layout_toggle_stack_only();  // toggle it back to full
+    else if (two_col_layout_mode == 'canvas_only')
+        two_col_layout_toggle_canvas_only();  // toggle it back to full
 
-    if (three_col_mode == 'stack_only')
-        three_col_stack_only();  // toggle it back to full
-    else if (three_col_mode == 'canvas_only')
-        three_col_canvas_only();  // toggle it back to full
+    if (three_col_layout_mode == 'stack_only')
+        three_col_layout_toggle_stack_only();  // toggle it back to full
+    else if (three_col_layout_mode == 'canvas_only')
+        three_col_layout_toggle_canvas_only();  // toggle it back to full
 
     undo();
     init();
 }
 
-function one_col_stack_only() {
+function one_col_layout_toggle_stack_only() {
     $('#one-col-full .canvas').toggle();
     $('#one-col-full .row2').toggleClass('col');
-    update_modes();
+    calc_layout_modes();
 }
-function one_col_canvas_only() {
+function one_col_layout_toggle_canvas_only() {
     if ($('#one-col-full .stack').is(":visible")) {
         $('#one-col-full .canvas').after($('#one-col-full .cmd'));
     }
@@ -170,20 +172,20 @@ function one_col_canvas_only() {
     $('#one-col-full .row1').toggle();
 
     if ($('#one-col-full .stack').is(":visible"))
-        two_col_mode = 'full';
+        two_col_layout_mode = 'full';
     else
-        two_col_mode = 'canvas_only';
-    update_modes();
+        two_col_layout_mode = 'canvas_only';
+    calc_layout_modes();
 }
 
-function two_col_full() {
-    update_modes();
+function two_col_layout_toggle_full() {
+    calc_layout_modes();
 }
-function two_col_stack_only() {
+function two_col_layout_toggle_stack_only() {
     $('#two-col-full .canvas').toggle();
-    update_modes();
+    calc_layout_modes();
 }
-function two_col_canvas_only() {
+function two_col_layout_toggle_canvas_only() {
     $('#two-col-full .stack').toggle();
     $('#two-col-full .keypad').toggle();
     if ($('#two-col-full .canvas').hasClass('canvas100')) {
@@ -195,13 +197,13 @@ function two_col_canvas_only() {
         $('#two-col-full .keypad').after($('#two-col-full .canvas'));
     }
     $('#two-col-full .canvas').toggleClass('canvas100');
-    update_modes();
+    calc_layout_modes();
 }
 
-function three_col_full() {
-    update_modes();
+function three_col_layout_toggle_full() {
+    calc_layout_modes();
 }
-function three_col_stack_only() {
+function three_col_layout_toggle_stack_only() {
     var $stack = $('#three-col-full .stack');
     var $canvas = $('#three-col-full .canvas');
     var $cmd = $('#three-col-full .cmd');
@@ -219,9 +221,9 @@ function three_col_stack_only() {
     $stack.toggleClass('stack100');
     $cmd.toggleClass('cmd100');
     $keypad.toggleClass('keypad100');
-    update_modes();
+    calc_layout_modes();
 }
-function three_col_canvas_only() {
+function three_col_layout_toggle_canvas_only() {
     var $col2 = $('#three-col-full .col2');
     if ($col2.hasClass('float66'))
         $('#three-col-full .stack').after($('#three-col-full .cmd'));
@@ -230,7 +232,7 @@ function three_col_canvas_only() {
     $('#three-col-full .col1').toggle();
     $col2.toggleClass('float33');
     $col2.toggleClass('float66');
-    update_modes();
+    calc_layout_modes();
 }
 
 function build($target) {
@@ -265,11 +267,11 @@ $(window).resize(function(){
     var calcwidth = $('#one-col-full').width();
     //console.log(calcwidth);
 
-    if (calcwidth < 400 && outer_mode != "1col")
+    if (calcwidth < 400 && col_mode != "1col")
         angular.element($('#col_layouts')).scope().go_one_col();
         //go_one_col_full();
-    else if (calcwidth > 400 && calcwidth < 450 && outer_mode != "2col") go_two_col_full();
-    else if (calcwidth > 500 && calcwidth < 600 && outer_mode != "3col") go_three_col_full();
+    else if (calcwidth > 400 && calcwidth < 450 && col_mode != "2col") go_two_col_full();
+    else if (calcwidth > 500 && calcwidth < 600 && col_mode != "3col") go_three_col_full();
 });
 
 
@@ -277,13 +279,14 @@ $(window).resize(function(){
 function ViewOptionsController($scope) {
     $scope.show_debug = false;
     $scope.viewoptions = {
-        tape_mode: false,
-        full_mode: "full"
+        tape_mode: false,       // true, false
+        col_mode: "full",       // full, stack_only, canvas_only
+        layout_mode: "1col"     // 1col, 2col, 3col
     };
 
     $scope.go_one_col = function() {
-        console.log('$scope.go_one_col, $scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
-        switch ($scope.viewoptions.full_mode) {
+        console.log('$scope.go_one_col, $scope.viewoptions.col_mode=', $scope.viewoptions.col_mode);
+        switch ($scope.viewoptions.col_mode) {
             case 'full':
                 go_one_col_full();
                 break;
@@ -296,8 +299,8 @@ function ViewOptionsController($scope) {
         }
     }
     $scope.go_two_col = function() {
-        console.log('$scope.go_two_col, $scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
-        switch ($scope.viewoptions.full_mode) {
+        console.log('$scope.go_two_col, $scope.viewoptions.col_mode=', $scope.viewoptions.col_mode);
+        switch ($scope.viewoptions.col_mode) {
             case 'full':
                 go_two_col_full();
                 break;
@@ -310,8 +313,8 @@ function ViewOptionsController($scope) {
         }
     }
     $scope.go_three_col = function() {
-        console.log('$scope.go_three_col, $scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
-        switch ($scope.viewoptions.full_mode) {
+        console.log('$scope.go_three_col, $scope.viewoptions.col_mode=', $scope.viewoptions.col_mode);
+        switch ($scope.viewoptions.col_mode) {
             case 'full':
                 go_three_col_full();
                 break;
@@ -323,9 +326,9 @@ function ViewOptionsController($scope) {
                 break;
         }
     }
-    $scope.$watch('viewoptions.full_mode', function() {
-        console.log('watch change', '$scope.viewoptions.full_mode=', $scope.viewoptions.full_mode);
-        switch (outer_mode) {
+    $scope.$watch('viewoptions.col_mode', function() {
+        console.log('watch change', '$scope.viewoptions.col_mode=', $scope.viewoptions.col_mode);
+        switch (col_mode) {
             case '1col': // 1col or 2col or 3col
                 $scope.go_one_col();
                 break;
