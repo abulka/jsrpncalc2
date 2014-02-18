@@ -49,9 +49,10 @@ $('#one_col_canvas_only').on('click', function(e) { go_one_col_canvas_only(); })
 $('#two_col_canvas_only').on('click', function(e) { go_two_col_canvas_only(); });
 $('#three_col_canvas_only').on('click', function(e) { go_three_col_canvas_only(); });
 
-var col_mode = undefined;                // 1col or 2col or 3col
 
 function col_mode_mgr() {
+
+    var col_mode = undefined;                // 1col or 2col or 3col
 
     function col_mode_1col() {
         //if (col_mode == "1col") return;
@@ -79,7 +80,7 @@ function col_mode_mgr() {
     }
 
     return {
-        //'col_mode':col_mode,
+        get_col_mode:function() {return col_mode;},
         'col_mode_1col':col_mode_1col,
         'col_mode_2col':col_mode_2col,
         'col_mode_3col':col_mode_3col,
@@ -312,11 +313,11 @@ $(window).resize(function(){
     var calcwidth = $('#one-col-full').width();
     var layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
 
-    if (calcwidth < 400 && col_mode != "1col")
+    if (calcwidth < 400 && cmm.get_col_mode() != "1col")
         switch_mode(layout_mode, "1col");
-    else if (calcwidth > 400 && calcwidth < 450 && col_mode != "2col")
+    else if (calcwidth > 400 && calcwidth < 450 && cmm.get_col_mode() != "2col")
         switch_mode(layout_mode, "2col");
-    else if (calcwidth > 500 && calcwidth < 600 && col_mode != "3col")
+    else if (calcwidth > 500 && calcwidth < 600 && cmm.get_col_mode() != "3col")
         switch_mode(layout_mode, "3col");
 });
 
@@ -332,7 +333,7 @@ function ViewOptionsController($scope) {
 
     $scope.$watch('viewoptions.layout_mode', function() {
         console.log('angular watch');
-        switch_mode($scope.viewoptions.layout_mode, col_mode);
+        switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
     }, true);
 
 }
