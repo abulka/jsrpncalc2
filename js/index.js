@@ -27,14 +27,6 @@ var app = {
 };
 
 
-
-$('.do').on('click', function(e) {
-    lmm.move_widgets_out();
-    var target = $(e.target).attr('data-target');
-    target = $('#'+target);
-    lmm.move_widgets_in(target);
-});
-
 (function wire_debug_buttons() {
     $('#undo').on('click', function(e) { lmm.move_widgets_out(); });
     $('#tape_toggle').on('click', function(e) { tape_toggle(); });

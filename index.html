@@ -318,9 +318,6 @@
             Three col layout mode: <span id="three_col_layout_mode" class="layout_mode"></span>
             </p>
 
-            <a href="#" class="do" data-target="one-col-full">do 1col</a>
-            <a href="#" class="do" data-target="two-col-full">do 2col</a>
-            <a href="#" class="do" data-target="three-col-full">do 3col</a>
             <a href="#" id="undo">undo</a>
             <a href="#" id="tape_toggle">tape toggle</a>
             <br>
@@ -339,7 +336,7 @@
         </div> <!-- debug area -->
 
         <form>
-            is currently {{ viewoptions.layout_mode }}
+            Layout mode is currently {{ viewoptions.layout_mode }}
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                 <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.layout_mode" value="full" checked="checked">
                 <label for="radio-choice-full">full</label>
