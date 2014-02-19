@@ -34,21 +34,23 @@ $('.do').on('click', function(e) {
     target = $('#'+target);
     lmm.move_widgets_in(target);
 });
-$('#undo').on('click', function(e) { lmm.move_widgets_out(); });
-$('#tape_toggle').on('click', function(e) { tape_toggle(); });
 
-$('#one_col_full_layout').on('click', function(e) { lmm.go_one_col_full(); });
-$('#two_col_full_layout').on('click', function(e) { lmm.go_two_col_full(); });
-$('#three_col_full_layout').on('click', function(e) { lmm.go_three_col_full(); });
+(function wire_debug_buttons() {
+    $('#undo').on('click', function(e) { lmm.move_widgets_out(); });
+    $('#tape_toggle').on('click', function(e) { tape_toggle(); });
 
-$('#one_col_stack_only').on('click', function(e) { lmm.go_one_col_stack_only(); });
-$('#two_col_stack_only').on('click', function(e) { lmm.go_two_col_stack_only(); });
-$('#three_col_stack_only').on('click', function(e) { lmm.go_three_col_stack_only(); });
+    $('#one_col_full_layout').on('click', function(e) { lmm.go_one_col_full(); });
+    $('#two_col_full_layout').on('click', function(e) { lmm.go_two_col_full(); });
+    $('#three_col_full_layout').on('click', function(e) { lmm.go_three_col_full(); });
 
-$('#one_col_canvas_only').on('click', function(e) { lmm.go_one_col_canvas_only(); });
-$('#two_col_canvas_only').on('click', function(e) { lmm.go_two_col_canvas_only(); });
-$('#three_col_canvas_only').on('click', function(e) { lmm.go_three_col_canvas_only(); });
+    $('#one_col_stack_only').on('click', function(e) { lmm.go_one_col_stack_only(); });
+    $('#two_col_stack_only').on('click', function(e) { lmm.go_two_col_stack_only(); });
+    $('#three_col_stack_only').on('click', function(e) { lmm.go_three_col_stack_only(); });
 
+    $('#one_col_canvas_only').on('click', function(e) { lmm.go_one_col_canvas_only(); });
+    $('#two_col_canvas_only').on('click', function(e) { lmm.go_two_col_canvas_only(); });
+    $('#three_col_canvas_only').on('click', function(e) { lmm.go_three_col_canvas_only(); });
+})();
 
 function col_mode_mgr() {
 
