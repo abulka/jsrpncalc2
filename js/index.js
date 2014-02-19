@@ -328,6 +328,14 @@ function ViewOptionsController($scope) {
         decider.switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
     }, true);
 
+    $scope.$watch('viewoptions.tape_mode', function() {
+        console.log('angular watch tape');
+        if ($scope.viewoptions.tape_mode)
+            $('td.tape').show();
+        else
+            $('td.tape').hide();
+    }, true);
+
 }
 
 function LayoutDecider() {
