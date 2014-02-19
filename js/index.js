@@ -44,6 +44,7 @@ var app = {
     $('#three_col_canvas_only').on('click', function(e) { lmm.go_three_col_canvas_only(); });
 })();
 
+
 function col_mode_mgr() {
 
     var col_mode = undefined;                // 1col or 2col or 3col
@@ -90,6 +91,7 @@ function col_mode_mgr() {
     }
 }
 var cmm = col_mode_mgr();
+
 
 function layout_mode_mgr() {
 
@@ -311,36 +313,6 @@ function layout_mode_mgr() {
 }
 var lmm = layout_mode_mgr();
 
-$(window).resize(function(){
-    var calcwidth = $('#one-col-full').width();
-    var layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
-    decider.notify_width_change(calcwidth, layout_mode);
-});
-
-
-
-function ViewOptionsController($scope) {
-    $scope.show_debug = false;
-    $scope.viewoptions = {
-        tape_mode: false,       // true, false
-        //col_mode: "1col",       // 1col, 2col, 3col
-        layout_mode: "full"     // full, stack_only, canvas_only
-    };
-
-    $scope.$watch('viewoptions.layout_mode', function() {
-        console.log('angular watch');
-        decider.switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
-    }, true);
-
-    $scope.$watch('viewoptions.tape_mode', function() {
-        console.log('angular watch tape');
-        if ($scope.viewoptions.tape_mode)
-            $('td.tape').show();
-        else
-            $('td.tape').hide();
-    }, true);
-
-}
 
 function LayoutDecider() {
 
@@ -405,3 +377,34 @@ function LayoutDecider() {
     }
 }
 var decider = LayoutDecider();
+
+
+$(window).resize(function(){
+    var calcwidth = $('#one-col-full').width();
+    var layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
+    decider.notify_width_change(calcwidth, layout_mode);
+});
+
+function ViewOptionsController($scope) {
+    $scope.show_debug = false;
+    $scope.viewoptions = {
+        tape_mode: false,       // true, false
+        //col_mode: "1col",       // 1col, 2col, 3col
+        layout_mode: "full"     // full, stack_only, canvas_only
+    };
+
+    $scope.$watch('viewoptions.layout_mode', function() {
+        console.log('angular watch');
+        decider.switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
+    }, true);
+
+    $scope.$watch('viewoptions.tape_mode', function() {
+        console.log('angular watch tape');
+        if ($scope.viewoptions.tape_mode)
+            $('td.tape').show();
+        else
+            $('td.tape').hide();
+    }, true);
+
+}
+
