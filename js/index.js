@@ -386,10 +386,14 @@ $(window).resize(function(){
 });
 
 function ViewOptionsController($scope) {
+    /*
+    This is a controller for the view options GUI radio buttons and checkbox
+    The reason col_mode is not here is that this is not an explicit option in
+        the GUI and is implicitly set via the window resize/width changes.
+     */
     $scope.show_debug = false;
     $scope.viewoptions = {
         tape_mode: false,       // true, false
-        //col_mode: "1col",       // 1col, 2col, 3col
         layout_mode: "full"     // full, stack_only, canvas_only
     };
 
@@ -405,6 +409,30 @@ function ViewOptionsController($scope) {
         else
             $('td.tape').hide();
     }, true);
-
 }
 
+/*
+MUSINGS
+
+Could we have an angular controller also involved in the col_mode/layout gui?
+A controller with a
+    $scope.layout_col_mode
+    $scope.one_col_layout_mode
+    $scope.two_col_layout_mode
+    $scope.three_col_layout_mode
+and a set of functions for switching modes.
+I already kind of have this in my existing "revealing module pattern" based classes.
+So why switch to an angular approach for those?
+Probably there is no point as its not wired to any GUI user control.
+But there may be some nice elegance about it perhaps.
+    Custom Event notification?
+    More standardised way of organising my code?
+
+Currently have
+    cmm - depends on lmm, models col_mode
+    lmm - depends on cmm
+    decider - depends on lmm and cmm
+also
+    resize function - depends on decider and angular viewoptions.layout_mode
+    angular ViewOptionsController - depends on decider, models show_debug and viewoptions.*
+ */
