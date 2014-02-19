@@ -4,7 +4,7 @@ var app = {
         this.bindEvents();
 
         // if not in phonegap then go straight away I guess.
-        go_one_col_full();
+        lmm.go_one_col_full();
 
     },
 
@@ -37,17 +37,17 @@ $('.do').on('click', function(e) {
 $('#undo').on('click', function(e) { lmm.move_widgets_out(); });
 $('#tape_toggle').on('click', function(e) { tape_toggle(); });
 
-$('#one_col_full_layout').on('click', function(e) { go_one_col_full(); });
-$('#two_col_full_layout').on('click', function(e) { go_two_col_full(); });
-$('#three_col_full_layout').on('click', function(e) { go_three_col_full(); });
+$('#one_col_full_layout').on('click', function(e) { lmm.go_one_col_full(); });
+$('#two_col_full_layout').on('click', function(e) { lmm.go_two_col_full(); });
+$('#three_col_full_layout').on('click', function(e) { lmm.go_three_col_full(); });
 
-$('#one_col_stack_only').on('click', function(e) { go_one_col_stack_only(); });
-$('#two_col_stack_only').on('click', function(e) { go_two_col_stack_only(); });
-$('#three_col_stack_only').on('click', function(e) { go_three_col_stack_only(); });
+$('#one_col_stack_only').on('click', function(e) { lmm.go_one_col_stack_only(); });
+$('#two_col_stack_only').on('click', function(e) { lmm.go_two_col_stack_only(); });
+$('#three_col_stack_only').on('click', function(e) { lmm.go_three_col_stack_only(); });
 
-$('#one_col_canvas_only').on('click', function(e) { go_one_col_canvas_only(); });
-$('#two_col_canvas_only').on('click', function(e) { go_two_col_canvas_only(); });
-$('#three_col_canvas_only').on('click', function(e) { go_three_col_canvas_only(); });
+$('#one_col_canvas_only').on('click', function(e) { lmm.go_one_col_canvas_only(); });
+$('#two_col_canvas_only').on('click', function(e) { lmm.go_two_col_canvas_only(); });
+$('#three_col_canvas_only').on('click', function(e) { lmm.go_three_col_canvas_only(); });
 
 
 function col_mode_mgr() {
@@ -167,143 +167,149 @@ function layout_mode_mgr() {
         $('div.custom').html('_custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom');
     }
 
+    // Toggle layout functions - these are complex
+
+    function one_col_layout_toggle_stack_only() {
+        $('#one-col-full .canvas').toggle();
+        $('#one-col-full .row2').toggleClass('col');
+        calc_layout_modes();
+    }
+    function one_col_layout_toggle_canvas_only() {
+        if ($('#one-col-full .stack').is(":visible")) {
+            $('#one-col-full .canvas').after($('#one-col-full .cmd'));
+        }
+        else {
+            $('#one-col-full .stack').after($('#one-col-full .cmd'));
+        }
+        $('#one-col-full .stack').toggle();
+        $('#one-col-full .keypad').toggle();
+        $('#one-col-full .row1').toggle();
+
+        if ($('#one-col-full .stack').is(":visible"))
+            two_col_layout_mode = 'full';
+        else
+            two_col_layout_mode = 'canvas_only';
+        calc_layout_modes();
+    }
+
+    function two_col_layout_toggle_stack_only() {
+        $('#two-col-full .canvas').toggle();
+        calc_layout_modes();
+    }
+    function two_col_layout_toggle_canvas_only() {
+        $('#two-col-full .stack').toggle();
+        $('#two-col-full .keypad').toggle();
+        if ($('#two-col-full .canvas').hasClass('canvas100')) {
+            $('#two-col-full .stack').after($('#two-col-full .cmd'));
+            $('#two-col-full .custom').before($('#two-col-full .canvas'));
+        }
+        else {
+            $('#two-col-full .canvas').after($('#two-col-full .cmd'));
+            $('#two-col-full .keypad').after($('#two-col-full .canvas'));
+        }
+        $('#two-col-full .canvas').toggleClass('canvas100');
+        calc_layout_modes();
+    }
+
+    function three_col_layout_toggle_stack_only() {
+        var $stack = $('#three-col-full .stack');
+        var $canvas = $('#three-col-full .canvas');
+        var $cmd = $('#three-col-full .cmd');
+        var $keypad = $('#three-col-full .keypad');
+
+        $canvas.toggle();
+        if ($stack.hasClass('stack100')) {
+            $stack.after($keypad);
+            $stack.after($cmd);
+        }
+        else {
+            $canvas.after($keypad);
+            $canvas.after($cmd);
+        }
+        $stack.toggleClass('stack100');
+        $cmd.toggleClass('cmd100');
+        $keypad.toggleClass('keypad100');
+        calc_layout_modes();
+    }
+    function three_col_layout_toggle_canvas_only() {
+        var $col2 = $('#three-col-full .col2');
+        if ($col2.hasClass('float66'))
+            $('#three-col-full .stack').after($('#three-col-full .cmd'));
+        else
+            $('#three-col-full .custom').before($('#three-col-full .cmd'));
+        $('#three-col-full .col1').toggle();
+        $col2.toggleClass('float33');
+        $col2.toggleClass('float66');
+        calc_layout_modes();
+    }
+
+    // Go functions - these are the high level functions
+
+    function go_one_col_full() {
+        reset_to_full_show_all();
+        move_widgets_in($('#one-col-full'));
+        cmm.col_mode_1col(); }
+    function go_one_col_stack_only() {
+        reset_to_full_show_all();
+        one_col_layout_toggle_stack_only();
+        move_widgets_in($('#one-col-full'));
+        cmm.col_mode_1col(); }
+    function go_one_col_canvas_only() {
+        reset_to_full_show_all();
+        one_col_layout_toggle_canvas_only();
+        move_widgets_in($('#one-col-full'));
+        cmm.col_mode_1col(); }
+
+    function go_two_col_full() {
+        reset_to_full_show_all();
+        move_widgets_in($('#two-col-full'));
+        cmm.col_mode_2col(); }
+    function go_two_col_stack_only() {
+        reset_to_full_show_all();
+        two_col_layout_toggle_stack_only();
+        move_widgets_in($('#two-col-full'));
+        cmm.col_mode_2col(); }
+    function go_two_col_canvas_only() {
+        reset_to_full_show_all();
+        two_col_layout_toggle_canvas_only();
+        move_widgets_in($('#two-col-full'));
+        cmm.col_mode_2col(); }
+
+    function go_three_col_full() {
+        reset_to_full_show_all();
+        move_widgets_in($('#three-col-full'));
+        cmm.col_mode_3col(); }
+    function go_three_col_stack_only() {
+        reset_to_full_show_all();
+        three_col_layout_toggle_stack_only();
+        move_widgets_in($('#three-col-full'));
+        cmm.col_mode_3col(); }
+    function go_three_col_canvas_only() {
+        reset_to_full_show_all();
+        three_col_layout_toggle_canvas_only();
+        move_widgets_in($('#three-col-full'));
+        cmm.col_mode_3col(); }
+
     return {
-        'calc_layout_modes':calc_layout_modes,
-        'reset_to_full_show_all':reset_to_full_show_all,
-        'move_widgets_in':move_widgets_in,
-        'move_widgets_out':move_widgets_out,
+        calc_layout_modes:calc_layout_modes,
+        reset_to_full_show_all:reset_to_full_show_all,
+        move_widgets_in:move_widgets_in,
+        move_widgets_out:move_widgets_out,
+        go_one_col_full:go_one_col_full,
+        go_one_col_stack_only:go_one_col_stack_only,
+        go_one_col_canvas_only:go_one_col_canvas_only,
+        go_two_col_full:go_two_col_full,
+        go_two_col_stack_only:go_two_col_stack_only,
+        go_two_col_canvas_only:go_two_col_canvas_only,
+        go_three_col_full:go_three_col_full,
+        go_three_col_stack_only:go_three_col_stack_only,
+        go_three_col_canvas_only:go_three_col_canvas_only
     }
 }
 var lmm = layout_mode_mgr();
 
-
-
-
-// Layout mode toggle methods
-
-function one_col_layout_toggle_stack_only() {
-    $('#one-col-full .canvas').toggle();
-    $('#one-col-full .row2').toggleClass('col');
-    lmm.calc_layout_modes();
-}
-function one_col_layout_toggle_canvas_only() {
-    if ($('#one-col-full .stack').is(":visible")) {
-        $('#one-col-full .canvas').after($('#one-col-full .cmd'));
-    }
-    else {
-        $('#one-col-full .stack').after($('#one-col-full .cmd'));
-    }
-    $('#one-col-full .stack').toggle();
-    $('#one-col-full .keypad').toggle();
-    $('#one-col-full .row1').toggle();
-
-    if ($('#one-col-full .stack').is(":visible"))
-        two_col_layout_mode = 'full';
-    else
-        two_col_layout_mode = 'canvas_only';
-    lmm.calc_layout_modes();
-}
-
-function two_col_layout_toggle_stack_only() {
-    $('#two-col-full .canvas').toggle();
-    lmm.calc_layout_modes();
-}
-function two_col_layout_toggle_canvas_only() {
-    $('#two-col-full .stack').toggle();
-    $('#two-col-full .keypad').toggle();
-    if ($('#two-col-full .canvas').hasClass('canvas100')) {
-        $('#two-col-full .stack').after($('#two-col-full .cmd'));
-        $('#two-col-full .custom').before($('#two-col-full .canvas'));
-    }
-    else {
-        $('#two-col-full .canvas').after($('#two-col-full .cmd'));
-        $('#two-col-full .keypad').after($('#two-col-full .canvas'));
-    }
-    $('#two-col-full .canvas').toggleClass('canvas100');
-    lmm.calc_layout_modes();
-}
-
-function three_col_layout_toggle_stack_only() {
-    var $stack = $('#three-col-full .stack');
-    var $canvas = $('#three-col-full .canvas');
-    var $cmd = $('#three-col-full .cmd');
-    var $keypad = $('#three-col-full .keypad');
-
-    $canvas.toggle();
-    if ($stack.hasClass('stack100')) {
-        $stack.after($keypad);
-        $stack.after($cmd);
-    }
-    else {
-        $canvas.after($keypad);
-        $canvas.after($cmd);
-    }
-    $stack.toggleClass('stack100');
-    $cmd.toggleClass('cmd100');
-    $keypad.toggleClass('keypad100');
-    lmm.calc_layout_modes();
-}
-function three_col_layout_toggle_canvas_only() {
-    var $col2 = $('#three-col-full .col2');
-    if ($col2.hasClass('float66'))
-        $('#three-col-full .stack').after($('#three-col-full .cmd'));
-    else
-        $('#three-col-full .custom').before($('#three-col-full .cmd'));
-    $('#three-col-full .col1').toggle();
-    $col2.toggleClass('float33');
-    $col2.toggleClass('float66');
-    lmm.calc_layout_modes();
-}
-
-function go_one_col_full() {
-    lmm.reset_to_full_show_all();
-    lmm.move_widgets_in($('#one-col-full'));
-    cmm.col_mode_1col(); }
-function go_one_col_stack_only() {
-    lmm.reset_to_full_show_all();
-    one_col_layout_toggle_stack_only();
-    lmm.move_widgets_in($('#one-col-full'));
-    cmm.col_mode_1col(); }
-function go_one_col_canvas_only() {
-    lmm.reset_to_full_show_all();
-    one_col_layout_toggle_canvas_only();
-    lmm.move_widgets_in($('#one-col-full'));
-    cmm.col_mode_1col(); }
-
-function go_two_col_full() {
-    lmm.reset_to_full_show_all();
-    lmm.move_widgets_in($('#two-col-full'));
-    cmm.col_mode_2col(); }
-function go_two_col_stack_only() {
-    lmm.reset_to_full_show_all();
-    two_col_layout_toggle_stack_only();
-    lmm.move_widgets_in($('#two-col-full'));
-    cmm.col_mode_2col(); }
-function go_two_col_canvas_only() {
-    lmm.reset_to_full_show_all();
-    two_col_layout_toggle_canvas_only();
-    lmm.move_widgets_in($('#two-col-full'));
-    cmm.col_mode_2col(); }
-
-function go_three_col_full() {
-    lmm.reset_to_full_show_all();
-    lmm.move_widgets_in($('#three-col-full'));
-    cmm.col_mode_3col(); }
-function go_three_col_stack_only() {
-    lmm.reset_to_full_show_all();
-    three_col_layout_toggle_stack_only();
-    lmm.move_widgets_in($('#three-col-full'));
-    cmm.col_mode_3col(); }
-function go_three_col_canvas_only() {
-    lmm.reset_to_full_show_all();
-    three_col_layout_toggle_canvas_only();
-    lmm.move_widgets_in($('#three-col-full'));
-    cmm.col_mode_3col(); }
-
-
-
-
-
+// Experiment - Runs immediately, and returns a value which is assigned to x
+// x = function() {alert('blah'); return 100;}();
 
 function tape_toggle() {
     $('td.tape').toggle();
@@ -344,39 +350,39 @@ function switch_mode(layout_mode, new_col_mode) {
         case 'full':
             switch (new_col_mode) {
                 case '1col':
-                    go_one_col_full();
+                    lmm.go_one_col_full();
                     break;
                 case '2col':
-                    go_two_col_full();
+                    lmm.go_two_col_full();
                     break;
                 case '3col':
-                    go_three_col_full();
+                    lmm.go_three_col_full();
                     break;
             }
             break;
         case 'stack_only':
             switch (new_col_mode) {
                 case '1col':
-                    go_one_col_stack_only();
+                    lmm.go_one_col_stack_only();
                     break;
                 case '2col':
-                    go_two_col_stack_only();
+                    lmm.go_two_col_stack_only();
                     break;
                 case '3col':
-                    go_three_col_stack_only();
+                    lmm.go_three_col_stack_only();
                     break;
             }
             break;
         case 'canvas_only':
             switch (new_col_mode) {
                 case '1col':
-                    go_one_col_canvas_only();
+                    lmm.go_one_col_canvas_only();
                     break;
                 case '2col':
-                    go_two_col_canvas_only();
+                    lmm.go_two_col_canvas_only();
                     break;
                 case '3col':
-                    go_three_col_canvas_only();
+                    lmm.go_three_col_canvas_only();
                     break;
             }
             break;
