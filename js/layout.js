@@ -205,91 +205,107 @@ function layout_mode_mgr() {
 
     // Go functions - these are the high level functions
 
-    function go_one_col_full() {
+    function go($layout, _col_mode) {
         move_widgets_out();
-        move_widgets_in($('#one-col-full'));
+        move_widgets_in($layout);
         $('.container').hide();
-        $('#one-col-full').show();
-        col_mode = "1col";
+        $layout.show();
+        col_mode = _col_mode;
+    }
+    function go_one_col_full() {
+        go($('#one-col-full'), "1col");
+//        move_widgets_out();
+//        move_widgets_in($('#one-col-full'));
+//        $('.container').hide();
+//        $('#one-col-full').show();
+//        col_mode = "1col";
 //        cmm.col_mode_1col();
     }
     function go_one_col_stack_only() {
-        move_widgets_out();
-        move_widgets_in($('#one-col-stackonly'));
-        $('.container').hide();
-        $('#one-col-stackonly').show();
-        col_mode = "1col";
-//        cmm.col_mode_1col();
+        go($('#one-col-stackonly'), "1col");
+//        move_widgets_out();
+//        move_widgets_in($('#one-col-stackonly'));
+//        $('.container').hide();
+//        $('#one-col-stackonly').show();
+//        col_mode = "1col";
+////        cmm.col_mode_1col();
     }
     function go_one_col_canvas_only() {
-        move_widgets_out();
-        move_widgets_in($('#one-col-canvasonly'));
-        $('.container').hide();
-        $('#one-col-canvasonly').show();
-        col_mode = "1col";
+        go($('#one-col-canvasonly'), "1col");
+//        move_widgets_out();
+//        move_widgets_in($('#one-col-canvasonly'));
+//        $('.container').hide();
+//        $('#one-col-canvasonly').show();
+//        col_mode = "1col";
 //        cmm.col_mode_1col();
     }
 
     function go_two_col_full() {
+        go($('#two-col-full'), "2col");
 //        reset_to_full_show_all();
-        move_widgets_out();
-        move_widgets_in($('#two-col-full'));
-        $('.container').hide();
-        $('#two-col-full').show();
-        col_mode = "2col";
+//        move_widgets_out();
+//        move_widgets_in($('#two-col-full'));
+//        $('.container').hide();
+//        $('#two-col-full').show();
+//        col_mode = "2col";
 //        cmm.col_mode_2col();
     }
     function go_two_col_stack_only() {
+        go($('#two-col-stackonly'), "2col");
 //        reset_to_full_show_all();
 //        two_col_layout_toggle_stack_only();
-        move_widgets_out();
-        move_widgets_in($('#two-col-stackonly'));
-        $('.container').hide();
-        $('#two-col-stackonly').show();
-        col_mode = "2col";
+//        move_widgets_out();
+//        move_widgets_in($('#two-col-stackonly'));
+//        $('.container').hide();
+//        $('#two-col-stackonly').show();
+//        col_mode = "2col";
 //        cmm.col_mode_2col();
     }
     function go_two_col_canvas_only() {
+        go($('#two-col-canvasonly'), "2col");
 //        reset_to_full_show_all();
 //        two_col_layout_toggle_canvas_only();
-        move_widgets_out();
-        move_widgets_in($('#two-col-canvasonly'));
-        $('.container').hide();
-        $('#two-col-canvasonly').show();
-        col_mode = "2col";
+//        move_widgets_out();
+//        move_widgets_in($('#two-col-canvasonly'));
+//        $('.container').hide();
+//        $('#two-col-canvasonly').show();
+//        col_mode = "2col";
 //        cmm.col_mode_2col();
     }
 
     function go_three_col_full() {
+        go($('#three-col-full'), "3col");
 //        reset_to_full_show_all();
-        move_widgets_out();
-        move_widgets_in($('#three-col-full'));
+//        move_widgets_out();
+//        move_widgets_in($('#three-col-full'));
 //        three_col_match_col1();
 //
 //        cmm.col_mode_3col();
-        $('.container').hide();
-        $('#three-col-full').show();
-        col_mode = "3col";
+//        $('.container').hide();
+//        $('#three-col-full').show();
+//        col_mode = "3col";
     }
     function go_three_col_stack_only() {
+        go($('#three-col-stackonly'), "3col");
 //        reset_to_full_show_all();
-        move_widgets_out();
+//        move_widgets_out();
 //        three_col_layout_toggle_stack_only();
-        move_widgets_in($('#three-col-stackonly'));
+//        move_widgets_in($('#three-col-stackonly'));
 //        cmm.col_mode_3col();
-        $('.container').hide();
-        $('#three-col-stackonly').show();
-        col_mode = "3col";
+//        $('.container').hide();
+//        $('#three-col-stackonly').show();
+//        col_mode = "3col";
     }
     function go_three_col_canvas_only() {
+        go($('#three-col-canvasonly'), "3col");
 //        reset_to_full_show_all();
-        move_widgets_out();
+//        move_widgets_out();
 //        three_col_layout_toggle_canvas_only();
-        move_widgets_in($('#three-col-canvasonly'));
+//        move_widgets_in($('#three-col-canvasonly'));
 //        cmm.col_mode_3col();
-        $('.container').hide();
-        $('#three-col-canvasonly').show();
-        col_mode = "3col";
+//        $('.container').hide();
+//        $('#three-col-canvasonly').show();
+//        col_mode = "3col";
     }
 
     return {
