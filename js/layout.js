@@ -31,9 +31,9 @@
 })();
 
 
-var col_mode;
-
 function layout_mode_mgr() {
+
+    var col_mode;
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -87,6 +87,8 @@ function layout_mode_mgr() {
     function go_three_col_stack_only() { go($('#three-col-stackonly'), "3col"); }
     function go_three_col_canvas_only() { go($('#three-col-canvasonly'), "3col"); }
 
+    function get_col_mode() { return col_mode; }
+
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
@@ -98,7 +100,8 @@ function layout_mode_mgr() {
         go_two_col_canvas_only:go_two_col_canvas_only,
         go_three_col_full:go_three_col_full,
         go_three_col_stack_only:go_three_col_stack_only,
-        go_three_col_canvas_only:go_three_col_canvas_only
+        go_three_col_canvas_only:go_three_col_canvas_only,
+        get_col_mode:get_col_mode
     }
 }
 var lmm = layout_mode_mgr();
@@ -107,11 +110,11 @@ var lmm = layout_mode_mgr();
 function LayoutDecider() {
 
     function notify_width_change(calcwidth, layout_mode) {
-        if (calcwidth < 400 && col_mode != "1col")
+        if (calcwidth < 400 && lmm.get_col_mode() != "1col")
             switch_mode(layout_mode, "1col");
-        else if (calcwidth > 400 && calcwidth < 450 && col_mode != "2col")
+        else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != "2col")
             switch_mode(layout_mode, "2col");
-        else if (calcwidth > 500 && calcwidth < 600 && col_mode != "3col")
+        else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != "3col")
             switch_mode(layout_mode, "3col");
     }
 
@@ -189,8 +192,7 @@ function ViewOptionsController($scope) {
 
     $scope.$watch('viewoptions.layout_mode', function() {
         console.log('angular watch');
-//        decider.switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
-        decider.switch_mode($scope.viewoptions.layout_mode, col_mode);
+        decider.switch_mode($scope.viewoptions.layout_mode, lmm.get_col_mode());
     }, true);
 
     $scope.$watch('viewoptions.tape_mode', function() {
@@ -220,9 +222,8 @@ But there may be some nice elegance about it perhaps.
     More standardised way of organising my code?
 
 Currently have
-    cmm - depends on lmm, models col_mode
-    lmm - depends on cmm
-    decider - depends on lmm and cmm
+    lmm
+    decider - depends on lmm 
 also
     resize function - depends on decider and angular viewoptions.layout_mode
     angular ViewOptionsController - depends on decider, models show_debug and viewoptions.*
