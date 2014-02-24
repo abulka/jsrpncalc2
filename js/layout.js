@@ -46,21 +46,21 @@ function col_mode_mgr() {
 //        col_mode = "2col";
 //        //console.log('switched col mode to', col_mode);
 //    }
-    function col_mode_3col() {
-        //if (col_mode == "3col") return;
-        $('#one-col-full').hide();
-        $('#two-col-full').hide();
-        $('#three-col-full').show();
-        col_mode = "3col";
-        //console.log('switched col mode to', col_mode);
-    }
+//    function col_mode_3col() {
+//        //if (col_mode == "3col") return;
+//        $('#one-col-full').hide();
+//        $('#two-col-full').hide();
+//        $('#three-col-full').show();
+//        col_mode = "3col";
+//        //console.log('switched col mode to', col_mode);
+//    }
 
     return {
         show_all_debug:show_all_debug,
-        get_col_mode:function() {return col_mode;},
+//        get_col_mode:function() {return col_mode;},
 //        'col_mode_1col':col_mode_1col,
 //        'col_mode_2col':col_mode_2col,
-        'col_mode_3col':col_mode_3col,
+//        'col_mode_3col':col_mode_3col,
     }
 }
 var cmm = col_mode_mgr();
@@ -70,32 +70,32 @@ var col_mode;
 function layout_mode_mgr() {
 
 //    var one_col_layout_mode = 'full';        // full, stack_only, canvas_only
-    var two_col_layout_mode = 'full';        // full, stack_only, canvas_only
-    var three_col_layout_mode = 'full';      // full, stack_only, canvas_only
+//    var two_col_layout_mode = 'full';        // full, stack_only, canvas_only
+//    var three_col_layout_mode = 'full';      // full, stack_only, canvas_only
 
-    function calc_layout_modes() {
+//    function calc_layout_modes() {
 //        one_col_layout_mode = _calc_layout_mode_for($('#one-col-full'));
-        two_col_layout_mode = _calc_layout_mode_for($('#two-col-full'));
-        three_col_layout_mode = _calc_layout_mode_for($('#three-col-full'));
-        $('#one_col_layout_mode').text(one_col_layout_mode);
-        $('#two_col_layout_mode').text(two_col_layout_mode);
-        $('#three_col_layout_mode').text(three_col_layout_mode);
-    }
+//        two_col_layout_mode = _calc_layout_mode_for($('#two-col-full'));
+//        three_col_layout_mode = _calc_layout_mode_for($('#three-col-full'));
+//        $('#one_col_layout_mode').text(one_col_layout_mode);
+//        $('#two_col_layout_mode').text(two_col_layout_mode);
+//        $('#three_col_layout_mode').text(three_col_layout_mode);
+//    }
 
-    function _calc_layout_mode_for($outer) {
-        var stack_visible = $outer.find('.stack').is(":visible");
-        var canvas_visible = $outer.find('.canvas').is(":visible");
-        if (stack_visible && canvas_visible)
-            return 'full';
-        else if (stack_visible && !canvas_visible)
-            return 'stack_only';
-        else if (!stack_visible && canvas_visible)
-            return 'canvas_only';
-        else {
-            console.log('unknown mode - neither stack or canvas are visible.', $outer, $outer.is(":visible"));
-            return undefined;
-        }
-    }
+//    function _calc_layout_mode_for($outer) {
+//        var stack_visible = $outer.find('.stack').is(":visible");
+//        var canvas_visible = $outer.find('.canvas').is(":visible");
+//        if (stack_visible && canvas_visible)
+//            return 'full';
+//        else if (stack_visible && !canvas_visible)
+//            return 'stack_only';
+//        else if (!stack_visible && canvas_visible)
+//            return 'canvas_only';
+//        else {
+//            console.log('unknown mode - neither stack or canvas are visible.', $outer, $outer.is(":visible"));
+//            return undefined;
+//        }
+//    }
 
 //    function reset_to_full_show_all() {
 //        // Show all outer modes so that logic isn't corrupted by child visibility issues
@@ -196,39 +196,39 @@ function layout_mode_mgr() {
 //        calc_layout_modes();
 //    }
 
-    function three_col_layout_toggle_stack_only() {
-        var $stack = $('#three-col-full .stack');
-        var $canvas = $('#three-col-full .canvas');
-        var $cmd = $('#three-col-full .cmd');
-        var $keypad = $('#three-col-full .keypad');
-
-        $canvas.toggle();
-        if ($stack.hasClass('stack100')) {
-            $stack.after($keypad);
-            $stack.after($cmd);
-        }
-        else {
-            $canvas.after($keypad);
-            $canvas.after($cmd);
-        }
-        $stack.toggleClass('stack100');
-        $cmd.toggleClass('cmd100');
-        $keypad.toggleClass('keypad100');
-//        three_col_match_col1();
-        calc_layout_modes();
-    }
-    function three_col_layout_toggle_canvas_only() {
-        var $col2 = $('#three-col-full .col2');
-        if ($col2.hasClass('float66'))
-            $('#three-col-full .stack').after($('#three-col-full .cmd'));
-        else
-            $('#three-col-full .custom').before($('#three-col-full .cmd'));
-        $('#three-col-full .col1').toggle();
-        $col2.toggleClass('float33');
-        $col2.toggleClass('float66');
-//        three_col_match_col1();
-        calc_layout_modes();
-    }
+//    function three_col_layout_toggle_stack_only() {
+//        var $stack = $('#three-col-full .stack');
+//        var $canvas = $('#three-col-full .canvas');
+//        var $cmd = $('#three-col-full .cmd');
+//        var $keypad = $('#three-col-full .keypad');
+//
+//        $canvas.toggle();
+//        if ($stack.hasClass('stack100')) {  // is already stack only
+//            $stack.after($keypad);
+//            $stack.after($cmd);
+//        }
+//        else {
+//            $canvas.after($keypad);
+//            $canvas.after($cmd);
+//        }
+//        $stack.toggleClass('stack100');
+//        $cmd.toggleClass('cmd100');
+//        $keypad.toggleClass('keypad100');
+////        three_col_match_col1();
+//        calc_layout_modes();
+//    }
+//    function three_col_layout_toggle_canvas_only() {
+//        var $col2 = $('#three-col-full .col2');
+//        if ($col2.hasClass('float66'))  // already canvas only
+//            $('#three-col-full .stack').after($('#three-col-full .cmd'));
+//        else
+//            $('#three-col-full .custom').before($('#three-col-full .cmd'));
+//        $('#three-col-full .col1').toggle();
+//        $col2.toggleClass('float33');
+//        $col2.toggleClass('float66');
+////        three_col_match_col1();
+//        calc_layout_modes();
+//    }
     function three_col_match_col1() {
         console.log($('#three-col-full .col1').height());
         $('#three-col-full .col2').height($('#three-col-full .col1').height());
@@ -295,24 +295,39 @@ function layout_mode_mgr() {
     }
 
     function go_three_col_full() {
-        reset_to_full_show_all();
+//        reset_to_full_show_all();
+        move_widgets_out();
         move_widgets_in($('#three-col-full'));
-        three_col_match_col1();
-
-        cmm.col_mode_3col(); }
+//        three_col_match_col1();
+//
+//        cmm.col_mode_3col();
+        $('.container').hide();
+        $('#three-col-full').show();
+        col_mode = "3col";
+    }
     function go_three_col_stack_only() {
-        reset_to_full_show_all();
-        three_col_layout_toggle_stack_only();
-        move_widgets_in($('#three-col-full'));
-        cmm.col_mode_3col(); }
+//        reset_to_full_show_all();
+        move_widgets_out();
+//        three_col_layout_toggle_stack_only();
+        move_widgets_in($('#three-col-stackonly'));
+//        cmm.col_mode_3col();
+        $('.container').hide();
+        $('#three-col-stackonly').show();
+        col_mode = "3col";
+    }
     function go_three_col_canvas_only() {
-        reset_to_full_show_all();
-        three_col_layout_toggle_canvas_only();
-        move_widgets_in($('#three-col-full'));
-        cmm.col_mode_3col(); }
+//        reset_to_full_show_all();
+        move_widgets_out();
+//        three_col_layout_toggle_canvas_only();
+        move_widgets_in($('#three-col-canvasonly'));
+//        cmm.col_mode_3col();
+        $('.container').hide();
+        $('#three-col-canvasonly').show();
+        col_mode = "3col";
+    }
 
     return {
-        calc_layout_modes:calc_layout_modes,
+//        calc_layout_modes:calc_layout_modes,
 //        reset_to_full_show_all:reset_to_full_show_all,
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
@@ -333,11 +348,11 @@ var lmm = layout_mode_mgr();
 function LayoutDecider() {
 
     function notify_width_change(calcwidth, layout_mode) {
-        if (calcwidth < 400 && cmm.get_col_mode() != "1col")
+        if (calcwidth < 400 && col_mode != "1col")
             switch_mode(layout_mode, "1col");
-        else if (calcwidth > 400 && calcwidth < 450 && cmm.get_col_mode() != "2col")
+        else if (calcwidth > 400 && calcwidth < 450 && col_mode != "2col")
             switch_mode(layout_mode, "2col");
-        else if (calcwidth > 500 && calcwidth < 600 && cmm.get_col_mode() != "3col")
+        else if (calcwidth > 500 && calcwidth < 600 && col_mode != "3col")
             switch_mode(layout_mode, "3col");
     }
 
