@@ -24,9 +24,12 @@ a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 .cmd100    { height: 15%; }
 .keypad100 { height: 85%; }
 .canvas100  { height: 100%; }
+/*.canvas100  { height: auto; }*/
+/*#canvas {height:200px; }*/
 
 /*.col { height:150px; }*/
-.col { height:250px; }
+/*.col { height:250px; }*/
+.col { height:auto; }
 .float50 { float:left; width:50%; }
 .float33 { float:left; width:33.3%; }
 .float66 { float:left; width:66.6%; }
