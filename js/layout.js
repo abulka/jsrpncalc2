@@ -1,6 +1,6 @@
 
 (function wire_debug_buttons() {
-    $('#show_all_layouts').on('click', function(e) { cmm.show_all_debug(); });
+    $('#show_all_layouts').on('click', function(e) { show_all_debug(); });
     $('#tape_toggle').on('click', function(e) { $('td.tape').toggle(); });
 
     $('#one_col_full_layout').on('click', function(e) { lmm.go_one_col_full(); });
@@ -14,56 +14,22 @@
     $('#one_col_canvas_only').on('click', function(e) { lmm.go_one_col_canvas_only(); });
     $('#two_col_canvas_only').on('click', function(e) { lmm.go_two_col_canvas_only(); });
     $('#three_col_canvas_only').on('click', function(e) { lmm.go_three_col_canvas_only(); });
-})();
-
-
-function col_mode_mgr() {
-
-    var col_mode = undefined;                // 1col or 2col or 3col
 
     function show_all_debug() {
         lmm.move_widgets_out();
         $('#one-col-full').show();
+        $('#one-col-stackonly').show();
+        $('#one-col-canvasonly').show();
         $('#two-col-full').show();
+        $('#two-col-stackonly').show();
+        $('#two-col-canvasonly').show();
         $('#three-col-full').show();
-        col_mode = undefined;
+        $('#three-col-stackonly').show();
+        $('#three-col-canvasonly').show();
     }
 
-//    function col_mode_1col() {
-//        //if (col_mode == "1col") return;
-//        $('.container').hide();
-//        $('#one-col-full').show();
-////        $('#two-col-full').hide();
-////        $('#three-col-full').hide();
-//        col_mode = "1col";
-//        //console.log('switched col mode to', col_mode);
-//    }
-//    function col_mode_2col() {
-//        //if (col_mode == "2col") return;
-//        $('#one-col-full').hide();
-//        $('#two-col-full').show();
-//        $('#three-col-full').hide();
-//        col_mode = "2col";
-//        //console.log('switched col mode to', col_mode);
-//    }
-//    function col_mode_3col() {
-//        //if (col_mode == "3col") return;
-//        $('#one-col-full').hide();
-//        $('#two-col-full').hide();
-//        $('#three-col-full').show();
-//        col_mode = "3col";
-//        //console.log('switched col mode to', col_mode);
-//    }
+})();
 
-    return {
-        show_all_debug:show_all_debug,
-//        get_col_mode:function() {return col_mode;},
-//        'col_mode_1col':col_mode_1col,
-//        'col_mode_2col':col_mode_2col,
-//        'col_mode_3col':col_mode_3col,
-    }
-}
-var cmm = col_mode_mgr();
 
 var col_mode;
 

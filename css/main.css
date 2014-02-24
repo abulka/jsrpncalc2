@@ -15,11 +15,11 @@ a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 .container { background: HoneyDew; height:auto;}
 #hidden_holding_area { display: none; }
 .tape { display:none; width:20%; background: white; }
-.stack  { background: #F6FFF6;}
+.stack  { background: #c6ff9b;}
 .cmd    { background: #909990;}
 .keypad { background: #D8E6D8;}
 .custom { background: #A8B2A8;}
-.canvas { background: #C0CCC0;}
+.canvas { background: #ddba5f;}
 
 /*.stack100  { height: 100%; }*/
 /*.cmd100    { height: 15%; }*/
