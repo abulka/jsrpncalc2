@@ -13,30 +13,31 @@ a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 .pink { background: pink; }
 
 .container { background: HoneyDew; height:auto;}
+#hidden_holding_area { display: none; }
 .tape { display:none; width:20%; background: white; }
-.stack  { height: 45%; background: #F6FFF6;}
-.cmd    { height: 15%; background: #909990;}
-.keypad { height: 40%; background: #D8E6D8;}
-.custom { height: auto; background: #A8B2A8;}
+.stack  { background: #F6FFF6;}
+.cmd    { background: #909990;}
+.keypad { background: #D8E6D8;}
+.custom { background: #A8B2A8;}
 .canvas { background: #C0CCC0;}
 
-.stack100  { height: 100%; }
-.cmd100    { height: 15%; }
-.keypad100 { height: 85%; }
-.canvas100  { height: 100%; }
+/*.stack100  { height: 100%; }*/
+/*.cmd100    { height: 15%; }*/
+/*.keypad100 { height: 85%; }*/
+/*.canvas100  { height: 100%; }*/
 /*.canvas100  { height: auto; }*/
 /*#canvas {height:200px; }*/
 
 /*.col { height:150px; }*/
 /*.col { height:250px; }*/
-.col { height:auto; }
+/*.col { height:auto; }*/
 .float50 { float:left; width:50%; }
 .float33 { float:left; width:33.3%; }
 .float66 { float:left; width:66.6%; }
 
-#one-col-full .row2 .canvas { height: 66%; }
-#two-col-full .col2 .canvas { height: 40%; }
-#three-col-full .col2 .canvas { height: 100%; }
+/*#one-col-full .row2 .canvas { height: 66%; }*/
+/*#two-col-full .col2 .canvas { height: 40%; }*/
+/*#three-col-full .col2 .canvas { height: 100%; }*/
 
 .layout_mode { background: orange }
 div#debug_area {background: #97d8fc; padding: 0.5em;}

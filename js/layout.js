@@ -31,9 +31,10 @@ function col_mode_mgr() {
 
     function col_mode_1col() {
         //if (col_mode == "1col") return;
+        $('.container').hide();
         $('#one-col-full').show();
-        $('#two-col-full').hide();
-        $('#three-col-full').hide();
+//        $('#two-col-full').hide();
+//        $('#three-col-full').hide();
         col_mode = "1col";
         //console.log('switched col mode to', col_mode);
     }
@@ -64,15 +65,16 @@ function col_mode_mgr() {
 }
 var cmm = col_mode_mgr();
 
+var col_mode;
 
 function layout_mode_mgr() {
 
-    var one_col_layout_mode = 'full';        // full, stack_only, canvas_only
+//    var one_col_layout_mode = 'full';        // full, stack_only, canvas_only
     var two_col_layout_mode = 'full';        // full, stack_only, canvas_only
     var three_col_layout_mode = 'full';      // full, stack_only, canvas_only
 
     function calc_layout_modes() {
-        one_col_layout_mode = _calc_layout_mode_for($('#one-col-full'));
+//        one_col_layout_mode = _calc_layout_mode_for($('#one-col-full'));
         two_col_layout_mode = _calc_layout_mode_for($('#two-col-full'));
         three_col_layout_mode = _calc_layout_mode_for($('#three-col-full'));
         $('#one_col_layout_mode').text(one_col_layout_mode);
@@ -98,13 +100,15 @@ function layout_mode_mgr() {
     function reset_to_full_show_all() {
         // Show all outer modes so that logic isn't corrupted by child visibility issues
         $('#one-col-full').show();
+        $('#one-col-stackonly').show();
+        $('#one-col-canvasonly').show();
         $('#two-col-full').show();
         $('#three-col-full').show();
 
-        if (one_col_layout_mode == 'stack_only')
-            one_col_layout_toggle_stack_only();  // toggle it back to full
-        else if (one_col_layout_mode == 'canvas_only')
-            one_col_layout_toggle_canvas_only();  // toggle it back to full
+//        if (one_col_layout_mode == 'stack_only')
+//            one_col_layout_toggle_stack_only();  // toggle it back to full
+//        else if (one_col_layout_mode == 'canvas_only')
+//            one_col_layout_toggle_canvas_only();  // toggle it back to full
 //        else
 
 
@@ -236,19 +240,29 @@ function layout_mode_mgr() {
     // Go functions - these are the high level functions
 
     function go_one_col_full() {
-        reset_to_full_show_all();
+        move_widgets_out();
         move_widgets_in($('#one-col-full'));
-        cmm.col_mode_1col(); }
+        $('.container').hide();
+        $('#one-col-full').show();
+        col_mode = "1col";
+//        cmm.col_mode_1col();
+    }
     function go_one_col_stack_only() {
-        reset_to_full_show_all();
-        one_col_layout_toggle_stack_only();
-        move_widgets_in($('#one-col-full'));
-        cmm.col_mode_1col(); }
+        move_widgets_out();
+        move_widgets_in($('#one-col-stackonly'));
+        $('.container').hide();
+        $('#one-col-stackonly').show();
+        col_mode = "1col";
+//        cmm.col_mode_1col();
+    }
     function go_one_col_canvas_only() {
-        reset_to_full_show_all();
-        one_col_layout_toggle_canvas_only();
-        move_widgets_in($('#one-col-full'));
-        cmm.col_mode_1col(); }
+        move_widgets_out();
+        move_widgets_in($('#one-col-canvasonly'));
+        $('.container').hide();
+        $('#one-col-canvasonly').show();
+        col_mode = "1col";
+//        cmm.col_mode_1col();
+    }
 
     function go_two_col_full() {
         reset_to_full_show_all();
@@ -386,7 +400,8 @@ function ViewOptionsController($scope) {
 
     $scope.$watch('viewoptions.layout_mode', function() {
         console.log('angular watch');
-        decider.switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
+//        decider.switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
+        decider.switch_mode($scope.viewoptions.layout_mode, col_mode);
     }, true);
 
     $scope.$watch('viewoptions.tape_mode', function() {
