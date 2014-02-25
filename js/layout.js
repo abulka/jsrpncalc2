@@ -112,35 +112,16 @@ function layout_mode_mgr() {
 var lmm = layout_mode_mgr();
 
 
-function LayoutDecider() {
-
-    function notify_width_change(calcwidth, layout_mode) {
-        // console.log('notify width change, lmm.get_col_mode()=', lmm.get_col_mode(), calcwidth);
-        if (calcwidth < 400 && lmm.get_col_mode() != 1)
-            lmm.go(layout_mode, 1);
-        else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != 2)
-            lmm.go(layout_mode, 2);
-        else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != 3)
-            lmm.go(layout_mode, 3);
-    }
-
-//    function switch_mode(layout_mode, new_num_cols) {
-//        console.log('switch_mode', layout_mode, new_num_cols);
-//        lmm.go(layout_mode, new_num_cols);
-//    }
-
-    return {
-//        switch_mode:switch_mode,
-        notify_width_change:notify_width_change
-    }
-}
-var decider = LayoutDecider();
-
-
 $(window).resize(function(){
     var calcwidth = $('#layouts').width();
-    var layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
-    decider.notify_width_change(calcwidth, layout_mode);
+    var curr_layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
+
+    if (calcwidth < 400 && lmm.get_col_mode() != 1)
+        lmm.go(curr_layout_mode, 1);
+    else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != 2)
+        lmm.go(curr_layout_mode, 2);
+    else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != 3)
+        lmm.go(curr_layout_mode, 3);
 });
 
 function ViewOptionsController($scope) {
