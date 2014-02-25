@@ -60,58 +60,37 @@ function layout_mode_mgr() {
         $('div.custom').html('** custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom **');
     }
 
-    function three_col_match_col1() {
-        console.log($('#three-col-full .col1').height());
-        $('#three-col-full .col2').height($('#three-col-full .col1').height());
-        $('#three-col-full .canvas').toggleClass('canvas100');
+//    function three_col_match_col1() {
+//        console.log($('#three-col-full .col1').height());
+//        $('#three-col-full .col2').height($('#three-col-full .col1').height());
+//        $('#three-col-full .canvas').toggleClass('canvas100');
+//
+//        console.log($('#three-col-full .col1').height());
+//    }
 
-        console.log($('#three-col-full .col1').height());
-    }
+    // Go function - these are the high level functions
+    // layout parameter is 'full', 'stackonly', 'canvasonly'
 
-    // Go functions - these are the high level functions
-
-    function go($layout, _col_mode) {
+    function go(layout, num_cols) {
+        var $layout = $( '#' + layout + '-' + num_cols.toString() + 'col');
         move_widgets_out();
         move_widgets_in($layout);
         $('.container').hide();
         $layout.show();
-        col_mode = _col_mode;
+        col_mode = num_cols;
     }
-    function go_full(num_cols) {
-        var col_mode = num_cols.toString() + "col";
-        var layout_div = {1:'one',2:'two',3:'three'}[num_cols] + '-col-full';
-        go($('#'+layout_div), col_mode);
 
-//        switch (num_cols) {
-//            case 1:
-//                go($('#one-col-full'), "1col");
-//                break;
-//            case 2:
-//                go($('#two-col-full'), "2col");
-//                break;
-//            case 3:
-//                go($('#three-col-full'), "3col");
-//                break;
-//        }
+    function go_one_col_full() {            go('full', 1); }
+    function go_one_col_stack_only() {      go('stackonly', 1); }
+    function go_one_col_canvas_only() {     go('canvasonly', 1); }
+    function go_two_col_full() {            go('full', 2); }
+    function go_two_col_stack_only() {      go('stackonly', 2); }
+    function go_two_col_canvas_only() {     go('canvasonly', 2); }
+    function go_three_col_full() {          go('full', 3); }
+    function go_three_col_stack_only() {    go('stackonly', 3); }
+    function go_three_col_canvas_only() {   go('canvasonly', 3); }
 
-    }
-    function go_stackonly(num_cols) {
-
-    }
-    function go_canvasonly(num_cols) {
-
-    }
-    function go_one_col_full() { go_full(1);  }
-    function go_one_col_stack_only() { go($('#one-col-stackonly'), "1col"); }
-    function go_one_col_canvas_only() { go($('#one-col-canvasonly'), "1col"); }
-    function go_two_col_full() { go_full(2); }
-    function go_two_col_stack_only() { go($('#two-col-stackonly'), "2col"); }
-    function go_two_col_canvas_only() { go($('#two-col-canvasonly'), "2col"); }
-    function go_three_col_full() { go_full(3); }
-    function go_three_col_stack_only() { go($('#three-col-stackonly'), "3col"); }
-    function go_three_col_canvas_only() { go($('#three-col-canvasonly'), "3col"); }
-
-    function get_col_mode() { return col_mode; }
+    function get_col_mode() { return col_mode.toString() + 'col'; }
 
     return {
         move_widgets_in:move_widgets_in,
@@ -134,6 +113,7 @@ var lmm = layout_mode_mgr();
 function LayoutDecider() {
 
     function notify_width_change(calcwidth, layout_mode) {
+        // console.log('notify width change, lmm.get_col_mode()=', lmm.get_col_mode(), calcwidth);
         if (calcwidth < 400 && lmm.get_col_mode() != "1col")
             switch_mode(layout_mode, "1col");
         else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != "2col")
@@ -197,7 +177,7 @@ var decider = LayoutDecider();
 
 
 $(window).resize(function(){
-    var calcwidth = $('#one-col-full').width();
+    var calcwidth = $('#layouts').width();
     var layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
     decider.notify_width_change(calcwidth, layout_mode);
 });
