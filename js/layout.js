@@ -71,33 +71,33 @@ function layout_mode_mgr() {
         num_cols = _num_cols;
     }
 
-    function get_num_cols() { return num_cols; }
-
-    function switch_mode(curr_layout_mode) {
+    function calc_numcols_and_go(layout) {
         var calcwidth = $('#layouts').width();
-        console.log('switch_mode: width', calcwidth, 'num_cols', num_cols);
+        console.log('calc_numcols_and_go: width', calcwidth, 'num_cols', num_cols);
 
         if (calcwidth < 400 && num_cols != 1)
-            go(curr_layout_mode, 1);
+            go(layout, 1);
         else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
-            go(curr_layout_mode, 2);
+            go(layout, 2);
         else if (calcwidth > 450 && num_cols != 3)
-            go(curr_layout_mode, 3);
+            go(layout, 3);
     }
+
+    function get_num_cols() { return num_cols; }
 
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
         get_num_cols:get_num_cols,
         go:go,
-        switch_mode:switch_mode
+        calc_numcols_and_go:calc_numcols_and_go
     }
 }
 var lmm = layout_mode_mgr();
 
 
 $(window).resize(function(){
-    lmm.switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode);
+    lmm.calc_numcols_and_go(angular.element($('#col_layouts')).scope().viewoptions.layout_mode);
 });
 
 function ViewOptionsController($scope) {
