@@ -90,7 +90,7 @@ function layout_mode_mgr() {
     function go_three_col_stack_only() {    go('stackonly', 3); }
     function go_three_col_canvas_only() {   go('canvasonly', 3); }
 
-    function get_col_mode() { return col_mode.toString() + 'col'; }
+    function get_col_mode() { return col_mode/*.toString() + 'col'*/; }
 
     return {
         move_widgets_in:move_widgets_in,
@@ -104,7 +104,8 @@ function layout_mode_mgr() {
         go_three_col_full:go_three_col_full,
         go_three_col_stack_only:go_three_col_stack_only,
         go_three_col_canvas_only:go_three_col_canvas_only,
-        get_col_mode:get_col_mode
+        get_col_mode:get_col_mode,
+        go:go
     }
 }
 var lmm = layout_mode_mgr();
@@ -114,57 +115,58 @@ function LayoutDecider() {
 
     function notify_width_change(calcwidth, layout_mode) {
         // console.log('notify width change, lmm.get_col_mode()=', lmm.get_col_mode(), calcwidth);
-        if (calcwidth < 400 && lmm.get_col_mode() != "1col")
-            switch_mode(layout_mode, "1col");
-        else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != "2col")
-            switch_mode(layout_mode, "2col");
-        else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != "3col")
-            switch_mode(layout_mode, "3col");
+        if (calcwidth < 400 && lmm.get_col_mode() != 1)
+            switch_mode(layout_mode, 1);
+        else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != 2)
+            switch_mode(layout_mode, 2);
+        else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != 3)
+            switch_mode(layout_mode, 3);
     }
 
-    function switch_mode(layout_mode, new_col_mode) {
-        console.log('switch_mode', layout_mode, new_col_mode);
-        switch (layout_mode) {
-            case 'full':
-                switch (new_col_mode) {
-                    case '1col':
-                        lmm.go_one_col_full();
-                        break;
-                    case '2col':
-                        lmm.go_two_col_full();
-                        break;
-                    case '3col':
-                        lmm.go_three_col_full();
-                        break;
-                }
-                break;
-            case 'stack_only':
-                switch (new_col_mode) {
-                    case '1col':
-                        lmm.go_one_col_stack_only();
-                        break;
-                    case '2col':
-                        lmm.go_two_col_stack_only();
-                        break;
-                    case '3col':
-                        lmm.go_three_col_stack_only();
-                        break;
-                }
-                break;
-            case 'canvas_only':
-                switch (new_col_mode) {
-                    case '1col':
-                        lmm.go_one_col_canvas_only();
-                        break;
-                    case '2col':
-                        lmm.go_two_col_canvas_only();
-                        break;
-                    case '3col':
-                        lmm.go_three_col_canvas_only();
-                        break;
-                }
-                break;
-        }
+    function switch_mode(layout_mode, new_num_cols) {
+        console.log('switch_mode', layout_mode, new_num_cols);
+        lmm.go(layout_mode, new_num_cols);
+//        switch (layout_mode) {
+//            case 'full':
+//                switch (new_col_mode) {
+//                    case '1col':
+//                        lmm.go_one_col_full();
+//                        break;
+//                    case '2col':
+//                        lmm.go_two_col_full();
+//                        break;
+//                    case '3col':
+//                        lmm.go_three_col_full();
+//                        break;
+//                }
+//                break;
+//            case 'stackonly':
+//                switch (new_col_mode) {
+//                    case '1col':
+//                        lmm.go_one_col_stack_only();
+//                        break;
+//                    case '2col':
+//                        lmm.go_two_col_stack_only();
+//                        break;
+//                    case '3col':
+//                        lmm.go_three_col_stack_only();
+//                        break;
+//                }
+//                break;
+//            case 'canvasonly':
+//                switch (new_col_mode) {
+//                    case '1col':
+//                        lmm.go_one_col_canvas_only();
+//                        break;
+//                    case '2col':
+//                        lmm.go_two_col_canvas_only();
+//                        break;
+//                    case '3col':
+//                        lmm.go_three_col_canvas_only();
+//                        break;
+//                }
+//                break;
+//        }
 
     }
 
@@ -191,7 +193,7 @@ function ViewOptionsController($scope) {
     $scope.show_debug = false;
     $scope.viewoptions = {
         tape_mode: false,       // true, false
-        layout_mode: "full"     // full, stack_only, canvas_only
+        layout_mode: "full"     // full, stackonly, canvasonly
     };
 
     $scope.$watch('viewoptions.layout_mode', function() {
