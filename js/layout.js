@@ -19,7 +19,6 @@
         lmm.move_widgets_out();
         $('.container').show();
     }
-
 })();
 
 
@@ -60,9 +59,6 @@ function layout_mode_mgr() {
 //        console.log($('#three-col-full .col1').height());
 //    }
 
-    // Go function - these are the high level functions
-    // layout parameter is 'full', 'stackonly', 'canvasonly'
-
     function go(layout, _num_cols) {
         console.log('switch_mode', layout, _num_cols);
         var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
@@ -78,12 +74,12 @@ function layout_mode_mgr() {
     function switch_mode(curr_layout_mode) {
         var calcwidth = $('#layouts').width();
 
-        if (calcwidth < 400 && get_num_cols() != 1)
-            lmm.go(curr_layout_mode, 1);
-        else if (calcwidth > 400 && calcwidth < 450 && get_num_cols() != 2)
-            lmm.go(curr_layout_mode, 2);
-        else if (calcwidth > 500 && calcwidth < 600 && get_num_cols() != 3)
-            lmm.go(curr_layout_mode, 3);
+        if (calcwidth < 400 && num_cols != 1)
+            go(curr_layout_mode, 1);
+        else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
+            go(curr_layout_mode, 2);
+        else if (calcwidth > 500 && calcwidth < 600 && num_cols != 3)
+            go(curr_layout_mode, 3);
     }
 
     return {
