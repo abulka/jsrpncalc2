@@ -17,15 +17,7 @@
 
     function show_all_debug() {
         lmm.move_widgets_out();
-        $('#one-col-full').show();
-        $('#one-col-stackonly').show();
-        $('#one-col-canvasonly').show();
-        $('#two-col-full').show();
-        $('#two-col-stackonly').show();
-        $('#two-col-canvasonly').show();
-        $('#three-col-full').show();
-        $('#three-col-stackonly').show();
-        $('#three-col-canvasonly').show();
+        $('.container').show();
     }
 
 })();
@@ -81,17 +73,8 @@ function layout_mode_mgr() {
         col_mode = num_cols;
     }
 
-//    function go_one_col_full() {            go('full', 1); }
-//    function go_one_col_stack_only() {      go('stackonly', 1); }
-//    function go_one_col_canvas_only() {     go('canvasonly', 1); }
-//    function go_two_col_full() {            go('full', 2); }
-//    function go_two_col_stack_only() {      go('stackonly', 2); }
-//    function go_two_col_canvas_only() {     go('canvasonly', 2); }
-//    function go_three_col_full() {          go('full', 3); }
-//    function go_three_col_stack_only() {    go('stackonly', 3); }
-//    function go_three_col_canvas_only() {   go('canvasonly', 3); }
+    function get_col_mode() { return col_mode; }
 
-    function get_col_mode() { return col_mode/*.toString() + 'col'*/; }
     function switch_mode(curr_layout_mode) {
         var calcwidth = $('#layouts').width();
 
@@ -102,18 +85,10 @@ function layout_mode_mgr() {
         else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != 3)
             lmm.go(curr_layout_mode, 3);
     }
+
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
-//        go_one_col_full:go_one_col_full,
-//        go_one_col_stack_only:go_one_col_stack_only,
-//        go_one_col_canvas_only:go_one_col_canvas_only,
-//        go_two_col_full:go_two_col_full,
-//        go_two_col_stack_only:go_two_col_stack_only,
-//        go_two_col_canvas_only:go_two_col_canvas_only,
-//        go_three_col_full:go_three_col_full,
-//        go_three_col_stack_only:go_three_col_stack_only,
-//        go_three_col_canvas_only:go_three_col_canvas_only,
         get_col_mode:get_col_mode,
         go:go,
         switch_mode:switch_mode
@@ -151,28 +126,3 @@ function ViewOptionsController($scope) {
             $('td.tape').hide();
     }, true);
 }
-
-/*
-MUSINGS
-
-Could we have an angular controller also involved in the col_mode/layout gui?
-A controller with a
-    $scope.layout_col_mode
-    $scope.one_col_layout_mode
-    $scope.two_col_layout_mode
-    $scope.three_col_layout_mode
-and a set of functions for switching modes.
-I already kind of have this in my existing "revealing module pattern" based classes.
-So why switch to an angular approach for those?
-Probably there is no point as its not wired to any GUI user control.
-But there may be some nice elegance about it perhaps.
-    Custom Event notification?
-    More standardised way of organising my code?
-
-Currently have
-    lmm
-    decider - depends on lmm
-also
-    resize function - depends on decider and angular viewoptions.layout_mode
-    angular ViewOptionsController - depends on decider, models show_debug and viewoptions.*
- */
