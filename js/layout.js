@@ -53,11 +53,11 @@ function layout_mode_mgr() {
     }
 
     function repair_layout_placeholder_texts() {
-        $('div.stack').html('_stack');
-        $('div.cmd').html('_cmd');
-        $('div.keypad').html('_keypad');
-        $('div.canvas').html('_canvas');
-        $('div.custom').html('_custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom');
+        $('div.stack').html('** stack **');
+        $('div.cmd').html('** cmd **');
+        $('div.keypad').html('** keypad **');
+        $('div.canvas').html('** canvas **');
+        $('div.custom').html('** custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom **');
     }
 
     function three_col_match_col1() {
@@ -77,13 +77,37 @@ function layout_mode_mgr() {
         $layout.show();
         col_mode = _col_mode;
     }
-    function go_one_col_full() { go($('#one-col-full'), "1col");  }
+    function go_full(num_cols) {
+        var col_mode = num_cols.toString() + "col";
+        var layout_div = {1:'one',2:'two',3:'three'}[num_cols] + '-col-full';
+        go($('#'+layout_div), col_mode);
+
+//        switch (num_cols) {
+//            case 1:
+//                go($('#one-col-full'), "1col");
+//                break;
+//            case 2:
+//                go($('#two-col-full'), "2col");
+//                break;
+//            case 3:
+//                go($('#three-col-full'), "3col");
+//                break;
+//        }
+
+    }
+    function go_stackonly(num_cols) {
+
+    }
+    function go_canvasonly(num_cols) {
+
+    }
+    function go_one_col_full() { go_full(1);  }
     function go_one_col_stack_only() { go($('#one-col-stackonly'), "1col"); }
     function go_one_col_canvas_only() { go($('#one-col-canvasonly'), "1col"); }
-    function go_two_col_full() { go($('#two-col-full'), "2col"); }
+    function go_two_col_full() { go_full(2); }
     function go_two_col_stack_only() { go($('#two-col-stackonly'), "2col"); }
     function go_two_col_canvas_only() { go($('#two-col-canvasonly'), "2col"); }
-    function go_three_col_full() { go($('#three-col-full'), "3col"); }
+    function go_three_col_full() { go_full(3); }
     function go_three_col_stack_only() { go($('#three-col-stackonly'), "3col"); }
     function go_three_col_canvas_only() { go($('#three-col-canvasonly'), "3col"); }
 
@@ -223,7 +247,7 @@ But there may be some nice elegance about it perhaps.
 
 Currently have
     lmm
-    decider - depends on lmm 
+    decider - depends on lmm
 also
     resize function - depends on decider and angular viewoptions.layout_mode
     angular ViewOptionsController - depends on decider, models show_debug and viewoptions.*
