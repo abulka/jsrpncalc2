@@ -60,7 +60,9 @@ function layout_mode_mgr() {
 //    }
 
     function go(layout, _num_cols) {
-        console.log('switch_mode', layout, _num_cols);
+        console.log('go:', layout, _num_cols);
+        if (_num_cols == undefined)
+            return;
         var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
         move_widgets_out();
         move_widgets_in($layout);
@@ -73,12 +75,13 @@ function layout_mode_mgr() {
 
     function switch_mode(curr_layout_mode) {
         var calcwidth = $('#layouts').width();
+        console.log('switch_mode: width', calcwidth, 'num_cols', num_cols);
 
         if (calcwidth < 400 && num_cols != 1)
             go(curr_layout_mode, 1);
         else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
             go(curr_layout_mode, 2);
-        else if (calcwidth > 500 && calcwidth < 600 && num_cols != 3)
+        else if (calcwidth > 450 && num_cols != 3)
             go(curr_layout_mode, 3);
     }
 

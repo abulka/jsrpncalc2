@@ -690,6 +690,20 @@
         $('#hide_custom').on('click', function(e) {
             $('#custom_keys').hide();
         });
+
+
+        $(document).ready(function() {
+         // executes when HTML-Document is loaded and DOM is ready
+//         alert("document is ready");
+        });
+
+        $(window).load(function() {
+         // executes when complete page is fully loaded (all frames, objects and images)
+//         alert("window is loaded");
+            lmm.switch_mode('full');
+        });
+
+
 	</script>
         
 </body>

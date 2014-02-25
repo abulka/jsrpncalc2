@@ -4,8 +4,6 @@ var app = {
         this.bindEvents();
 
         // if not in phonegap then go straight away I guess.
-        lmm.switch_mode('full');
-
     },
 
     // Bind Event Listeners
