@@ -25,7 +25,7 @@
 
 function layout_mode_mgr() {
 
-    var col_mode;
+    var num_cols;
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -63,33 +63,33 @@ function layout_mode_mgr() {
     // Go function - these are the high level functions
     // layout parameter is 'full', 'stackonly', 'canvasonly'
 
-    function go(layout, num_cols) {
-        console.log('switch_mode', layout, num_cols);
-        var $layout = $( '#' + layout + '-' + num_cols.toString() + 'col');
+    function go(layout, _num_cols) {
+        console.log('switch_mode', layout, _num_cols);
+        var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
         move_widgets_out();
         move_widgets_in($layout);
         $('.container').hide();
         $layout.show();
-        col_mode = num_cols;
+        num_cols = _num_cols;
     }
 
-    function get_col_mode() { return col_mode; }
+    function get_num_cols() { return num_cols; }
 
     function switch_mode(curr_layout_mode) {
         var calcwidth = $('#layouts').width();
 
-        if (calcwidth < 400 && lmm.get_col_mode() != 1)
+        if (calcwidth < 400 && get_num_cols() != 1)
             lmm.go(curr_layout_mode, 1);
-        else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != 2)
+        else if (calcwidth > 400 && calcwidth < 450 && get_num_cols() != 2)
             lmm.go(curr_layout_mode, 2);
-        else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != 3)
+        else if (calcwidth > 500 && calcwidth < 600 && get_num_cols() != 3)
             lmm.go(curr_layout_mode, 3);
     }
 
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
-        get_col_mode:get_col_mode,
+        get_num_cols:get_num_cols,
         go:go,
         switch_mode:switch_mode
     }
@@ -115,7 +115,7 @@ function ViewOptionsController($scope) {
 
     $scope.$watch('viewoptions.layout_mode', function() {
         console.log('angular watch');
-        lmm.go($scope.viewoptions.layout_mode, lmm.get_col_mode());
+        lmm.go($scope.viewoptions.layout_mode, lmm.get_num_cols());
     }, true);
 
     $scope.$watch('viewoptions.tape_mode', function() {
