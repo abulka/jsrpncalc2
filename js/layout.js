@@ -3,17 +3,17 @@
     $('#show_all_layouts').on('click', function(e) { show_all_debug(); });
     $('#tape_toggle').on('click', function(e) { $('td.tape').toggle(); });
 
-    $('#one_col_full_layout').on('click', function(e) { lmm.go_one_col_full(); });
-    $('#two_col_full_layout').on('click', function(e) { lmm.go_two_col_full(); });
-    $('#three_col_full_layout').on('click', function(e) { lmm.go_three_col_full(); });
+    $('#one_col_full_layout').on('click', function(e)   { lmm.go('full', 1); });
+    $('#two_col_full_layout').on('click', function(e)   { lmm.go('full', 2); });
+    $('#three_col_full_layout').on('click', function(e) { lmm.go('full', 3); });
 
-    $('#one_col_stack_only').on('click', function(e) { lmm.go_one_col_stack_only(); });
-    $('#two_col_stack_only').on('click', function(e) { lmm.go_two_col_stack_only(); });
-    $('#three_col_stack_only').on('click', function(e) { lmm.go_three_col_stack_only(); });
+    $('#one_col_stack_only').on('click', function(e)    { lmm.go('stackonly', 1); });
+    $('#two_col_stack_only').on('click', function(e)    { lmm.go('stackonly', 2); });
+    $('#three_col_stack_only').on('click', function(e)  { lmm.go('stackonly', 3); });
 
-    $('#one_col_canvas_only').on('click', function(e) { lmm.go_one_col_canvas_only(); });
-    $('#two_col_canvas_only').on('click', function(e) { lmm.go_two_col_canvas_only(); });
-    $('#three_col_canvas_only').on('click', function(e) { lmm.go_three_col_canvas_only(); });
+    $('#one_col_canvas_only').on('click', function(e)   { lmm.go('canvasonly', 1); });
+    $('#two_col_canvas_only').on('click', function(e)   { lmm.go('canvasonly', 2); });
+    $('#three_col_canvas_only').on('click', function(e) { lmm.go('canvasonly', 3); });
 
     function show_all_debug() {
         lmm.move_widgets_out();
@@ -81,47 +81,49 @@ function layout_mode_mgr() {
         col_mode = num_cols;
     }
 
-    function go_one_col_full() {            go('full', 1); }
-    function go_one_col_stack_only() {      go('stackonly', 1); }
-    function go_one_col_canvas_only() {     go('canvasonly', 1); }
-    function go_two_col_full() {            go('full', 2); }
-    function go_two_col_stack_only() {      go('stackonly', 2); }
-    function go_two_col_canvas_only() {     go('canvasonly', 2); }
-    function go_three_col_full() {          go('full', 3); }
-    function go_three_col_stack_only() {    go('stackonly', 3); }
-    function go_three_col_canvas_only() {   go('canvasonly', 3); }
+//    function go_one_col_full() {            go('full', 1); }
+//    function go_one_col_stack_only() {      go('stackonly', 1); }
+//    function go_one_col_canvas_only() {     go('canvasonly', 1); }
+//    function go_two_col_full() {            go('full', 2); }
+//    function go_two_col_stack_only() {      go('stackonly', 2); }
+//    function go_two_col_canvas_only() {     go('canvasonly', 2); }
+//    function go_three_col_full() {          go('full', 3); }
+//    function go_three_col_stack_only() {    go('stackonly', 3); }
+//    function go_three_col_canvas_only() {   go('canvasonly', 3); }
 
     function get_col_mode() { return col_mode/*.toString() + 'col'*/; }
+    function switch_mode(curr_layout_mode) {
+        var calcwidth = $('#layouts').width();
 
+        if (calcwidth < 400 && lmm.get_col_mode() != 1)
+            lmm.go(curr_layout_mode, 1);
+        else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != 2)
+            lmm.go(curr_layout_mode, 2);
+        else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != 3)
+            lmm.go(curr_layout_mode, 3);
+    }
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
-        go_one_col_full:go_one_col_full,
-        go_one_col_stack_only:go_one_col_stack_only,
-        go_one_col_canvas_only:go_one_col_canvas_only,
-        go_two_col_full:go_two_col_full,
-        go_two_col_stack_only:go_two_col_stack_only,
-        go_two_col_canvas_only:go_two_col_canvas_only,
-        go_three_col_full:go_three_col_full,
-        go_three_col_stack_only:go_three_col_stack_only,
-        go_three_col_canvas_only:go_three_col_canvas_only,
+//        go_one_col_full:go_one_col_full,
+//        go_one_col_stack_only:go_one_col_stack_only,
+//        go_one_col_canvas_only:go_one_col_canvas_only,
+//        go_two_col_full:go_two_col_full,
+//        go_two_col_stack_only:go_two_col_stack_only,
+//        go_two_col_canvas_only:go_two_col_canvas_only,
+//        go_three_col_full:go_three_col_full,
+//        go_three_col_stack_only:go_three_col_stack_only,
+//        go_three_col_canvas_only:go_three_col_canvas_only,
         get_col_mode:get_col_mode,
-        go:go
+        go:go,
+        switch_mode:switch_mode
     }
 }
 var lmm = layout_mode_mgr();
 
 
 $(window).resize(function(){
-    var calcwidth = $('#layouts').width();
-    var curr_layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
-
-    if (calcwidth < 400 && lmm.get_col_mode() != 1)
-        lmm.go(curr_layout_mode, 1);
-    else if (calcwidth > 400 && calcwidth < 450 && lmm.get_col_mode() != 2)
-        lmm.go(curr_layout_mode, 2);
-    else if (calcwidth > 500 && calcwidth < 600 && lmm.get_col_mode() != 3)
-        lmm.go(curr_layout_mode, 3);
+    lmm.switch_mode(angular.element($('#col_layouts')).scope().viewoptions.layout_mode);
 });
 
 function ViewOptionsController($scope) {

@@ -4,7 +4,7 @@ var app = {
         this.bindEvents();
 
         // if not in phonegap then go straight away I guess.
-        lmm.go_one_col_full();
+        lmm.switch_mode('full');
 
     },
 
