@@ -73,7 +73,8 @@ function layout_mode_mgr() {
 
     function calc_numcols_and_go(layout) {
         var calcwidth = $('#layouts').width();
-        console.log('calc_numcols_and_go: width', calcwidth, 'num_cols', num_cols);
+        console.log('calc_numcols_and_go: width', calcwidth, 'num_cols', num_cols,
+                "$(document).width()", $(document).width());
 
         if (calcwidth < 400 && num_cols != 1)
             go(layout, 1);
@@ -100,7 +101,10 @@ $(window).resize(function(){
     lmm.calc_numcols_and_go(angular.element($('#col_layouts')).scope().viewoptions.layout_mode);
 });
 
-function ViewOptionsController($scope) {
+var myApp = angular.module('myApp',[]);
+
+myApp.controller('ViewOptionsController', function($scope) {
+//function ViewOptionsController($scope) {
     /*
     This is a controller for the view options GUI radio buttons and checkbox
     The reason col_mode is not here is that this is not an explicit option in
@@ -124,4 +128,5 @@ function ViewOptionsController($scope) {
         else
             $('td.tape').hide();
     }, true);
-}
+//}
+});
