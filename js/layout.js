@@ -98,12 +98,17 @@ var lmm = layout_mode_mgr();
 
 
 $(window).resize(function(){
-    lmm.calc_numcols_and_go(angular.element($('#col_layouts')).scope().viewoptions.layout_mode);
+    var scope = angular.element($('#col_layouts')).scope();
+    var layout_mode = scope.viewoptions.layout_mode;
+    lmm.calc_numcols_and_go(layout_mode);
+
+    // experiment with sending an event on the controller from outside
+    scope.$broadcast('handleBroadcast', 'resize happened');
 });
 
 var myApp = angular.module('myApp',[]);
 
-myApp.controller('ViewOptionsController', function($scope, userRepository, logger123) {
+myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepository, logger123) {
 //function ViewOptionsController($scope) {
     /*
     This is a controller for the view options GUI radio buttons and checkbox
@@ -127,9 +132,18 @@ myApp.controller('ViewOptionsController', function($scope, userRepository, logge
             $('td.tape').show();
         else
             $('td.tape').hide();
+
+        // Exercise calling some services - for no reason
         console.log(userRepository.getAllUsers());
         logger123.logmsg('calling service ok');
+        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
     }, true);
+
+    $scope.$on('handleBroadcast', function(event, info) {
+        //$scope.message = 'ONE: ' + sharedService.message;
+        console.log('got message', info);
+    });
+
 //}
 });
 
