@@ -103,7 +103,7 @@ $(window).resize(function(){
 
 var myApp = angular.module('myApp',[]);
 
-myApp.controller('ViewOptionsController', function($scope) {
+myApp.controller('ViewOptionsController', function($scope, userRepository, logger123) {
 //function ViewOptionsController($scope) {
     /*
     This is a controller for the view options GUI radio buttons and checkbox
@@ -127,6 +127,27 @@ myApp.controller('ViewOptionsController', function($scope) {
             $('td.tape').show();
         else
             $('td.tape').hide();
+        console.log(userRepository.getAllUsers());
+        logger123.logmsg('calling service ok');
     }, true);
 //}
 });
+
+myApp.factory('userRepository', function() {
+    return {
+        getAllUsers: function() {
+           return [
+              { firstName: 'Jane', lastName: 'Doe', age: 29 },
+              { firstName: 'John', lastName: 'Doe', age: 32 }
+           ];
+        }
+     }
+ });
+
+myApp.factory('logger123', function() {
+    return {
+        logmsg: function(msg) {
+           console.log(msg);
+        }
+     }
+ });
