@@ -104,6 +104,9 @@ $(window).resize(function(){
 
     // experiment with sending an event on the controller from outside
     scope.$broadcast('handleBroadcast', 'resize happened');
+
+    // what about calling a method?
+    scope.sayhello();
 });
 
 var myApp = angular.module('myApp',[]);
@@ -144,6 +147,10 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
         console.log('got message', info);
     });
 
+    $scope.sayhello = function() {
+        //$scope.tvhours = 0;
+        console.log('hello');
+    }
 //}
 });
 
