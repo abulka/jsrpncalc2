@@ -1,30 +1,8 @@
 
-(function wire_debug_buttons() {
-    $('#show_all_layouts').on('click', function(e) { show_all_debug(); });
-    $('#tape_toggle').on('click', function(e) { $('td.tape').toggle(); });
-
-    $('#one_col_full_layout').on('click', function(e)   { lmm.go('full', 1); });
-    $('#two_col_full_layout').on('click', function(e)   { lmm.go('full', 2); });
-    $('#three_col_full_layout').on('click', function(e) { lmm.go('full', 3); });
-
-    $('#one_col_stack_only').on('click', function(e)    { lmm.go('stackonly', 1); });
-    $('#two_col_stack_only').on('click', function(e)    { lmm.go('stackonly', 2); });
-    $('#three_col_stack_only').on('click', function(e)  { lmm.go('stackonly', 3); });
-
-    $('#one_col_canvas_only').on('click', function(e)   { lmm.go('canvasonly', 1); });
-    $('#two_col_canvas_only').on('click', function(e)   { lmm.go('canvasonly', 2); });
-    $('#three_col_canvas_only').on('click', function(e) { lmm.go('canvasonly', 3); });
-
-    function show_all_debug() {
-        lmm.move_widgets_out();
-        $('.container').show();
-    }
-})();
 
 
 function layout_mode_mgr() {
 
-    var num_cols;
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -51,47 +29,9 @@ function layout_mode_mgr() {
         $('div.custom').html('** custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom **');
     }
 
-//    function three_col_match_col1() {
-//        console.log($('#three-col-full .col1').height());
-//        $('#three-col-full .col2').height($('#three-col-full .col1').height());
-//        $('#three-col-full .canvas').toggleClass('canvas100');
-//
-//        console.log($('#three-col-full .col1').height());
-//    }
-
-    function go(layout, _num_cols) {
-        console.log('go:', layout, _num_cols);
-        if (_num_cols == undefined)
-            return;
-        var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
-        move_widgets_out();
-        move_widgets_in($layout);
-        $('.container').hide();
-        $layout.show();
-        num_cols = _num_cols;
-    }
-
-    function calc_numcols_and_go(layout) {
-        var calcwidth = $('#layouts').width();
-        console.log('calc_numcols_and_go: width', calcwidth, 'num_cols', num_cols,
-                "$(document).width()", $(document).width());
-
-        if (calcwidth < 400 && num_cols != 1)
-            go(layout, 1);
-        else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
-            go(layout, 2);
-        else if (calcwidth > 450 && num_cols != 3)
-            go(layout, 3);
-    }
-
-    function get_num_cols() { return num_cols; }
-
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
-        get_num_cols:get_num_cols,
-        go:go,
-        calc_numcols_and_go:calc_numcols_and_go
     }
 }
 var lmm = layout_mode_mgr();
@@ -99,8 +39,8 @@ var lmm = layout_mode_mgr();
 
 $(window).resize(function(){
     var scope = angular.element($('#col_layouts')).scope();
-    var layout_mode = scope.viewoptions.layout_mode;
-    lmm.calc_numcols_and_go(layout_mode);
+
+    scope.calc_numcols_and_go();
 
     // experiment with sending an event on the controller from outside
     scope.$broadcast('handleBroadcast', 'resize happened');
@@ -121,12 +61,46 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
     $scope.show_debug = false;
     $scope.viewoptions = {
         tape_mode: false,       // true, false
-        layout_mode: "full"     // full, stackonly, canvasonly
+        layout_mode: "full",    // full, stackonly, canvasonly
+        num_cols: undefined      // 1,2,3
     };
+
+    $scope.calc_numcols_and_go = function() {
+        var layout = $scope.viewoptions.layout_mode;
+        var num_cols = $scope.viewoptions.num_cols;
+
+        var calcwidth = $('#layouts').width();
+        console.log('calc_numcols_and_go: width', calcwidth, 'num_cols', num_cols);
+//        console.log("$(document).width()", $(document).width());
+
+        if (calcwidth < 400 && num_cols != 1)
+            $scope.go(layout, 1);
+        else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
+            $scope.go(layout, 2);
+        else if (calcwidth > 450 && num_cols != 3)
+            $scope.go(layout, 3);
+    }
+
+    $scope.go = function(layout, _num_cols) {
+        console.log('go:', layout, _num_cols);
+        if (_num_cols == undefined)
+            return;
+        var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
+        lmm.move_widgets_out();
+        lmm.move_widgets_in($layout);
+        $('.container').hide();
+        $layout.show();
+        $scope.viewoptions.num_cols = _num_cols;
+    }
 
     $scope.$watch('viewoptions.layout_mode', function() {
         console.log('angular watch');
-        lmm.go($scope.viewoptions.layout_mode, lmm.get_num_cols());
+        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
+    }, true);
+
+    $scope.$watch('viewoptions.num_cols', function() {
+        console.log('angular watch');
+        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
     }, true);
 
     $scope.$watch('viewoptions.tape_mode', function() {
@@ -137,19 +111,18 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
             $('td.tape').hide();
 
         // Exercise calling some services - for no reason
-        console.log(userRepository.getAllUsers());
-        logger123.logmsg('calling service ok');
-        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
+//        console.log(userRepository.getAllUsers());
+//        logger123.logmsg('calling service ok');
+//        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
     }, true);
 
     $scope.$on('handleBroadcast', function(event, info) {
-        //$scope.message = 'ONE: ' + sharedService.message;
-        console.log('got message', info);
+//        console.log('got message', info);
     });
 
     $scope.sayhello = function() {
         //$scope.tvhours = 0;
-        console.log('hello');
+//        console.log('hello');
     }
 //}
 });
@@ -172,3 +145,30 @@ myApp.factory('logger123', function() {
         }
      }
  });
+
+
+
+(function wire_debug_buttons() {
+    var scope = angular.element($('#col_layouts')).scope();
+
+    $('#show_all_layouts').on('click', function(e) { show_all_debug(); });
+    $('#tape_toggle').on('click', function(e) { $('td.tape').toggle(); });
+
+//    $('#one_col_full_layout').on('click', function(e)   { scope.go('full', 1); });
+    $('#two_col_full_layout').on('click', function(e)   { scope.go('full', 2); });
+    $('#three_col_full_layout').on('click', function(e) { scope.go('full', 3); });
+
+    $('#one_col_stack_only').on('click', function(e)    { scope.go('stackonly', 1); });
+    $('#two_col_stack_only').on('click', function(e)    { scope.go('stackonly', 2); });
+    $('#three_col_stack_only').on('click', function(e)  { scope.go('stackonly', 3); });
+
+    $('#one_col_canvas_only').on('click', function(e)   { scope.go('canvasonly', 1); });
+    $('#two_col_canvas_only').on('click', function(e)   { scope.go('canvasonly', 2); });
+    $('#three_col_canvas_only').on('click', function(e) { scope.go('canvasonly', 3); });
+
+    function show_all_debug() {
+        lmm.move_widgets_out();
+        $('.container').show();
+    }
+})();
+

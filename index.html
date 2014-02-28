@@ -320,11 +320,16 @@
             Two col layout mode: <span id="two_col_layout_mode" class="layout_mode"></span>
             Three col layout mode: <span id="three_col_layout_mode" class="layout_mode"></span>
             </p>
+            {{ viewoptions.num_cols }}
+            <a href="#" ng-click="viewoptions.num_cols = 1">1col</a>
+            <a href="#" ng-click="viewoptions.num_cols = 2">2col</a>
+            <a href="#" ng-click="viewoptions.num_cols = 3">3col</a>
+            <br>
 
             <a href="#" id="show_all_layouts">show all layouts</a>
             <a href="#" id="tape_toggle">tape toggle</a>
             <br>
-            <a href="#" id="one_col_full_layout">1col-full</a>
+            <a href="#" id="one_col_full_layout" ng-click="go('full', 1)">1col-full</a>
             <a href="#" id="two_col_full_layout">2col-full</a>
             <a href="#" id="three_col_full_layout">3col-full</a>
             <br>
@@ -701,7 +706,9 @@
 
             // introduce a slight delay to allow widgets to settle and the width values more reliable
             setTimeout(function(){
-                lmm.calc_numcols_and_go('full');
+                var scope = angular.element($('#col_layouts')).scope();
+
+                scope.calc_numcols_and_go('full');
             }, 10);
 
         });
