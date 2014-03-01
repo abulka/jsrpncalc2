@@ -94,12 +94,12 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
     }
 
     $scope.$watch('viewoptions.layout_mode', function() {
-        console.log('angular watch');
+        console.log('angular watch layout_mode');
         $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
     }, true);
 
     $scope.$watch('viewoptions.num_cols', function() {
-        console.log('angular watch');
+        console.log('angular watch num_cols');
         $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
     }, true);
 
@@ -115,6 +115,16 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
 //        logger123.logmsg('calling service ok');
 //        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
     }, true);
+
+    $scope.$watch('viewoptions', function() {
+        console.log('NEW angular watch on viewoptions', $scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
+    }, true);
+    $scope.settwo = function(layout, num_cols) {
+        // Yey - I can change two model states at once and only get one watch event
+        // when watching the parent viewoptions
+        $scope.viewoptions.layout_mode = layout;
+        $scope.viewoptions.num_cols = num_cols;
+    }
 
     $scope.$on('handleBroadcast', function(event, info) {
 //        console.log('got message', info);

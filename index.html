@@ -316,30 +316,30 @@
 
         <div id="debug_area" ng-show="show_debug">
             <p>
-            One col layout mode: <span id="one_col_layout_mode" class="layout_mode"></span>
-            Two col layout mode: <span id="two_col_layout_mode" class="layout_mode"></span>
-            Three col layout mode: <span id="three_col_layout_mode" class="layout_mode"></span>
+            layout_mode = <b>{{ viewoptions.layout_mode }}</b>
+            num_cols = <b>{{ viewoptions.num_cols }}</b>
+            tape_mode = <b>{{ viewoptions.tape_mode }}</b>
             </p>
-            {{ viewoptions.num_cols }}
             <a href="#" ng-click="viewoptions.num_cols = 1">1col</a>
             <a href="#" ng-click="viewoptions.num_cols = 2">2col</a>
             <a href="#" ng-click="viewoptions.num_cols = 3">3col</a>
             <br>
+            <a href="#" ng-click="settwo('full', 1)">settwo 1col-full</a>
 
             <a href="#" id="show_all_layouts">show all layouts</a>
-            <a href="#" id="tape_toggle" ng-click="viewoptions.tape_mode = !viewoptions.tape_mode">tape toggle</a>
+            <a href="#" ng-click="viewoptions.tape_mode = !viewoptions.tape_mode">tape toggle</a>
             <br>
-            <a href="#" id="one_col_full_layout" ng-click="go('full', 1)">1col-full</a>
-            <a href="#" id="two_col_full_layout" ng-click="go('full', 2)">2col-full</a>
-            <a href="#" id="three_col_full_layout" ng-click="go('full', 3)"</a>
+            <a href="#" ng-click="go('full', 1)">1col-full</a>
+            <a href="#" ng-click="go('full', 2)">2col-full</a>
+            <a href="#" ng-click="go('full', 3)"</a>
             <br>
-            <a href="#" id="one_col_stack_only" ng-click="go('stackonly', 1)">1col-stack_only</a>
-            <a href="#" id="two_col_stack_only" ng-click="go('stackonly', 2)">2col-stack_only</a>
-            <a href="#" id="three_col_stack_only" ng-click="go('stackonly', 3)">3col-stack_only</a>
+            <a href="#" ng-click="go('stackonly', 1)">1col-stack_only</a>
+            <a href="#" ng-click="go('stackonly', 2)">2col-stack_only</a>
+            <a href="#" ng-click="go('stackonly', 3)">3col-stack_only</a>
             <br>
-            <a href="#" id="one_col_canvas_only" ng-click="go('canvasonly', 1)">1col-canvas_only</a>
-            <a href="#" id="two_col_canvas_only" ng-click="go('canvasonly', 2)">2col-canvas_only</a>
-            <a href="#" id="three_col_canvas_only" ng-click="go('canvasonly', 3)">3col-canvas_only</a>
+            <a href="#" ng-click="go('canvasonly', 1)">1col-canvas_only</a>
+            <a href="#" ng-click="go('canvasonly', 2)">2col-canvas_only</a>
+            <a href="#" ng-click="go('canvasonly', 3)">3col-canvas_only</a>
         </div> <!-- debug area -->
 
         <form>
