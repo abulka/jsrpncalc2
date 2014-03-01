@@ -327,19 +327,19 @@
             <br>
 
             <a href="#" id="show_all_layouts">show all layouts</a>
-            <a href="#" id="tape_toggle">tape toggle</a>
+            <a href="#" id="tape_toggle" ng-click="viewoptions.tape_mode = !viewoptions.tape_mode">tape toggle</a>
             <br>
             <a href="#" id="one_col_full_layout" ng-click="go('full', 1)">1col-full</a>
-            <a href="#" id="two_col_full_layout">2col-full</a>
-            <a href="#" id="three_col_full_layout">3col-full</a>
+            <a href="#" id="two_col_full_layout" ng-click="go('full', 2)">2col-full</a>
+            <a href="#" id="three_col_full_layout" ng-click="go('full', 3)"</a>
             <br>
-            <a href="#" id="one_col_stack_only">1col-stack_only</a>
-            <a href="#" id="two_col_stack_only">2col-stack_only</a>
-            <a href="#" id="three_col_stack_only">3col-stack_only</a>
+            <a href="#" id="one_col_stack_only" ng-click="go('stackonly', 1)">1col-stack_only</a>
+            <a href="#" id="two_col_stack_only" ng-click="go('stackonly', 2)">2col-stack_only</a>
+            <a href="#" id="three_col_stack_only" ng-click="go('stackonly', 3)">3col-stack_only</a>
             <br>
-            <a href="#" id="one_col_canvas_only">1col-canvas_only</a>
-            <a href="#" id="two_col_canvas_only">2col-canvas_only</a>
-            <a href="#" id="three_col_canvas_only">3col-canvas_only</a>
+            <a href="#" id="one_col_canvas_only" ng-click="go('canvasonly', 1)">1col-canvas_only</a>
+            <a href="#" id="two_col_canvas_only" ng-click="go('canvasonly', 2)">2col-canvas_only</a>
+            <a href="#" id="three_col_canvas_only" ng-click="go('canvasonly', 3)">3col-canvas_only</a>
         </div> <!-- debug area -->
 
         <form>
