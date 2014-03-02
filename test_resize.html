@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <title>test resize</title>
+
+    <link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
+</head>
+<body ng-app>
+<!--<body ng-app="myApp">-->
+
+<div id="ngDiv" ng-app ng-controller="myCtrl">
+    <div id="someDiv">
+        <p>{{infoTxt}}</p>
+
+        <p>window innersize:({{viewoptions.width}}, {{viewoptions.height}})</p>
+        <!--<p>window innersize:({{width}}, {{height}})</p>-->
+    </div>
+</div>
+
+
+<script src="js/jquery-2.1.0.js"></script>
+<script src="js/angular-1.2.9.min.js"></script>
+<script src="js/test_resize.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // executes when HTML-Document is loaded and DOM is ready
+//        tellAngular();
+    });
+
+    $(window).load(function () {
+        // executes when complete page is fully loaded (all frames, objects and images)
+        tellAngular();
+
+    });
+
+
+</script>
+
+</body>
+</html>
