@@ -1,123 +1,74 @@
 
-(function wire_debug_buttons() {
-    $('#show_all_layouts').on('click', function(e) { cmm.show_all_debug(); });
-    $('#tape_toggle').on('click', function(e) { $('td.tape').toggle(); });
+var myApp = angular.module('myApp',[]);
 
-    $('#one_col_full_layout').on('click', function(e) { lmm.go_one_col_full(); });
-    $('#two_col_full_layout').on('click', function(e) { lmm.go_two_col_full(); });
-    $('#three_col_full_layout').on('click', function(e) { lmm.go_three_col_full(); });
+myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mode_mgr, userRepository) {
 
-    $('#one_col_stack_only').on('click', function(e) { lmm.go_one_col_stack_only(); });
-    $('#two_col_stack_only').on('click', function(e) { lmm.go_two_col_stack_only(); });
-    $('#three_col_stack_only').on('click', function(e) { lmm.go_three_col_stack_only(); });
+    $scope.show_debug = false;
+    $scope.tape_mode = false;   // true, false
+    $scope.viewoptions = {
+        layout_mode: "full",    // full, stackonly, canvasonly
+        num_cols: 1             // 1,2,3
+    };
 
-    $('#one_col_canvas_only').on('click', function(e) { lmm.go_one_col_canvas_only(); });
-    $('#two_col_canvas_only').on('click', function(e) { lmm.go_two_col_canvas_only(); });
-    $('#three_col_canvas_only').on('click', function(e) { lmm.go_three_col_canvas_only(); });
-})();
-
-
-function col_mode_mgr() {
-
-    var col_mode = undefined;                // 1col or 2col or 3col
-
-    function show_all_debug() {
-        lmm.move_widgets_out();
-        $('#one-col-full').show();
-        $('#two-col-full').show();
-        $('#three-col-full').show();
-        col_mode = undefined;
+    // Convenience method to set both vars at the same time.  An alternative is to set both
+    // properties individually.
+    $scope.go = function(layout_mode, num_cols) {
+        console.log('go called, vars set to: layout_mode=', layout_mode, 'num_cols=', num_cols);
+        $scope.viewoptions.layout_mode = layout_mode;
+        $scope.viewoptions.num_cols = num_cols;
     }
 
-    function col_mode_1col() {
-        //if (col_mode == "1col") return;
-        $('#one-col-full').show();
-        $('#two-col-full').hide();
-        $('#three-col-full').hide();
-        col_mode = "1col";
-        //console.log('switched col mode to', col_mode);
-    }
-    function col_mode_2col() {
-        //if (col_mode == "2col") return;
-        $('#one-col-full').hide();
-        $('#two-col-full').show();
-        $('#three-col-full').hide();
-        col_mode = "2col";
-        //console.log('switched col mode to', col_mode);
-    }
-    function col_mode_3col() {
-        //if (col_mode == "3col") return;
-        $('#one-col-full').hide();
-        $('#two-col-full').hide();
-        $('#three-col-full').show();
-        col_mode = "3col";
-        //console.log('switched col mode to', col_mode);
-    }
+    // When watching the parent viewoptions I can change two model states at once
+    // and only get one watch event - good.  The true parameter means watch recursively inside the viewoptions model
+    $scope.$watch('viewoptions', function() {
+        console.log('$watch viewoptions');
+        layout_mode_mgr.achieve_layout($scope.viewoptions.num_cols, $scope.viewoptions.layout_mode);
+    }, true);
 
-    return {
-        show_all_debug:show_all_debug,
-        get_col_mode:function() {return col_mode;},
-        'col_mode_1col':col_mode_1col,
-        'col_mode_2col':col_mode_2col,
-        'col_mode_3col':col_mode_3col,
-    }
-}
-var cmm = col_mode_mgr();
+    $scope.$watch('tape_mode', function() {
+        console.log('angular watch tape');
+        layout_mode_mgr.achieve_tape($scope.tape_mode);
+    }, false);
 
+    // Called by the resize event and also from the dom loaded event
+    // Important: In those cases need to wrap those calls within an $apply() to get angular
+    // to recheck bindings etc since we are calling from a different 'turn' - see http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
+    $scope.on_resize = function() {
+        var layout_mode = $scope.viewoptions.layout_mode;
+        var num_cols = $scope.viewoptions.num_cols;
 
-function layout_mode_mgr() {
+        var calcwidth = $('#layouts').width();
+        console.log('on_resize: width', calcwidth, ' currently layout_mode=', layout_mode, 'num_cols=', num_cols);
+//        console.log("$(document).width()", $(document).width());
 
-    var one_col_layout_mode = 'full';        // full, stack_only, canvas_only
-    var two_col_layout_mode = 'full';        // full, stack_only, canvas_only
-    var three_col_layout_mode = 'full';      // full, stack_only, canvas_only
-
-    function calc_layout_modes() {
-        one_col_layout_mode = _calc_layout_mode_for($('#one-col-full'));
-        two_col_layout_mode = _calc_layout_mode_for($('#two-col-full'));
-        three_col_layout_mode = _calc_layout_mode_for($('#three-col-full'));
-        $('#one_col_layout_mode').text(one_col_layout_mode);
-        $('#two_col_layout_mode').text(two_col_layout_mode);
-        $('#three_col_layout_mode').text(three_col_layout_mode);
+        if (calcwidth < 400 && num_cols != 1)
+            $scope.go(layout_mode, 1);
+        else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
+            $scope.go(layout_mode, 2);
+        else if (calcwidth > 450 && num_cols != 3)
+            $scope.go(layout_mode, 3);
     }
 
-    function _calc_layout_mode_for($outer) {
-        var stack_visible = $outer.find('.stack').is(":visible");
-        var canvas_visible = $outer.find('.canvas').is(":visible");
-        if (stack_visible && canvas_visible)
-            return 'full';
-        else if (stack_visible && !canvas_visible)
-            return 'stack_only';
-        else if (!stack_visible && canvas_visible)
-            return 'canvas_only';
-        else {
-            console.log('unknown mode - neither stack or canvas are visible.', $outer, $outer.is(":visible"));
-            return undefined;
-        }
+    $scope.show_all_layouts = function() {
+        layout_mode_mgr.show_all_debug();
+
+        // Exercise calling some services - for no reason
+        console.log(userRepository.getAllUsers());
+        $rootScope.$broadcast('handleBroadcast', "show_all_debug happening");
     }
 
-    function reset_to_full_show_all() {
-        // Show all outer modes so that logic isn't corrupted by child visibility issues
-        $('#one-col-full').show();
-        $('#two-col-full').show();
-        $('#three-col-full').show();
+    $scope.$on('handleBroadcast', function(event, info) {
+        //console.log('EVENT: got message', info);
+    });
 
-        if (one_col_layout_mode == 'stack_only')
-            one_col_layout_toggle_stack_only();  // toggle it back to full
-        else if (one_col_layout_mode == 'canvas_only')
-            one_col_layout_toggle_canvas_only();  // toggle it back to full
 
-        if (two_col_layout_mode == 'stack_only')
-            two_col_layout_toggle_stack_only();  // toggle it back to full
-        else if (two_col_layout_mode == 'canvas_only')
-            two_col_layout_toggle_canvas_only();  // toggle it back to full
+});
 
-        if (three_col_layout_mode == 'stack_only')
-            three_col_layout_toggle_stack_only();  // toggle it back to full
-        else if (three_col_layout_mode == 'canvas_only')
-            three_col_layout_toggle_canvas_only();  // toggle it back to full
-
-        move_widgets_out();
-    }
+// Angular factories follow the module pattern and also the revealing module pattern :-)
+// And you don't have to create an instance of them, which is a bonus - an instance is
+// auto injected when you pass in the name of the factory to the parameter list of the
+// angular controller.
+myApp.factory('layout_mode_mgr', function() {
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -137,274 +88,64 @@ function layout_mode_mgr() {
     }
 
     function repair_layout_placeholder_texts() {
-        $('div.stack').html('_stack');
-        $('div.cmd').html('_cmd');
-        $('div.keypad').html('_keypad');
-        $('div.canvas').html('_canvas');
-        $('div.custom').html('_custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom');
+        $('div.stack').html('** stack **');
+        $('div.cmd').html('** cmd **');
+        $('div.keypad').html('** keypad **');
+        $('div.canvas').html('** canvas **');
+        $('div.custom').html('** custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom **');
     }
 
-    // Toggle layout functions - these are complex
-
-    function one_col_layout_toggle_stack_only() {
-        $('#one-col-full .canvas').toggle();
-        $('#one-col-full .row2').toggleClass('col');
-        calc_layout_modes();
-    }
-    function one_col_layout_toggle_canvas_only() {
-        if ($('#one-col-full .stack').is(":visible")) {
-            $('#one-col-full .canvas').after($('#one-col-full .cmd'));
+    function achieve_layout(num_cols, layout_mode) {
+        console.log('achieve_layout', layout_mode, num_cols);
+        if (num_cols == undefined) {
+            console.log('skipping WATCH cos num_cols is undefined')
+            return;
         }
-        else {
-            $('#one-col-full .stack').after($('#one-col-full .cmd'));
-        }
-        $('#one-col-full .stack').toggle();
-        $('#one-col-full .keypad').toggle();
-        $('#one-col-full .row1').toggle();
-
-        if ($('#one-col-full .stack').is(":visible"))
-            two_col_layout_mode = 'full';
-        else
-            two_col_layout_mode = 'canvas_only';
-        calc_layout_modes();
+        var $layout = $( '#' + layout_mode + '-' + num_cols.toString() + 'col');
+        move_widgets_out();
+        move_widgets_in($layout);
+        $('.container').hide();
+        $layout.show();
     }
 
-    function two_col_layout_toggle_stack_only() {
-        $('#two-col-full .canvas').toggle();
-        calc_layout_modes();
-    }
-    function two_col_layout_toggle_canvas_only() {
-        $('#two-col-full .stack').toggle();
-        $('#two-col-full .keypad').toggle();
-        if ($('#two-col-full .canvas').hasClass('canvas100')) {
-            $('#two-col-full .stack').after($('#two-col-full .cmd'));
-            $('#two-col-full .custom').before($('#two-col-full .canvas'));
-        }
-        else {
-            $('#two-col-full .canvas').after($('#two-col-full .cmd'));
-            $('#two-col-full .keypad').after($('#two-col-full .canvas'));
-        }
-        $('#two-col-full .canvas').toggleClass('canvas100');
-        calc_layout_modes();
-    }
-
-    function three_col_layout_toggle_stack_only() {
-        var $stack = $('#three-col-full .stack');
-        var $canvas = $('#three-col-full .canvas');
-        var $cmd = $('#three-col-full .cmd');
-        var $keypad = $('#three-col-full .keypad');
-
-        $canvas.toggle();
-        if ($stack.hasClass('stack100')) {
-            $stack.after($keypad);
-            $stack.after($cmd);
-        }
-        else {
-            $canvas.after($keypad);
-            $canvas.after($cmd);
-        }
-        $stack.toggleClass('stack100');
-        $cmd.toggleClass('cmd100');
-        $keypad.toggleClass('keypad100');
-        calc_layout_modes();
-    }
-    function three_col_layout_toggle_canvas_only() {
-        var $col2 = $('#three-col-full .col2');
-        if ($col2.hasClass('float66'))
-            $('#three-col-full .stack').after($('#three-col-full .cmd'));
-        else
-            $('#three-col-full .custom').before($('#three-col-full .cmd'));
-        $('#three-col-full .col1').toggle();
-        $col2.toggleClass('float33');
-        $col2.toggleClass('float66');
-        calc_layout_modes();
-    }
-
-    // Go functions - these are the high level functions
-
-    function go_one_col_full() {
-        reset_to_full_show_all();
-        move_widgets_in($('#one-col-full'));
-        cmm.col_mode_1col(); }
-    function go_one_col_stack_only() {
-        reset_to_full_show_all();
-        one_col_layout_toggle_stack_only();
-        move_widgets_in($('#one-col-full'));
-        cmm.col_mode_1col(); }
-    function go_one_col_canvas_only() {
-        reset_to_full_show_all();
-        one_col_layout_toggle_canvas_only();
-        move_widgets_in($('#one-col-full'));
-        cmm.col_mode_1col(); }
-
-    function go_two_col_full() {
-        reset_to_full_show_all();
-        move_widgets_in($('#two-col-full'));
-        cmm.col_mode_2col(); }
-    function go_two_col_stack_only() {
-        reset_to_full_show_all();
-        two_col_layout_toggle_stack_only();
-        move_widgets_in($('#two-col-full'));
-        cmm.col_mode_2col(); }
-    function go_two_col_canvas_only() {
-        reset_to_full_show_all();
-        two_col_layout_toggle_canvas_only();
-        move_widgets_in($('#two-col-full'));
-        cmm.col_mode_2col(); }
-
-    function go_three_col_full() {
-        reset_to_full_show_all();
-        move_widgets_in($('#three-col-full'));
-        cmm.col_mode_3col(); }
-    function go_three_col_stack_only() {
-        reset_to_full_show_all();
-        three_col_layout_toggle_stack_only();
-        move_widgets_in($('#three-col-full'));
-        cmm.col_mode_3col(); }
-    function go_three_col_canvas_only() {
-        reset_to_full_show_all();
-        three_col_layout_toggle_canvas_only();
-        move_widgets_in($('#three-col-full'));
-        cmm.col_mode_3col(); }
-
-    return {
-        calc_layout_modes:calc_layout_modes,
-        reset_to_full_show_all:reset_to_full_show_all,
-        move_widgets_in:move_widgets_in,
-        move_widgets_out:move_widgets_out,
-        go_one_col_full:go_one_col_full,
-        go_one_col_stack_only:go_one_col_stack_only,
-        go_one_col_canvas_only:go_one_col_canvas_only,
-        go_two_col_full:go_two_col_full,
-        go_two_col_stack_only:go_two_col_stack_only,
-        go_two_col_canvas_only:go_two_col_canvas_only,
-        go_three_col_full:go_three_col_full,
-        go_three_col_stack_only:go_three_col_stack_only,
-        go_three_col_canvas_only:go_three_col_canvas_only
-    }
-}
-var lmm = layout_mode_mgr();
-
-
-function LayoutDecider() {
-
-    function notify_width_change(calcwidth, layout_mode) {
-        if (calcwidth < 400 && cmm.get_col_mode() != "1col")
-            switch_mode(layout_mode, "1col");
-        else if (calcwidth > 400 && calcwidth < 450 && cmm.get_col_mode() != "2col")
-            switch_mode(layout_mode, "2col");
-        else if (calcwidth > 500 && calcwidth < 600 && cmm.get_col_mode() != "3col")
-            switch_mode(layout_mode, "3col");
-    }
-
-    function switch_mode(layout_mode, new_col_mode) {
-        console.log('switch_mode', layout_mode, new_col_mode);
-        switch (layout_mode) {
-            case 'full':
-                switch (new_col_mode) {
-                    case '1col':
-                        lmm.go_one_col_full();
-                        break;
-                    case '2col':
-                        lmm.go_two_col_full();
-                        break;
-                    case '3col':
-                        lmm.go_three_col_full();
-                        break;
-                }
-                break;
-            case 'stack_only':
-                switch (new_col_mode) {
-                    case '1col':
-                        lmm.go_one_col_stack_only();
-                        break;
-                    case '2col':
-                        lmm.go_two_col_stack_only();
-                        break;
-                    case '3col':
-                        lmm.go_three_col_stack_only();
-                        break;
-                }
-                break;
-            case 'canvas_only':
-                switch (new_col_mode) {
-                    case '1col':
-                        lmm.go_one_col_canvas_only();
-                        break;
-                    case '2col':
-                        lmm.go_two_col_canvas_only();
-                        break;
-                    case '3col':
-                        lmm.go_three_col_canvas_only();
-                        break;
-                }
-                break;
-        }
-
-    }
-
-    return {
-        switch_mode:switch_mode,
-        notify_width_change:notify_width_change
-    }
-}
-var decider = LayoutDecider();
-
-
-$(window).resize(function(){
-    var calcwidth = $('#one-col-full').width();
-    var layout_mode = angular.element($('#col_layouts')).scope().viewoptions.layout_mode;
-    decider.notify_width_change(calcwidth, layout_mode);
-});
-
-function ViewOptionsController($scope) {
-    /*
-    This is a controller for the view options GUI radio buttons and checkbox
-    The reason col_mode is not here is that this is not an explicit option in
-        the GUI and is implicitly set via the window resize/width changes.
-     */
-    $scope.show_debug = false;
-    $scope.viewoptions = {
-        tape_mode: false,       // true, false
-        layout_mode: "full"     // full, stack_only, canvas_only
-    };
-
-    $scope.$watch('viewoptions.layout_mode', function() {
-        console.log('angular watch');
-        decider.switch_mode($scope.viewoptions.layout_mode, cmm.get_col_mode());
-    }, true);
-
-    $scope.$watch('viewoptions.tape_mode', function() {
-        console.log('angular watch tape');
-        if ($scope.viewoptions.tape_mode)
+    function achieve_tape(show_tape) {
+        if (show_tape)
             $('td.tape').show();
         else
             $('td.tape').hide();
-    }, true);
-}
+    }
 
-/*
-MUSINGS
+    function show_all_debug() {
+        move_widgets_out();
+        $('.container').show();
+    }
 
-Could we have an angular controller also involved in the col_mode/layout gui?
-A controller with a
-    $scope.layout_col_mode
-    $scope.one_col_layout_mode
-    $scope.two_col_layout_mode
-    $scope.three_col_layout_mode
-and a set of functions for switching modes.
-I already kind of have this in my existing "revealing module pattern" based classes.
-So why switch to an angular approach for those?
-Probably there is no point as its not wired to any GUI user control.
-But there may be some nice elegance about it perhaps.
-    Custom Event notification?
-    More standardised way of organising my code?
+    return {
+        move_widgets_in:move_widgets_in,
+        move_widgets_out:move_widgets_out,
+        achieve_layout:achieve_layout,
+        achieve_tape:achieve_tape,
+        show_all_debug:show_all_debug
+    }
+});
 
-Currently have
-    cmm - depends on lmm, models col_mode
-    lmm - depends on cmm
-    decider - depends on lmm and cmm
-also
-    resize function - depends on decider and angular viewoptions.layout_mode
-    angular ViewOptionsController - depends on decider, models show_debug and viewoptions.*
- */
+myApp.factory('userRepository', function() {
+    return {
+        getAllUsers: function() {
+           return [
+              { firstName: 'Jane', lastName: 'Doe', age: 29 },
+              { firstName: 'John', lastName: 'Doe', age: 32 }
+           ];
+        }
+     }
+ });
+
+$(window).resize(function(){
+    var scope = angular.element($('#col_layouts')).scope();
+
+    scope.$apply(scope.on_resize());  // need apply so that events trigger
+
+    // experiment with sending an event on the controller from outside
+    scope.$broadcast('handleBroadcast', 'resize happened');
+
+});
