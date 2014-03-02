@@ -1,11 +1,11 @@
 
 var myApp = angular.module('myApp',[]);
 
-myApp.controller('ViewOptionsController', function($scope, $rootScope, lmm, userRepository, logger123) {
+myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mode_mgr, userRepository, logger123) {
 //function ViewOptionsController($scope) {
 
     $scope.show_debug = false;
-    tape_mode: false,           // true, false
+    $scope.tape_mode = false;   // true, false
     $scope.viewoptions = {
         layout_mode: "full",    // full, stackonly, canvasonly
         num_cols: 1             // 1,2,3
@@ -23,7 +23,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, lmm, user
     // and only get one watch event - good.  The true parameter means watch recursively inside the viewoptions model
     $scope.$watch('viewoptions', function() {
         console.log('$watch viewoptions');
-        lmm.achieve_layout($scope.viewoptions.num_cols, $scope.viewoptions.layout_mode);
+        layout_mode_mgr.achieve_layout($scope.viewoptions.num_cols, $scope.viewoptions.layout_mode);
     }, true);
 
     // Called by the resize event and also from the dom loaded event
@@ -48,7 +48,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, lmm, user
     // also the functionality should be injected external too
     $scope.$watch('tape_mode', function() {
         console.log('angular watch tape');
-        lmm.achieve_tape($scope.tape_mode);
+        layout_mode_mgr.achieve_tape($scope.tape_mode);
 
         // Exercise calling some services - for no reason
 //        console.log(userRepository.getAllUsers());
@@ -57,7 +57,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, lmm, user
     }, true);
 
     $scope.show_all_layouts = function() {
-        lmm.show_all_debug();
+        layout_mode_mgr.show_all_debug();
     }
     $scope.$on('handleBroadcast', function(event, info) {
 //        console.log('got message', info);
@@ -90,7 +90,7 @@ myApp.factory('logger123', function() {
  });
 
 
-myApp.factory('lmm', function() {
+myApp.factory('layout_mode_mgr', function() {  // angular factories follow the module pattern and also the revealing module pattern :-)
 //function layout_mode_mgr() {
 
     function move_widgets_in($target) {
@@ -119,8 +119,6 @@ myApp.factory('lmm', function() {
     }
 
     function achieve_layout(num_cols, layout_mode) {
-//        var layout_mode = $scope.viewoptions.layout_mode;
-//        var num_cols = $scope.viewoptions.num_cols;
         console.log('achieve_layout', layout_mode, num_cols);
         if (num_cols == undefined) {
             console.log('skipping WATCH cos num_cols is undefined')
@@ -152,10 +150,7 @@ myApp.factory('lmm', function() {
         achieve_tape:achieve_tape,
         show_all_debug:show_all_debug
     }
- });
-
-//var lmm = layout_mode_mgr();
-
+});
 
 
 $(window).resize(function(){
