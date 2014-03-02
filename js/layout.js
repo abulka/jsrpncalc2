@@ -40,7 +40,7 @@ var lmm = layout_mode_mgr();
 $(window).resize(function(){
     var scope = angular.element($('#col_layouts')).scope();
 
-    scope.calc_numcols_and_go();
+    scope.$apply(scope.on_resize());  // need apply so that events trigger
 
     // experiment with sending an event on the controller from outside
     scope.$broadcast('handleBroadcast', 'resize happened');
@@ -62,46 +62,47 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
     $scope.viewoptions = {
         tape_mode: false,       // true, false
         layout_mode: "full",    // full, stackonly, canvasonly
-        num_cols: undefined      // 1,2,3
+        num_cols: 1      // 1,2,3
     };
 
-    $scope.calc_numcols_and_go = function() {
-        var layout = $scope.viewoptions.layout_mode;
+    $scope.on_resize = function() {
+        var layout_mode = $scope.viewoptions.layout_mode;
         var num_cols = $scope.viewoptions.num_cols;
 
         var calcwidth = $('#layouts').width();
-        console.log('calc_numcols_and_go: width', calcwidth, 'num_cols', num_cols);
+        console.log('on_resize: width', calcwidth, ' currently layout_mode=', layout_mode, 'num_cols=', num_cols);
 //        console.log("$(document).width()", $(document).width());
 
         if (calcwidth < 400 && num_cols != 1)
-            $scope.go(layout, 1);
+            $scope.go(layout_mode, 1);
         else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
-            $scope.go(layout, 2);
+            $scope.go(layout_mode, 2);
         else if (calcwidth > 450 && num_cols != 3)
-            $scope.go(layout, 3);
+            $scope.go(layout_mode, 3);
+        //$scope.achieve_layout();  // call manually since watch doesn't work
     }
 
-    $scope.go = function(layout, _num_cols) {
-        console.log('go:', layout, _num_cols);
-        if (_num_cols == undefined)
-            return;
-        var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
-        lmm.move_widgets_out();
-        lmm.move_widgets_in($layout);
-        $('.container').hide();
-        $layout.show();
-        $scope.viewoptions.num_cols = _num_cols;
-    }
+//    $scope.go = function(layout, _num_cols) {
+//        console.log('go:', layout, _num_cols);
+//        if (_num_cols == undefined)
+//            return;
+//        var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
+//        lmm.move_widgets_out();
+//        lmm.move_widgets_in($layout);
+//        $('.container').hide();
+//        $layout.show();
+//        $scope.viewoptions.num_cols = _num_cols;
+//    }
 
-    $scope.$watch('viewoptions.layout_mode', function() {
-        console.log('angular watch layout_mode');
-        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
-    }, true);
+//    $scope.$watch('viewoptions.layout_mode', function() {
+//        console.log('angular watch layout_mode');
+//        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
+//    }, true);
 
-    $scope.$watch('viewoptions.num_cols', function() {
-        console.log('angular watch num_cols');
-        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
-    }, true);
+//    $scope.$watch('viewoptions.num_cols', function() {
+//        console.log('angular watch num_cols');
+//        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
+//    }, true);
 
     $scope.$watch('viewoptions.tape_mode', function() {
         console.log('angular watch tape');
@@ -116,14 +117,39 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
 //        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
     }, true);
 
+    $scope.onModelChange = function (newValue, oldValue, scope) {
+        console.log('model changed > newValue: ' + newValue + ' > oldValue: ' + oldValue);
+    };
+
+//    $scope.$watch($scope.viewoptions, $scope.onModelChange, true);
+    $scope.$watch($scope.viewoptions.num_cols, $scope.onModelChange, true);
+
     $scope.$watch('viewoptions', function() {
-        console.log('NEW angular watch on viewoptions', $scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
+        console.log('$watch viewoptions');
+        $scope.achieve_layout();
     }, true);
-    $scope.settwo = function(layout, num_cols) {
+    $scope.achieve_layout = function() {
+        var layout_mode = $scope.viewoptions.layout_mode;
+        var num_cols = $scope.viewoptions.num_cols;
+        console.log('achieve_layout', layout_mode, num_cols);
+        if (num_cols == undefined) {
+            console.log('skipping WATCH cos num_cols is undefined')
+            return;
+        }
+        var $layout = $( '#' + layout_mode + '-' + num_cols.toString() + 'col');
+        lmm.move_widgets_out();
+        lmm.move_widgets_in($layout);
+        $('.container').hide();
+        $layout.show();
+    }
+    $scope.go = function(layout_mode, num_cols) {
         // Yey - I can change two model states at once and only get one watch event
         // when watching the parent viewoptions
-        $scope.viewoptions.layout_mode = layout;
+//        $scope.viewoptions.layout_mode = layout_mode;
+        $scope.viewoptions.layout_mode = layout_mode;
         $scope.viewoptions.num_cols = num_cols;
+        console.log('go called, vars set to: layout_mode=', layout_mode, 'num_cols=', num_cols);
+
     }
 
     $scope.$on('handleBroadcast', function(event, info) {

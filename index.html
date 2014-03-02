@@ -320,18 +320,22 @@
             num_cols = <b>{{ viewoptions.num_cols }}</b>
             tape_mode = <b>{{ viewoptions.tape_mode }}</b>
             </p>
+            <a href="#" ng-click="viewoptions.layout_mode = 'full'">full</a>
+            <a href="#" ng-click="viewoptions.layout_mode = 'stackonly'">stackonly</a>
+            <a href="#" ng-click="viewoptions.layout_mode = 'canvasonly'">canvasonly</a>
+            <br>
             <a href="#" ng-click="viewoptions.num_cols = 1">1col</a>
             <a href="#" ng-click="viewoptions.num_cols = 2">2col</a>
             <a href="#" ng-click="viewoptions.num_cols = 3">3col</a>
             <br>
-            <a href="#" ng-click="settwo('full', 1)">settwo 1col-full</a>
-
             <a href="#" id="show_all_layouts">show all layouts</a>
+
             <a href="#" ng-click="viewoptions.tape_mode = !viewoptions.tape_mode">tape toggle</a>
             <br>
+            <a href="#" ng-click="viewoptions.layout_mode = 'full'; viewoptions.num_cols = 1">1col-full V2</a>
             <a href="#" ng-click="go('full', 1)">1col-full</a>
             <a href="#" ng-click="go('full', 2)">2col-full</a>
-            <a href="#" ng-click="go('full', 3)"</a>
+            <a href="#" ng-click="go('full', 3)">3col-full</a>
             <br>
             <a href="#" ng-click="go('stackonly', 1)">1col-stack_only</a>
             <a href="#" ng-click="go('stackonly', 2)">2col-stack_only</a>
@@ -708,7 +712,12 @@
             setTimeout(function(){
                 var scope = angular.element($('#col_layouts')).scope();
 
-                scope.calc_numcols_and_go('full');
+//                scope.on_resize();
+//                scope.num_cols = 3;
+                scope.$apply(function(){
+                    scope.viewoptions.num_cols = 3;
+                });
+
             }, 10);
 
         });
