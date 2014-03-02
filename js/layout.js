@@ -1,7 +1,7 @@
 
 var myApp = angular.module('myApp',[]);
 
-myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mode_mgr, userRepository) {
+myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mode_mgr, column_config) {
 
     $scope.show_debug = false;
     $scope.tape_mode = false;   // true, false
@@ -34,26 +34,26 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
     // Important: In those cases need to wrap those calls within an $apply() to get angular
     // to recheck bindings etc since we are calling from a different 'turn' - see http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
     $scope.on_resize = function() {
-        var layout_mode = $scope.viewoptions.layout_mode;
-        var num_cols = $scope.viewoptions.num_cols;
-
         var calcwidth = $('#layouts').width();
         //console.log('on_resize: width', calcwidth, ' currently layout_mode=', layout_mode, 'num_cols=', num_cols);
         //console.log("$(document).width()", $(document).width());
 
-        if (calcwidth < 400 && num_cols != 1)
-            $scope.go(layout_mode, 1);
-        else if (calcwidth > 400 && calcwidth < 450 && num_cols != 2)
-            $scope.go(layout_mode, 2);
-        else if (calcwidth > 450 && num_cols != 3)
-            $scope.go(layout_mode, 3);
+        for (var i=0; i < column_config.trigger_widths().length; i++) {
+            var c = column_config.trigger_widths()[i];
+            if (calcwidth >= c.from
+             && calcwidth <= c.to
+             && $scope.viewoptions.num_cols != c.num_cols_should_be) {
+                $scope.go($scope.viewoptions.layout_mode, c.num_cols_should_be);
+                break;
+            }
+        }
     }
 
     $scope.show_all_layouts = function() {
         layout_mode_mgr.show_all_debug();
 
         // Exercise calling some services - for no reason
-        console.log(userRepository.getAllUsers());
+        console.log(column_config.trigger_widths());
         $rootScope.$broadcast('handleBroadcast', "show_all_debug happening");
     }
 
@@ -126,12 +126,13 @@ myApp.factory('layout_mode_mgr', function() {
     }
 });
 
-myApp.factory('userRepository', function() {
+myApp.factory('column_config', function() {
     return {
-        getAllUsers: function() {
+        trigger_widths: function() {
            return [
-              { firstName: 'Jane', lastName: 'Doe', age: 29 },
-              { firstName: 'John', lastName: 'Doe', age: 32 }
+              { from: 0, to: 450, num_cols_should_be: 1 },
+              { from: 451, to: 750, num_cols_should_be: 2 },
+              { from: 751, to: 9999, num_cols_should_be: 3 }
            ];
         }
      }
