@@ -318,7 +318,7 @@
             <p>
             layout_mode = <b>{{ viewoptions.layout_mode }}</b>
             num_cols = <b>{{ viewoptions.num_cols }}</b>
-            tape_mode = <b>{{ viewoptions.tape_mode }}</b>
+            tape_mode = <b>{{ tape_mode }}</b>
             </p>
             <a href="#" ng-click="viewoptions.layout_mode = 'full'">full</a>
             <a href="#" ng-click="viewoptions.layout_mode = 'stackonly'">stackonly</a>
@@ -330,7 +330,7 @@
             <br>
             <a href="#" id="show_all_layouts">show all layouts</a>
 
-            <a href="#" ng-click="viewoptions.tape_mode = !viewoptions.tape_mode">tape toggle</a>
+            <a href="#" ng-click="tape_mode = !tape_mode">tape toggle</a>
             <br>
             <a href="#" ng-click="viewoptions.layout_mode = 'full'; viewoptions.num_cols = 1">1col-full V2</a>
             <a href="#" ng-click="go('full', 1)">1col-full</a>
@@ -358,7 +358,7 @@
                 <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.layout_mode" value="canvasonly">
                 <label for="radio-choice-canvas_only">canvas_only</label>
 
-                <input type="checkbox" id="checkbox-printout_tape" ng-model="viewoptions.tape_mode" data-mini="true">
+                <input type="checkbox" id="checkbox-printout_tape" ng-model="tape_mode" data-mini="true">
                 <label for="checkbox-printout_tape">printout_tape</label>
             </fieldset>
         </form>

@@ -68,8 +68,8 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
 //function ViewOptionsController($scope) {
 
     $scope.show_debug = false;
+    tape_mode: false,           // true, false
     $scope.viewoptions = {
-        tape_mode: false,       // true, false
         layout_mode: "full",    // full, stackonly, canvasonly
         num_cols: 1             // 1,2,3
     };
@@ -110,9 +110,9 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
 
     // Need to move tape mode out of viewoptions
     // also the functionality should be injected external too
-    $scope.$watch('viewoptions.tape_mode', function() {
+    $scope.$watch('tape_mode', function() {
         console.log('angular watch tape');
-        if ($scope.viewoptions.tape_mode)
+        if ($scope.tape_mode)
             $('td.tape').show();
         else
             $('td.tape').hide();
