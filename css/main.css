@@ -13,7 +13,7 @@ a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 .pink { background: pink; }
 
 .container { background: HoneyDew; height:auto;}
-#hidden_holding_area { display: none; }
+.hidden_holding_area { display: none; }
 .tape { display:none; width:20%; background: white; }
 .stack  { background: #c6ff9b;}
 .cmd    { background: #909990;}
@@ -21,23 +21,10 @@ a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 .custom { background: #A8B2A8;}
 .canvas { background: #ddba5f;}
 
-/*.stack100  { height: 100%; }*/
-/*.cmd100    { height: 15%; }*/
-/*.keypad100 { height: 85%; }*/
-/*.canvas100  { height: 100%; }*/
-/*.canvas100  { height: auto; }*/
-/*#canvas {height:200px; }*/
 
-/*.col { height:150px; }*/
-/*.col { height:250px; }*/
-/*.col { height:auto; }*/
 .float50 { float:left; width:50%; }
 .float33 { float:left; width:33.3%; }
 .float66 { float:left; width:66.6%; }
-
-/*#one-col-full .row2 .canvas { height: 66%; }*/
-/*#two-col-full .col2 .canvas { height: 40%; }*/
-/*#three-col-full .col2 .canvas { height: 100%; }*/
 
 .layout_mode { background: orange }
 div#debug_area {background: #97d8fc; padding: 0.5em;}

@@ -13,7 +13,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
     // Convenience method to set both vars at the same time.  An alternative is to set both
     // properties individually.
     $scope.go = function(layout_mode, num_cols) {
-        console.log('go called, vars set to: layout_mode=', layout_mode, 'num_cols=', num_cols);
+        //console.log('go called, vars set to: layout_mode=', layout_mode, 'num_cols=', num_cols);
         $scope.viewoptions.layout_mode = layout_mode;
         $scope.viewoptions.num_cols = num_cols;
     }
@@ -21,12 +21,12 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
     // When watching the parent viewoptions I can change two model states at once
     // and only get one watch event - good.  The true parameter means watch recursively inside the viewoptions model
     $scope.$watch('viewoptions', function() {
-        console.log('$watch viewoptions');
+        //console.log('$watch viewoptions');
         layout_mode_mgr.achieve_layout($scope.viewoptions.num_cols, $scope.viewoptions.layout_mode);
     }, true);
 
     $scope.$watch('tape_mode', function() {
-        console.log('angular watch tape');
+        //console.log('angular watch tape');
         layout_mode_mgr.achieve_tape($scope.tape_mode);
     }, false);
 
@@ -69,6 +69,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
 // auto injected when you pass in the name of the factory to the parameter list of the
 // angular controller.
 myApp.factory('layout_mode_mgr', function() {
+    var $root_dom = $('#col_layouts');  // wish Angular could detect this and pass it in
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -79,11 +80,12 @@ myApp.factory('layout_mode_mgr', function() {
     }
 
     function move_widgets_out() {
-        $('#holding_area').after($('#stack'));
-        $('#holding_area').after($('#cmd'));
-        $('#holding_area').after($('#keypad'));
-        $('#holding_area').after($('#canvas'));
-        $('#holding_area').after($('#custom'));
+        $root_dom.find('.holding_area')
+            .after($('#stack'))
+            .after($('#cmd'))
+            .after($('#keypad'))
+            .after($('#canvas'))
+            .after($('#custom'));
         repair_layout_placeholder_texts();
     }
 
