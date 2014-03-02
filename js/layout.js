@@ -38,8 +38,8 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
         var num_cols = $scope.viewoptions.num_cols;
 
         var calcwidth = $('#layouts').width();
-        console.log('on_resize: width', calcwidth, ' currently layout_mode=', layout_mode, 'num_cols=', num_cols);
-//        console.log("$(document).width()", $(document).width());
+        //console.log('on_resize: width', calcwidth, ' currently layout_mode=', layout_mode, 'num_cols=', num_cols);
+        //console.log("$(document).width()", $(document).width());
 
         if (calcwidth < 400 && num_cols != 1)
             $scope.go(layout_mode, 1);
@@ -90,23 +90,18 @@ myApp.factory('layout_mode_mgr', function() {
     }
 
     function repair_layout_placeholder_texts() {
-        $('div.stack').html('** stack **');
-        $('div.cmd').html('** cmd **');
-        $('div.keypad').html('** keypad **');
-        $('div.canvas').html('** canvas **');
-        $('div.custom').html('** custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom **');
+        $root_dom.find('div.stack').html('** stack **');
+        $root_dom.find('div.cmd').html('** cmd **');
+        $root_dom.find('div.keypad').html('** keypad **');
+        $root_dom.find('div.canvas').html('** canvas **');
+        $root_dom.find('div.custom').html('** custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom **');
     }
 
     function achieve_layout(num_cols, layout_mode) {
-        console.log('achieve_layout', layout_mode, num_cols);
-        if (num_cols == undefined) {
-            console.log('skipping WATCH cos num_cols is undefined')
-            return;
-        }
-        var $layout = $( '#' + layout_mode + '-' + num_cols.toString() + 'col');
+        var $layout = $root_dom.find('.' + layout_mode + '-' + num_cols.toString() + 'col');
         move_widgets_out();
         move_widgets_in($layout);
-        $('.container').hide();
+        $root_dom.find('.container').hide();
         $layout.show();
     }
 
