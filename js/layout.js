@@ -1,8 +1,7 @@
 
 var myApp = angular.module('myApp',[]);
 
-myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mode_mgr, userRepository, logger123) {
-//function ViewOptionsController($scope) {
+myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mode_mgr, userRepository) {
 
     $scope.show_debug = false;
     $scope.tape_mode = false;   // true, false
@@ -26,6 +25,11 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
         layout_mode_mgr.achieve_layout($scope.viewoptions.num_cols, $scope.viewoptions.layout_mode);
     }, true);
 
+    $scope.$watch('tape_mode', function() {
+        console.log('angular watch tape');
+        layout_mode_mgr.achieve_tape($scope.tape_mode);
+    }, false);
+
     // Called by the resize event and also from the dom loaded event
     // Important: In those cases need to wrap those calls within an $apply() to get angular
     // to recheck bindings etc since we are calling from a different 'turn' - see http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
@@ -45,53 +49,26 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
             $scope.go(layout_mode, 3);
     }
 
-    // also the functionality should be injected external too
-    $scope.$watch('tape_mode', function() {
-        console.log('angular watch tape');
-        layout_mode_mgr.achieve_tape($scope.tape_mode);
-
-        // Exercise calling some services - for no reason
-//        console.log(userRepository.getAllUsers());
-//        logger123.logmsg('calling service ok');
-//        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
-    }, true);
-
     $scope.show_all_layouts = function() {
         layout_mode_mgr.show_all_debug();
+
+        // Exercise calling some services - for no reason
+        console.log(userRepository.getAllUsers());
+        $rootScope.$broadcast('handleBroadcast', "show_all_debug happening");
     }
+
     $scope.$on('handleBroadcast', function(event, info) {
-//        console.log('got message', info);
+        //console.log('EVENT: got message', info);
     });
 
-    $scope.sayhello = function() {
-        //$scope.tvhours = 0;
-//        console.log('hello');
-    }
-//}
+
 });
 
-myApp.factory('userRepository', function() {
-    return {
-        getAllUsers: function() {
-           return [
-              { firstName: 'Jane', lastName: 'Doe', age: 29 },
-              { firstName: 'John', lastName: 'Doe', age: 32 }
-           ];
-        }
-     }
- });
-
-myApp.factory('logger123', function() {
-    return {
-        logmsg: function(msg) {
-           console.log(msg);
-        }
-     }
- });
-
-
-myApp.factory('layout_mode_mgr', function() {  // angular factories follow the module pattern and also the revealing module pattern :-)
-//function layout_mode_mgr() {
+// Angular factories follow the module pattern and also the revealing module pattern :-)
+// And you don't have to create an instance of them, which is a bonus - an instance is
+// auto injected when you pass in the name of the factory to the parameter list of the
+// angular controller.
+myApp.factory('layout_mode_mgr', function() {
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -152,6 +129,16 @@ myApp.factory('layout_mode_mgr', function() {  // angular factories follow the m
     }
 });
 
+myApp.factory('userRepository', function() {
+    return {
+        getAllUsers: function() {
+           return [
+              { firstName: 'Jane', lastName: 'Doe', age: 29 },
+              { firstName: 'John', lastName: 'Doe', age: 32 }
+           ];
+        }
+     }
+ });
 
 $(window).resize(function(){
     var scope = angular.element($('#col_layouts')).scope();
@@ -161,6 +148,4 @@ $(window).resize(function(){
     // experiment with sending an event on the controller from outside
     scope.$broadcast('handleBroadcast', 'resize happened');
 
-    // what about calling a method?
-    scope.sayhello();
 });
