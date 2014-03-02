@@ -26,9 +26,25 @@ function layout_mode_mgr() {
         $('div.custom').html('** custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom _custom **');
     }
 
+    function achieve_layout(num_cols, layout_mode) {
+//        var layout_mode = $scope.viewoptions.layout_mode;
+//        var num_cols = $scope.viewoptions.num_cols;
+        console.log('achieve_layout', layout_mode, num_cols);
+        if (num_cols == undefined) {
+            console.log('skipping WATCH cos num_cols is undefined')
+            return;
+        }
+        var $layout = $( '#' + layout_mode + '-' + num_cols.toString() + 'col');
+        move_widgets_out();
+        move_widgets_in($layout);
+        $('.container').hide();
+        $layout.show();
+    }
+
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
+        achieve_layout:achieve_layout
     }
 }
 var lmm = layout_mode_mgr();
@@ -70,7 +86,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
     // and only get one watch event - good.  The true parameter means watch recursively inside the viewoptions model
     $scope.$watch('viewoptions', function() {
         console.log('$watch viewoptions');
-        $scope.achieve_layout();
+        lmm.achieve_layout($scope.viewoptions.num_cols, $scope.viewoptions.layout_mode);
     }, true);
 
     // Called by the resize event and also from the dom loaded event
@@ -92,7 +108,8 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
             $scope.go(layout_mode, 3);
     }
 
-
+    // Need to move tape mode out of viewoptions
+    // also the functionality should be injected external too
     $scope.$watch('viewoptions.tape_mode', function() {
         console.log('angular watch tape');
         if ($scope.viewoptions.tape_mode)
@@ -105,23 +122,6 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
 //        logger123.logmsg('calling service ok');
 //        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
     }, true);
-
-
-    // should turn this into an external, injected function
-    $scope.achieve_layout = function() {
-        var layout_mode = $scope.viewoptions.layout_mode;
-        var num_cols = $scope.viewoptions.num_cols;
-        console.log('achieve_layout', layout_mode, num_cols);
-        if (num_cols == undefined) {
-            console.log('skipping WATCH cos num_cols is undefined')
-            return;
-        }
-        var $layout = $( '#' + layout_mode + '-' + num_cols.toString() + 'col');
-        lmm.move_widgets_out();
-        lmm.move_widgets_in($layout);
-        $('.container').hide();
-        $layout.show();
-    }
 
     $scope.$on('handleBroadcast', function(event, info) {
 //        console.log('got message', info);
