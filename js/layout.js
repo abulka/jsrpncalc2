@@ -48,11 +48,17 @@ function layout_mode_mgr() {
             $('td.tape').hide();
     }
 
+    function show_all_debug() {
+        move_widgets_out();
+        $('.container').show();
+    }
+
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
         achieve_layout:achieve_layout,
-        achieve_tape:achieve_tape
+        achieve_tape:achieve_tape,
+        show_all_debug:show_all_debug
     }
 }
 var lmm = layout_mode_mgr();
@@ -116,7 +122,6 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
             $scope.go(layout_mode, 3);
     }
 
-    // Need to move tape mode out of viewoptions
     // also the functionality should be injected external too
     $scope.$watch('tape_mode', function() {
         console.log('angular watch tape');
@@ -128,6 +133,9 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
 //        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
     }, true);
 
+    $scope.show_all_layouts = function() {
+        lmm.show_all_debug();
+    }
     $scope.$on('handleBroadcast', function(event, info) {
 //        console.log('got message', info);
     });
@@ -157,16 +165,4 @@ myApp.factory('logger123', function() {
         }
      }
  });
-
-
-
-(function wire_debug_buttons() {
-
-    $('#show_all_layouts').on('click', function(e) { show_all_debug(); });
-
-    function show_all_debug() {
-        lmm.move_widgets_out();
-        $('.container').show();
-    }
-})();
 
