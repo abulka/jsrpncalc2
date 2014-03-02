@@ -1,8 +1,5 @@
 
-
-
 function layout_mode_mgr() {
-
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -53,18 +50,32 @@ var myApp = angular.module('myApp',[]);
 
 myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepository, logger123) {
 //function ViewOptionsController($scope) {
-    /*
-    This is a controller for the view options GUI radio buttons and checkbox
-    The reason col_mode is not here is that this is not an explicit option in
-        the GUI and is implicitly set via the window resize/width changes.
-     */
+
     $scope.show_debug = false;
     $scope.viewoptions = {
         tape_mode: false,       // true, false
         layout_mode: "full",    // full, stackonly, canvasonly
-        num_cols: 1      // 1,2,3
+        num_cols: 1             // 1,2,3
     };
 
+    // Convenience method to set both vars at the same time.  An alternative is to set both
+    // properties individually.
+    $scope.go = function(layout_mode, num_cols) {
+        console.log('go called, vars set to: layout_mode=', layout_mode, 'num_cols=', num_cols);
+        $scope.viewoptions.layout_mode = layout_mode;
+        $scope.viewoptions.num_cols = num_cols;
+    }
+
+    // When watching the parent viewoptions I can change two model states at once
+    // and only get one watch event - good.  The true parameter means watch recursively inside the viewoptions model
+    $scope.$watch('viewoptions', function() {
+        console.log('$watch viewoptions');
+        $scope.achieve_layout();
+    }, true);
+
+    // Called by the resize event and also from the dom loaded event
+    // Important: In those cases need to wrap those calls within an $apply() to get angular
+    // to recheck bindings etc since we are calling from a different 'turn' - see http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
     $scope.on_resize = function() {
         var layout_mode = $scope.viewoptions.layout_mode;
         var num_cols = $scope.viewoptions.num_cols;
@@ -79,30 +90,8 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
             $scope.go(layout_mode, 2);
         else if (calcwidth > 450 && num_cols != 3)
             $scope.go(layout_mode, 3);
-        //$scope.achieve_layout();  // call manually since watch doesn't work
     }
 
-//    $scope.go = function(layout, _num_cols) {
-//        console.log('go:', layout, _num_cols);
-//        if (_num_cols == undefined)
-//            return;
-//        var $layout = $( '#' + layout + '-' + _num_cols.toString() + 'col');
-//        lmm.move_widgets_out();
-//        lmm.move_widgets_in($layout);
-//        $('.container').hide();
-//        $layout.show();
-//        $scope.viewoptions.num_cols = _num_cols;
-//    }
-
-//    $scope.$watch('viewoptions.layout_mode', function() {
-//        console.log('angular watch layout_mode');
-//        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
-//    }, true);
-
-//    $scope.$watch('viewoptions.num_cols', function() {
-//        console.log('angular watch num_cols');
-//        $scope.go($scope.viewoptions.layout_mode, $scope.viewoptions.num_cols);
-//    }, true);
 
     $scope.$watch('viewoptions.tape_mode', function() {
         console.log('angular watch tape');
@@ -117,17 +106,8 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
 //        $rootScope.$broadcast('handleBroadcast', $scope.show_debug);
     }, true);
 
-    $scope.onModelChange = function (newValue, oldValue, scope) {
-        console.log('model changed > newValue: ' + newValue + ' > oldValue: ' + oldValue);
-    };
 
-//    $scope.$watch($scope.viewoptions, $scope.onModelChange, true);
-    $scope.$watch($scope.viewoptions.num_cols, $scope.onModelChange, true);
-
-    $scope.$watch('viewoptions', function() {
-        console.log('$watch viewoptions');
-        $scope.achieve_layout();
-    }, true);
+    // should turn this into an external, injected function
     $scope.achieve_layout = function() {
         var layout_mode = $scope.viewoptions.layout_mode;
         var num_cols = $scope.viewoptions.num_cols;
@@ -141,15 +121,6 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
         lmm.move_widgets_in($layout);
         $('.container').hide();
         $layout.show();
-    }
-    $scope.go = function(layout_mode, num_cols) {
-        // Yey - I can change two model states at once and only get one watch event
-        // when watching the parent viewoptions
-//        $scope.viewoptions.layout_mode = layout_mode;
-        $scope.viewoptions.layout_mode = layout_mode;
-        $scope.viewoptions.num_cols = num_cols;
-        console.log('go called, vars set to: layout_mode=', layout_mode, 'num_cols=', num_cols);
-
     }
 
     $scope.$on('handleBroadcast', function(event, info) {
@@ -185,22 +156,8 @@ myApp.factory('logger123', function() {
 
 
 (function wire_debug_buttons() {
-//    var scope = angular.element($('#col_layouts')).scope();
 
     $('#show_all_layouts').on('click', function(e) { show_all_debug(); });
-//    $('#tape_toggle').on('click', function(e) { $('td.tape').toggle(); });
-
-//    $('#one_col_full_layout').on('click', function(e)   { scope.go('full', 1); });
-//    $('#two_col_full_layout').on('click', function(e)   { scope.go('full', 2); });
-//    $('#three_col_full_layout').on('click', function(e) { scope.go('full', 3); });
-//
-//    $('#one_col_stack_only').on('click', function(e)    { scope.go('stackonly', 1); });
-//    $('#two_col_stack_only').on('click', function(e)    { scope.go('stackonly', 2); });
-//    $('#three_col_stack_only').on('click', function(e)  { scope.go('stackonly', 3); });
-//
-//    $('#one_col_canvas_only').on('click', function(e)   { scope.go('canvasonly', 1); });
-//    $('#two_col_canvas_only').on('click', function(e)   { scope.go('canvasonly', 2); });
-//    $('#three_col_canvas_only').on('click', function(e) { scope.go('canvasonly', 3); });
 
     function show_all_debug() {
         lmm.move_widgets_out();

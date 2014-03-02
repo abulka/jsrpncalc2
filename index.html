@@ -711,13 +711,7 @@
             // introduce a slight delay to allow widgets to settle and the width values more reliable
             setTimeout(function(){
                 var scope = angular.element($('#col_layouts')).scope();
-
-//                scope.on_resize();
-//                scope.num_cols = 3;
-                scope.$apply(function(){
-                    scope.viewoptions.num_cols = 3;
-                });
-
+                scope.$apply(scope.on_resize());  // need apply so that events trigger
             }, 10);
 
         });
