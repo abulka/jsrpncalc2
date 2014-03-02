@@ -1,7 +1,7 @@
 
 var myApp = angular.module('myApp',[]);
 
-myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepository, logger123) {
+myApp.controller('ViewOptionsController', function($scope, $rootScope, lmm, userRepository, logger123) {
 //function ViewOptionsController($scope) {
 
     $scope.show_debug = false;
@@ -90,7 +90,8 @@ myApp.factory('logger123', function() {
  });
 
 
-function layout_mode_mgr() {
+myApp.factory('lmm', function() {
+//function layout_mode_mgr() {
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -151,8 +152,9 @@ function layout_mode_mgr() {
         achieve_tape:achieve_tape,
         show_all_debug:show_all_debug
     }
-}
-var lmm = layout_mode_mgr();
+ });
+
+//var lmm = layout_mode_mgr();
 
 
 
