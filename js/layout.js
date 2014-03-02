@@ -33,8 +33,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
     // Called by the resize event and also from the dom loaded event
     // Important: In those cases need to wrap those calls within an $apply() to get angular
     // to recheck bindings etc since we are calling from a different 'turn' - see http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
-    $scope.on_resize = function() {
-        var calcwidth = $('#layouts').width();
+    $scope.on_resize = function(calcwidth) {
         //console.log('on_resize: width', calcwidth, ' currently layout_mode=', layout_mode, 'num_cols=', num_cols);
         //console.log("$(document).width()", $(document).width());
 
@@ -140,8 +139,8 @@ myApp.factory('column_config', function() {
 
 $(window).resize(function(){
     var scope = angular.element($('#col_layouts')).scope();
-
-    scope.$apply(scope.on_resize());  // need apply so that events trigger
+    var calc_width = $('#col_layouts .layout_templates').width();
+    scope.$apply(scope.on_resize(calc_width));  // need apply so that events trigger
 
     // experiment with sending an event on the controller from outside
     scope.$broadcast('handleBroadcast', 'resize happened');

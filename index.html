@@ -365,7 +365,7 @@
 
         <div class="spacer"></div>
 
-        <div id="layouts">
+        <div class="layout_templates">
 
             <div class="container full-1col">
               <table>
@@ -711,7 +711,8 @@
             // introduce a slight delay to allow widgets to settle and the width values more reliable
             setTimeout(function(){
                 var scope = angular.element($('#col_layouts')).scope();
-                scope.$apply(scope.on_resize());  // need apply so that events trigger
+                var calc_width = $('#col_layouts .layout_templates').width();
+                scope.$apply(scope.on_resize(calc_width));  // need apply so that events trigger
             }, 10);
 
         });
