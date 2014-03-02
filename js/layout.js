@@ -107,14 +107,14 @@ myApp.factory('layout_mode_mgr', function() {
 
     function achieve_tape(show_tape) {
         if (show_tape)
-            $('td.tape').show();
+            $root_dom.find('td.tape').show();
         else
-            $('td.tape').hide();
+            $root_dom.find('td.tape').hide();
     }
 
     function show_all_debug() {
         move_widgets_out();
-        $('.container').show();
+        $root_dom.find('.container').show();
     }
 
     return {
