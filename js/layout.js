@@ -41,10 +41,18 @@ function layout_mode_mgr() {
         $layout.show();
     }
 
+    function achieve_tape(show_tape) {
+        if (show_tape)
+            $('td.tape').show();
+        else
+            $('td.tape').hide();
+    }
+
     return {
         move_widgets_in:move_widgets_in,
         move_widgets_out:move_widgets_out,
-        achieve_layout:achieve_layout
+        achieve_layout:achieve_layout,
+        achieve_tape:achieve_tape
     }
 }
 var lmm = layout_mode_mgr();
@@ -112,10 +120,7 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, userRepos
     // also the functionality should be injected external too
     $scope.$watch('tape_mode', function() {
         console.log('angular watch tape');
-        if ($scope.tape_mode)
-            $('td.tape').show();
-        else
-            $('td.tape').hide();
+        lmm.achieve_tape($scope.tape_mode);
 
         // Exercise calling some services - for no reason
 //        console.log(userRepository.getAllUsers());
