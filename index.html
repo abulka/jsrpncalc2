@@ -710,9 +710,7 @@
 
             // introduce a slight delay to allow widgets to settle and the width values more reliable
             setTimeout(function(){
-                var scope = angular.element($('#col_layouts')).scope();
-                var calc_width = $('#col_layouts .layout_templates').width();
-                scope.$apply(scope.on_resize(calc_width));  // need apply so that events trigger
+                onResize();
             }, 10);
 
         });

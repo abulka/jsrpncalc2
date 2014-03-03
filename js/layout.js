@@ -1,4 +1,6 @@
 
+var $root_dom = $('#col_layouts');  // wish Angular could detect this and pass it in
+
 var myApp = angular.module('myApp',[]);
 
 myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mode_mgr, column_config) {
@@ -68,7 +70,6 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
 // auto injected when you pass in the name of the factory to the parameter list of the
 // angular controller.
 myApp.factory('layout_mode_mgr', function() {
-    var $root_dom = $('#col_layouts');  // wish Angular could detect this and pass it in
 
     function move_widgets_in($target) {
         $target.find('.stack').html($('#stack'));
@@ -138,11 +139,14 @@ myApp.factory('column_config', function() {
  });
 
 $(window).resize(function(){
-    var scope = angular.element($('#col_layouts')).scope();
-    var calc_width = $('#col_layouts .layout_templates').width();
+    onResize();
+});
+
+function onResize() {
+    var scope = angular.element($root_dom).scope();
+    var calc_width = $root_dom.find('.layout_templates').width();
     scope.$apply(scope.on_resize(calc_width));  // need apply so that events trigger
 
     // experiment with sending an event on the controller from outside
     scope.$broadcast('handleBroadcast', 'resize happened');
-
-});
+}
