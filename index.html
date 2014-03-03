@@ -20,9 +20,37 @@
 <div data-role="header" class="hdr">jsrpncalc2 header</div>
 <div data-role="content">
 
-<p><a href="#main">Goto main</a>
-    <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
-</p>
+<a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="origin"
+   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View
+    Options...</a>
+
+<div data-role="popup" id="popupViewOptions" data-theme="a" class="ui-corner-all">
+    <form>
+        <div style="padding:10px 20px;">
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.layout_mode" value="full"
+                       checked="checked">
+                <label for="radio-choice-full">full</label>
+
+                <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.layout_mode"
+                       value="stackonly">
+                <label for="radio-choice-stack_only">stack_only</label>
+
+                <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.layout_mode"
+                       value="canvasonly">
+                <label for="radio-choice-canvas_only">canvas_only</label>
+
+                <input type="checkbox" id="checkbox-printout_tape" ng-model="tape_mode" data-mini="true">
+                <label for="checkbox-printout_tape">printout_tape</label>
+            </fieldset>
+        </div>
+    </form>
+    <p>
+        <a href="#options">Goto editor</a>
+        <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
+    </p>
+
+</div>
 
 <div id="debug_area" ng-show="show_debug">
     <p>
@@ -57,23 +85,6 @@
 </div>
 <!-- debug area -->
 
-<form>
-    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-        <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.layout_mode" value="full"
-               checked="checked">
-        <label for="radio-choice-full">full</label>
-
-        <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.layout_mode" value="stackonly">
-        <label for="radio-choice-stack_only">stack_only</label>
-
-        <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.layout_mode"
-               value="canvasonly">
-        <label for="radio-choice-canvas_only">canvas_only</label>
-
-        <input type="checkbox" id="checkbox-printout_tape" ng-model="tape_mode" data-mini="true">
-        <label for="checkbox-printout_tape">printout_tape</label>
-    </fieldset>
-</form>
 
 <div class="layout_templates">
 
@@ -372,10 +383,59 @@
 </div>
 <!-- hidden_holding_area -->
 
+
 </div>
 <!-- content -->
 <div data-role="footer">The footer</div>
 </div>
+
+
+<!-- Start of second page -->
+<div data-role="page" id="options">
+
+    <div data-role="header">
+        <h1>options</h1>
+    </div>
+    <!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that
+            references my id is being clicked.</p>
+
+        <p><a href="#col_layouts">Back to Calc</a></p>
+
+        <form>
+            <label for="slider-0">Input slider:</label>
+            <input type="range" name="slider" id="slider-0" value="25" min="0" max="100"/>
+        </form>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <div class="ui-bar ui-bar-a" style="height:60px">Block A</div>
+            </div>
+            <div class="ui-block-b">
+                <div class="ui-bar ui-bar-a" style="height:60px">Block B</div>
+            </div>
+        </div>
+        <!-- /grid-a -->
+
+        <div class="ui-grid-b ui-responsive">
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-arrow-l">Back
+                to order</a></div>
+            <div class="ui-block-b"><input type="button" data-icon="plus" value="Add products"></div>
+            <div class="ui-block-c"><input type="button" data-icon="check" data-iconpos="right" value="Confirm order">
+            </div>
+        </div>
+
+    </div>
+    <!-- /content -->
+
+    <div data-role="footer">
+        <h4>Page Footer</h4>
+    </div>
+    <!-- /footer -->
+</div>
+<!-- /page -->
 
 
 <script src="phonegap.js"></script>
