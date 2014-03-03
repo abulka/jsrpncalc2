@@ -3,128 +3,132 @@
 <head>
     <title>jsrpncalc2 relaxed approach with responsive design</title>
 
-        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-        <meta content="utf-8" http-equiv="encoding">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
 
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />-->
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />-->
 
-		<link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
-		<link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body ng-app="myApp">
 
-    <div data-role="page" id="col_layouts" ng-controller="ViewOptionsController">
-        <div data-role="header" class="hdr">jsrpncalc2 header</div>
-        <div data-role="content">
+<div data-role="page" id="col_layouts" ng-controller="ViewOptionsController">
+<div data-role="header" class="hdr">jsrpncalc2 header</div>
+<div data-role="content">
 
-        <p><a href="#main">Goto main</a>
-            <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
-        </p>
+<p><a href="#main">Goto main</a>
+    <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
+</p>
 
-        <div id="debug_area" ng-show="show_debug">
-            <p>
-            layout_mode = <b>{{ viewoptions.layout_mode }}</b>
-            num_cols = <b>{{ viewoptions.num_cols }}</b>
-            tape_mode = <b>{{ tape_mode }}</b>
-            </p>
-            <a href="#" ng-click="viewoptions.layout_mode = 'full'">full</a>
-            <a href="#" ng-click="viewoptions.layout_mode = 'stackonly'">stackonly</a>
-            <a href="#" ng-click="viewoptions.layout_mode = 'canvasonly'">canvasonly</a>
-            <br>
-            <a href="#" ng-click="viewoptions.num_cols = 1">1col</a>
-            <a href="#" ng-click="viewoptions.num_cols = 2">2col</a>
-            <a href="#" ng-click="viewoptions.num_cols = 3">3col</a>
-            <br>
-            <a href="#" ng-click="show_all_layouts()">show all layouts</a>
+<div id="debug_area" ng-show="show_debug">
+    <p>
+        layout_mode = <b>{{ viewoptions.layout_mode }}</b>
+        num_cols = <b>{{ viewoptions.num_cols }}</b>
+        tape_mode = <b>{{ tape_mode }}</b>
+    </p>
+    <a href="#" ng-click="viewoptions.layout_mode = 'full'">full</a>
+    <a href="#" ng-click="viewoptions.layout_mode = 'stackonly'">stackonly</a>
+    <a href="#" ng-click="viewoptions.layout_mode = 'canvasonly'">canvasonly</a>
+    <br>
+    <a href="#" ng-click="viewoptions.num_cols = 1">1col</a>
+    <a href="#" ng-click="viewoptions.num_cols = 2">2col</a>
+    <a href="#" ng-click="viewoptions.num_cols = 3">3col</a>
+    <br>
+    <a href="#" ng-click="show_all_layouts()">show all layouts</a>
 
-            <a href="#" ng-click="tape_mode = !tape_mode">tape toggle</a>
-            <br>
-            <a href="#" ng-click="viewoptions.layout_mode = 'full'; viewoptions.num_cols = 1">1col-full V2</a>
-            <a href="#" ng-click="go('full', 1)">1col-full</a>
-            <a href="#" ng-click="go('full', 2)">2col-full</a>
-            <a href="#" ng-click="go('full', 3)">3col-full</a>
-            <br>
-            <a href="#" ng-click="go('stackonly', 1)">1col-stack_only</a>
-            <a href="#" ng-click="go('stackonly', 2)">2col-stack_only</a>
-            <a href="#" ng-click="go('stackonly', 3)">3col-stack_only</a>
-            <br>
-            <a href="#" ng-click="go('canvasonly', 1)">1col-canvas_only</a>
-            <a href="#" ng-click="go('canvasonly', 2)">2col-canvas_only</a>
-            <a href="#" ng-click="go('canvasonly', 3)">3col-canvas_only</a>
-        </div> <!-- debug area -->
+    <a href="#" ng-click="tape_mode = !tape_mode">tape toggle</a>
+    <br>
+    <a href="#" ng-click="viewoptions.layout_mode = 'full'; viewoptions.num_cols = 1">1col-full V2</a>
+    <a href="#" ng-click="go('full', 1)">1col-full</a>
+    <a href="#" ng-click="go('full', 2)">2col-full</a>
+    <a href="#" ng-click="go('full', 3)">3col-full</a>
+    <br>
+    <a href="#" ng-click="go('stackonly', 1)">1col-stack_only</a>
+    <a href="#" ng-click="go('stackonly', 2)">2col-stack_only</a>
+    <a href="#" ng-click="go('stackonly', 3)">3col-stack_only</a>
+    <br>
+    <a href="#" ng-click="go('canvasonly', 1)">1col-canvas_only</a>
+    <a href="#" ng-click="go('canvasonly', 2)">2col-canvas_only</a>
+    <a href="#" ng-click="go('canvasonly', 3)">3col-canvas_only</a>
+</div>
+<!-- debug area -->
 
-        <form>
-            Layout mode is currently {{ viewoptions.layout_mode }}
-            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.layout_mode" value="full" checked="checked">
-                <label for="radio-choice-full">full</label>
+<form>
+    Layout mode is currently {{ viewoptions.layout_mode }}
+    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+        <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.layout_mode" value="full"
+               checked="checked">
+        <label for="radio-choice-full">full</label>
 
-                <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.layout_mode" value="stackonly">
-                <label for="radio-choice-stack_only">stack_only</label>
+        <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.layout_mode" value="stackonly">
+        <label for="radio-choice-stack_only">stack_only</label>
 
-                <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.layout_mode" value="canvasonly">
-                <label for="radio-choice-canvas_only">canvas_only</label>
+        <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.layout_mode"
+               value="canvasonly">
+        <label for="radio-choice-canvas_only">canvas_only</label>
 
-                <input type="checkbox" id="checkbox-printout_tape" ng-model="tape_mode" data-mini="true">
-                <label for="checkbox-printout_tape">printout_tape</label>
-            </fieldset>
-        </form>
+        <input type="checkbox" id="checkbox-printout_tape" ng-model="tape_mode" data-mini="true">
+        <label for="checkbox-printout_tape">printout_tape</label>
+    </fieldset>
+</form>
 
-        <div class="spacer"></div>
+<div class="spacer"></div>
 
-        <div class="layout_templates">
+<div class="layout_templates">
 
-            <div class="container full-1col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
+    <div class="container full-1col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
                     <div class="stack"></div>
                     <div class="cmd"></div>
                     <div class="keypad"></div>
                     <div class="canvas"></div>
                     <div class="custom"></div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="container stackonly-1col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
+    <div class="container stackonly-1col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
                     <div class="stack"></div>
                     <div class="cmd"></div>
                     <div class="keypad"></div>
                     <div class="custom"></div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="container canvasonly-1col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
+    <div class="container canvasonly-1col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
                     <div class="canvas"></div>
                     <div class="cmd"></div>
                     <div class="custom"></div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="spacer"></div>
+    <div class="spacer"></div>
 
-            <div class="container full-2col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
+    <div class="container full-2col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
                     <div class="col1 col float50">
                         <div class="stack"></div>
                         <div class="cmd"></div>
@@ -134,16 +138,16 @@
                         <div class="canvas"></div>
                         <div class="custom"></div>
                     </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="container stackonly-2col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
+    <div class="container stackonly-2col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
                     <div class="col1 col float50">
                         <div class="stack"></div>
                         <div class="cmd"></div>
@@ -152,16 +156,16 @@
                     <div class="col2 col float50">
                         <div class="custom"></div>
                     </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="container canvasonly-2col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
+    <div class="container canvasonly-2col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
                     <div class="col1 col float50">
                         <div class="canvas"></div>
                     </div>
@@ -169,206 +173,210 @@
                         <div class="cmd"></div>
                         <div class="custom"></div>
                     </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="spacer"></div>
+    <div class="spacer"></div>
 
-            <div class="container full-3col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
-                      <div class="col1 col float33">
-                          <div class="stack"></div>
-                          <div class="cmd"></div>
-                          <div class="keypad"></div>
-                      </div>
-                      <div class="col2 col float33">
-                          <div class="canvas"></div>
-                      </div>
-                      <div class="col3 col float33">
-                          <div class="custom"></div>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-            </div>
+    <div class="container full-3col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
+                    <div class="col1 col float33">
+                        <div class="stack"></div>
+                        <div class="cmd"></div>
+                        <div class="keypad"></div>
+                    </div>
+                    <div class="col2 col float33">
+                        <div class="canvas"></div>
+                    </div>
+                    <div class="col3 col float33">
+                        <div class="custom"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="container stackonly-3col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
-                      <div class="col1 col float33">
-                          <div class="stack"></div>
-                      </div>
-                      <div class="col2 col float33">
-                          <div class="cmd"></div>
-                          <div class="keypad"></div>
-                      </div>
-                      <div class="col3 col float33">
-                          <div class="custom"></div>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-            </div>
+    <div class="container stackonly-3col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
+                    <div class="col1 col float33">
+                        <div class="stack"></div>
+                    </div>
+                    <div class="col2 col float33">
+                        <div class="cmd"></div>
+                        <div class="keypad"></div>
+                    </div>
+                    <div class="col3 col float33">
+                        <div class="custom"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <div class="container canvasonly-3col">
-              <table>
-                <tr>
-                  <td class="tape">_tape</td>
-                  <td class="calc">
-                      <div class="col1 col float66">
-                          <div class="canvas"></div>
-                      </div>
-                      <div class="col2 col float33">
-                          <div class="cmd"></div>
-                          <div class="custom"></div>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-            </div>
-        </div>  <!-- layouts -->
+    <div class="container canvasonly-3col">
+        <table>
+            <tr>
+                <td class="tape">_tape</td>
+                <td class="calc">
+                    <div class="col1 col float66">
+                        <div class="canvas"></div>
+                    </div>
+                    <div class="col2 col float33">
+                        <div class="cmd"></div>
+                        <div class="custom"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- layouts -->
 
-        <div class="hidden_holding_area">
-            <div class="holding_area"></div>
+<div class="hidden_holding_area">
+    <div class="holding_area"></div>
 
-            <div id="stack" class="yellow widget">RPN Stack
-                 <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test1">test1</a>
-                 <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test2">test2</a>
-                 <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test3">test3</a>
-                 <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test4">test4</a>
+    <div id="stack" class="yellow widget">RPN Stack
+        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test1">test1</a>
+        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test2">test2</a>
+        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test3">test3</a>
+        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test4">test4</a>
 
-            </div>
-            <div id="cmd" class="chartreuse widget">Cmd Input</div>
-            <div id="canvas" class="orange widget">Canvas</div>
-            <div id="keypad" class="cyan widget">Keypad
-                <div class="ui-body ui-body-d">
-                    <h4>Keypad</h4>
-                    <div>
-                        <input type="text" id="current"/>
+    </div>
+    <div id="cmd" class="chartreuse widget">Cmd Input</div>
+    <div id="canvas" class="orange widget">Canvas</div>
+    <div id="keypad" class="cyan widget">Keypad
+        <div class="ui-body ui-body-d">
+            <h4>Keypad</h4>
+
+            <div>
+                <input type="text" id="current"/>
+
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickEnter">ENTER</a>
+                    </div>
+                    <div class="ui-block-b">
                         <div class="ui-grid-a">
                             <div class="ui-block-a">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickEnter">ENTER</a>
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickAC">AC</a>
                             </div>
                             <div class="ui-block-b">
-                                <div class="ui-grid-a">
-                                    <div class="ui-block-a">
-                                         <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickAC">AC</a>
-                                    </div>
-                                    <div class="ui-block-b">
-                                         <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickC">C</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui-grid-c">
-                            <div class="ui-block-a">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
-                            </div>
-                            <div class="ui-block-b">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
-                            </div>
-                            <div class="ui-block-c">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
-                            </div>
-                            <div class="ui-block-d">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_divide">/</a>
-                            </div>
-                        </div>
-                        <div class="ui-grid-c">
-                            <div class="ui-block-a">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click4">4</a>
-                            </div>
-                            <div class="ui-block-b">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click5">5</a>
-                            </div>
-                            <div class="ui-block-c">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
-                            </div>
-                            <div class="ui-block-d">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_times">*</a>
-                            </div>
-                        </div>
-                        <div class="ui-grid-c">
-                            <div class="ui-block-a">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click1">1</a>
-                            </div>
-                            <div class="ui-block-b">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click2">2</a>
-                            </div>
-                            <div class="ui-block-c">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click3">3</a>
-                            </div>
-                            <div class="ui-block-d">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_minus">-</a>
-                            </div>
-                        </div>
-                        <div class="ui-grid-c">
-                            <div class="ui-block-a">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click0">0</a>
-                            </div>
-                            <div class="ui-block-b">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_dot">.</a>
-                            </div>
-                            <div class="ui-block-c">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_rs">R/S</a>
-                            </div>
-                            <div class="ui-block-d">
-                                 <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_add">+</a>
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickC">C</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_divide">/</a>
+                    </div>
+                </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click4">4</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click5">5</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_times">*</a>
+                    </div>
+                </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click1">1</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click2">2</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click3">3</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_minus">-</a>
+                    </div>
+                </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click0">0</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_dot">.</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_rs">R/S</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_add">+</a>
+                    </div>
+                </div>
             </div>
-            <div id="custom" class="pink widget">Custom Buttons etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc maybe some widgets here too etc etc etc etc and lots more buttons potentially etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc
-                <button class="ui-btn ui-mini ui-btn-inline">Custom Button</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Pi</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Another Button</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Custom 123</button>
-                <button class="ui-btn ui-mini ui-btn-inline">AA</button>
-                <button class="ui-btn ui-mini ui-btn-inline">BB</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Button</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Button000</button>
-                <button class="ui-btn ui-mini ui-btn-inline">123</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Pop</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Push Array</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Calc</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Quantum</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Loop 1</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Demo 1</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Demo 2</button>
-                <button class="ui-btn ui-mini ui-btn-inline">run_animation</button>
-                <button class="ui-btn ui-mini ui-btn-inline">Exp</button>
-            </div>
-        </div>  <!-- hidden_holding_area -->
+        </div>
 
-        </div> <!-- content -->
-      <div data-role="footer">The footer</div>
     </div>
+    <div id="custom" class="pink widget">Custom Buttons etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc
+        maybe some widgets here too etc etc etc etc and lots more buttons potentially etc etc etc etc etc etc etc etc
+        etc etc etc etc etc etc etc etc
+        <button class="ui-btn ui-mini ui-btn-inline">Custom Button</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Pi</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Another Button</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Custom 123</button>
+        <button class="ui-btn ui-mini ui-btn-inline">AA</button>
+        <button class="ui-btn ui-mini ui-btn-inline">BB</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Button</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Button000</button>
+        <button class="ui-btn ui-mini ui-btn-inline">123</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Pop</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Push Array</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Calc</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Quantum</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Loop 1</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Demo 1</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Demo 2</button>
+        <button class="ui-btn ui-mini ui-btn-inline">run_animation</button>
+        <button class="ui-btn ui-mini ui-btn-inline">Exp</button>
+    </div>
+</div>
+<!-- hidden_holding_area -->
+
+</div>
+<!-- content -->
+<div data-role="footer">The footer</div>
+</div>
 
 
+<script src="phonegap.js"></script>
+<script src="js/jquery-2.1.0.js"></script>
+<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
+<script src="js/angular-1.2.9.min.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/index.js"></script>
+<script type="text/javascript">
+
+    app.initialize();
 
 
+</script>
 
-	<script src="phonegap.js"></script>
-	<script src="js/jquery-2.1.0.js"></script>
-	<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
-	<script src="js/angular-1.2.9.min.js"></script>
-    <script src="js/layout.js"></script>
-	<script src="js/index.js"></script>
-	<script type="text/javascript">
-
-	    app.initialize();
-
-
-	</script>
-        
 </body>
 </html>
