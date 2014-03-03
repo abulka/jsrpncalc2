@@ -58,7 +58,6 @@
 <!-- debug area -->
 
 <form>
-    Layout mode is currently {{ viewoptions.layout_mode }}
     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
         <input type="radio" name="A" id="radio-choice-full" ng-model="viewoptions.layout_mode" value="full"
                checked="checked">
@@ -75,8 +74,6 @@
         <label for="checkbox-printout_tape">printout_tape</label>
     </fieldset>
 </form>
-
-<div class="spacer"></div>
 
 <div class="layout_templates">
 
@@ -243,92 +240,108 @@
 <div class="hidden_holding_area">
     <div class="holding_area"></div>
 
-    <div id="stack" class="yellow widget">RPN Stack
-        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test1">test1</a>
-        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test2">test2</a>
-        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test3">test3</a>
-        <a href="#" class="ui-btn ui-shadow ui-corner-all ui-mini" id="test4">test4</a>
+    <div id="stack" class="yellow widget">
+        <p class="rowA">100</p>
+
+        <p class="rowB"><b>[1,2,3,4,5,100]</b></p>
+
+        <p class="rowA">2.098</p>
+
+        <p class="rowB"><b>12322.22098</b></p>
+
+        <p class="rowA">55</p>
+
+        <p class="rowB"><b>43</b></p>
+
+        <p class="rowA">2055</p>
+
+        <p class="rowB"><b>{'a':100, 'b':[2,3,4,4,5]}</b></p>
+
+        <p class="rowA">155</p>
+
+        <p class="rowB"><b>143</b></p>
+
+        <p class="rowA">255</p>
+
+        <p class="rowB"><b>243</b></p>
+
 
     </div>
-    <div id="cmd" class="chartreuse widget">Cmd Input</div>
+    <div id="cmd" class="chartreuse widget">
+        <input type="text" id="current"/>
+    </div>
     <div id="canvas" class="orange widget">Canvas</div>
-    <div id="keypad" class="cyan widget">Keypad
+    <div id="keypad" class="cyan widget">
         <div class="ui-body ui-body-d">
-            <h4>Keypad</h4>
-
-            <div>
-                <input type="text" id="current"/>
-
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickEnter">ENTER</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <div class="ui-grid-a">
-                            <div class="ui-block-a">
-                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickAC">AC</a>
-                            </div>
-                            <div class="ui-block-b">
-                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickC">C</a>
-                            </div>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickEnter">ENTER</a>
+                </div>
+                <div class="ui-block-b">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickAC">AC</a>
+                        </div>
+                        <div class="ui-block-b">
+                            <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickC">C</a>
                         </div>
                     </div>
                 </div>
-                <div class="ui-grid-c">
-                    <div class="ui-block-a">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
-                    </div>
-                    <div class="ui-block-d">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_divide">/</a>
-                    </div>
+            </div>
+            <div class="ui-grid-c">
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
                 </div>
-                <div class="ui-grid-c">
-                    <div class="ui-block-a">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click4">4</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click5">5</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
-                    </div>
-                    <div class="ui-block-d">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_times">*</a>
-                    </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
                 </div>
-                <div class="ui-grid-c">
-                    <div class="ui-block-a">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click1">1</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click2">2</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click3">3</a>
-                    </div>
-                    <div class="ui-block-d">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_minus">-</a>
-                    </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
                 </div>
-                <div class="ui-grid-c">
-                    <div class="ui-block-a">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click0">0</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_dot">.</a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_rs">R/S</a>
-                    </div>
-                    <div class="ui-block-d">
-                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_add">+</a>
-                    </div>
+                <div class="ui-block-d">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_divide">/</a>
+                </div>
+            </div>
+            <div class="ui-grid-c">
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click4">4</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click5">5</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
+                </div>
+                <div class="ui-block-d">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_times">*</a>
+                </div>
+            </div>
+            <div class="ui-grid-c">
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click1">1</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click2">2</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click3">3</a>
+                </div>
+                <div class="ui-block-d">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_minus">-</a>
+                </div>
+            </div>
+            <div class="ui-grid-c">
+                <div class="ui-block-a">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click0">0</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_dot">.</a>
+                </div>
+                <div class="ui-block-c">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_rs">R/S</a>
+                </div>
+                <div class="ui-block-d">
+                    <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_add">+</a>
                 </div>
             </div>
         </div>

@@ -100,6 +100,7 @@ myApp.factory('layout_mode_mgr', function () {
         move_widgets_out();
         move_widgets_in($layout);
         $root_dom.find('.container').hide();
+        $root_dom.find('.spacer').hide();
         $layout.show();
     }
 
@@ -112,6 +113,7 @@ myApp.factory('layout_mode_mgr', function () {
 
     function show_all_debug() {
         move_widgets_out();
+        $root_dom.find('.spacer').show();
         $root_dom.find('.container').show();
     }
 

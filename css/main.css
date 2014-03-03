@@ -1,8 +1,8 @@
-.rowA { background: yellow; margin-top: -15px;  }
-.rowB { background: orange; margin-top: -15px; }
+.rowA { background: yellow; margin-top: 0px; margin-bottom: 0px;  }
+.rowB { background: orange; margin-top: 0px; margin-bottom: 0px; }
 
 div.widget { height: 100%; }
-.spacer {clear:both; height: 10px; margin:10px; width:100%; }
+.spacer {clear:both; height: 20px; margin:10px; width:100%; }
 a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 
 .yellow { background: yellow; }
