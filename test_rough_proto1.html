@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+    <title>jsrpncalc2 ROUGH PROTO 1</title>
+
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />-->
+
+    <link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div data-role="page" id="main" class="ui-responsive-panel">
+
+    <div data-role="header">
+        <h1>jsrpncalc2 main rough proto</h1>
+    </div>
+    <!-- /header -->
+
+    <div data-role="content">
+
+        <ul id="nav" data-role="listview" data-inset="true">
+            <li><a href="#">Nav item</a></li>
+            <li><a href="#">Nav item</a></li>
+            <li><a href="#">Nav item</a></li>
+        </ul>
+
+        <div id="grid" class="ui-grid-b">
+            <div class="ui-block-a">
+                <div class="ui-bar ui-bar-e">A</div>
+            </div>
+            <div class="ui-block-b">
+                <div class="ui-bar ui-bar-e">B</div>
+            </div>
+            <div class="ui-block-c">
+                <div class="ui-bar ui-bar-e">C</div>
+            </div>
+            <div class="ui-block-a">
+                <div class="ui-bar ui-bar-e">A</div>
+            </div>
+            <div class="ui-block-b">
+                <div class="ui-bar ui-bar-e">B</div>
+            </div>
+            <div class="ui-block-c">
+                <div class="ui-bar ui-bar-e">C</div>
+            </div>
+        </div>
+
+
+        <p><a href="#bar">Goto Page 2</a></p>
+
+        <p><a id="hide_custom">Hide Custom</a></p>
+        <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="window"
+           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View
+            Options...</a>
+
+        <div data-role="popup" id="popupViewOptions" data-theme="a" class="ui-corner-all">
+            <form>
+                <div style="padding:10px 20px;">
+                    <fieldset data-role="controlgroup">
+                        <legend>Show:</legend>
+                        <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+                        <label for="checkbox-v-2a">RPN Stack</label>
+                        <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+                        <label for="checkbox-view-keypad">Keypad</label>
+                        <input type="checkbox" name="checkbox-view-keypad" id="checkbox-view-keypad">
+                        <label for="checkbox-v-2b">Html Canvas</label>
+                        <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+                        <label for="checkbox-v-2c">Printer Tape</label>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+
+        <div class="ui-grid-b ui-responsive">
+            <!-- Lead story block -->
+            <div class="ui-block-a">
+                <div class="ui-body ui-body-d">
+                    <h4>Stack</h4>
+
+                    <p class="rowA">100</p>
+
+                    <p class="rowB"><b>[1,2,3,4,5,100]</b></p>
+
+                    <p class="rowA">2.098</p>
+
+                    <p class="rowB"><b>12322.22098</b></p>
+
+                    <p class="rowA">55</p>
+
+                    <p class="rowB"><b>43</b></p>
+
+                    <p class="rowA">2055</p>
+
+                    <p class="rowB"><b>{'a':100, 'b':[2,3,4,4,5]}</b></p>
+
+                    <p class="rowA">155</p>
+
+                    <p class="rowB"><b>143</b></p>
+
+                    <p class="rowA">255</p>
+
+                    <p class="rowB"><b>243</b></p>
+                </div>
+            </div>
+            <!-- secondary story block #1 -->
+            <div class="ui-block-b">
+                <div class="ui-body ui-body-d">
+                    <h4>Keypad</h4>
+
+                    <div>
+                        <input type="text" id="current"/>
+
+                        <div class="ui-grid-a">
+                            <div class="ui-block-a">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickEnter">ENTER</a>
+                            </div>
+                            <div class="ui-block-b">
+                                <div class="ui-grid-a">
+                                    <div class="ui-block-a">
+                                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickAC">AC</a>
+                                    </div>
+                                    <div class="ui-block-b">
+                                        <a href="#" class="ui-btn ui-shadow ui-corner-all" id="clickC">C</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click7">7</a>
+                            </div>
+                            <div class="ui-block-b">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click8">8</a>
+                            </div>
+                            <div class="ui-block-c">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click9">9</a>
+                            </div>
+                            <div class="ui-block-d">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_divide">/</a>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click4">4</a>
+                            </div>
+                            <div class="ui-block-b">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click5">5</a>
+                            </div>
+                            <div class="ui-block-c">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click6">6</a>
+                            </div>
+                            <div class="ui-block-d">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_times">*</a>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click1">1</a>
+                            </div>
+                            <div class="ui-block-b">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click2">2</a>
+                            </div>
+                            <div class="ui-block-c">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click3">3</a>
+                            </div>
+                            <div class="ui-block-d">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_minus">-</a>
+                            </div>
+                        </div>
+                        <div class="ui-grid-c">
+                            <div class="ui-block-a">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click0">0</a>
+                            </div>
+                            <div class="ui-block-b">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_dot">.</a>
+                            </div>
+                            <div class="ui-block-c">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_rs">R/S</a>
+                            </div>
+                            <div class="ui-block-d">
+                                <a href="#" class="ui-btn ui-shadow ui-corner-all" id="click_add">+</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- secondary story block #2 -->
+            <div id="custom_keys" class="ui-block-c">
+                <div class="ui-body ui-body-d">
+                    <h4>Custom Soft Keys</h4>
+                    <button class="ui-btn ui-btn-inline">Custom Button</button>
+                    <button class="ui-btn ui-btn-inline">Pi</button>
+                    <button class="ui-btn ui-btn-inline">Another Button</button>
+                    <button class="ui-btn ui-btn-inline">Custom 123</button>
+                    <button class="ui-btn ui-btn-inline">AA</button>
+                    <button class="ui-btn ui-btn-inline">BB</button>
+                    <button class="ui-btn ui-btn-inline">Button</button>
+                    <button class="ui-btn ui-btn-inline">Button000</button>
+                    <button class="ui-btn ui-btn-inline">123</button>
+                    <button class="ui-btn ui-btn-inline">Pop</button>
+                    <button class="ui-btn ui-btn-inline">Push Array</button>
+                    <button class="ui-btn ui-btn-inline">Calc</button>
+                    <button class="ui-btn ui-btn-inline">Quantum</button>
+                    <button class="ui-btn ui-btn-inline">Loop 1</button>
+                    <button class="ui-btn ui-btn-inline">Demo 1</button>
+                    <button class="ui-btn ui-btn-inline">Demo 2</button>
+                    <button class="ui-btn ui-btn-inline">run_animation</button>
+                    <button class="ui-btn ui-btn-inline">Exp</button>
+                </div>
+            </div>
+        </div>
+        <!-- /rwd-example -->
+
+
+    </div>
+    <!-- /content -->
+
+    <div data-role="footer">
+        <h4>My Footer</h4>
+    </div>
+    <!-- /footer -->
+
+</div>
+<!-- /page -->
+
+
+<!-- Start of second page -->
+<div data-role="page" id="bar">
+
+    <div data-role="header">
+        <h1>Bar</h1>
+    </div>
+    <!-- /header -->
+
+    <div role="main" class="ui-content">
+        <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that
+            references my id is being clicked.</p>
+
+        <p><a href="#main">Back to main</a></p>
+
+        <form>
+            <label for="slider-0">Input slider:</label>
+            <input type="range" name="slider" id="slider-0" value="25" min="0" max="100"/>
+        </form>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <div class="ui-bar ui-bar-a" style="height:60px">Block A</div>
+            </div>
+            <div class="ui-block-b">
+                <div class="ui-bar ui-bar-a" style="height:60px">Block B</div>
+            </div>
+        </div>
+        <!-- /grid-a -->
+
+        <div class="ui-grid-b ui-responsive">
+            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-arrow-l">Back
+                to order</a></div>
+            <div class="ui-block-b"><input type="button" data-icon="plus" value="Add products"></div>
+            <div class="ui-block-c"><input type="button" data-icon="check" data-iconpos="right" value="Confirm order">
+            </div>
+        </div>
+
+    </div>
+    <!-- /content -->
+
+    <div data-role="footer">
+        <h4>Page Footer</h4>
+    </div>
+    <!-- /footer -->
+</div>
+<!-- /page -->
+
+<script src="phonegap.js"></script>
+<script src="js/jquery-2.1.0.js"></script>
+<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
+<script src="js/index.js"></script>
+<script src="js/test_rough_proto1.js"></script>
+<script type="text/javascript">
+
+    app.initialize();
+
+</script>
+
+</body>
+</html>
