@@ -17,12 +17,20 @@
 <body ng-app="myApp">
 
 <div data-role="page" id="col_layouts" ng-controller="ViewOptionsController">
-<div data-role="header" class="hdr">jsrpncalc2 header</div>
+<div data-role="header">
+    <a href="#popupEditor" data-rel="popup" data-transition="pop" data-position-to="origin"
+       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Editor...</a>
+
+    <h1>HP-JS-RPN Calc 2</h1>
+
+    <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="origin"
+       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View
+        Options...</a>
+</div>
+<!-- /header -->
+
 <div data-role="content">
 
-<a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="origin"
-   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View
-    Options...</a>
 
 <div data-role="popup" id="popupViewOptions" data-theme="a" class="ui-corner-all">
     <form>
@@ -45,11 +53,13 @@
             </fieldset>
         </div>
     </form>
+</div>
+
+<div data-role="popup" id="popupEditor" data-theme="a" class="ui-corner-all">
     <p>
         <a href="#options">Goto editor</a>
         <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
     </p>
-
 </div>
 
 <div id="debug_area" ng-show="show_debug">
@@ -386,8 +396,11 @@
 
 </div>
 <!-- content -->
-<div data-role="footer">The footer</div>
+<div data-role="footer">
+    <h4>Page Footer</h4>
 </div>
+</div>
+<!-- /page -->
 
 
 <!-- Start of second page -->
