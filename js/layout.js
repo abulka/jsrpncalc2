@@ -54,7 +54,6 @@ myApp.controller('ViewOptionsController', function($scope, $rootScope, layout_mo
         layout_mode_mgr.show_all_debug();
 
         // Exercise calling some services - for no reason
-        console.log(column_config.trigger_widths());
         $rootScope.$broadcast('handleBroadcast', "show_all_debug happening");
     }
 
