@@ -33,3 +33,11 @@ div#debug_area {background: #97d8fc; padding: 0.5em;}
 #cmd .ui-block-a { width: 90% !important;  }
 #cmd .ui-block-b { width: 10% !important; }
 #cmd a { height: 2em; width: 2em }
+
+/* custom buttons */
+#custom .ui-btn { margin-left: 5px; margin-right: 0px; }
+
+/* overall */
+@media (max-width: 600px) {
+    div .ui-content { padding: 0; }
+}
