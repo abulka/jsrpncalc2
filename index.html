@@ -17,17 +17,6 @@
 <body ng-app="myApp">
 
 <div data-role="page" id="col_layouts" ng-controller="ViewOptionsController">
-<div data-role="header">
-    <a href="#popupEditor" data-rel="popup" data-transition="pop" data-position-to="origin"
-       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Editor...</a>
-
-    <h1>HP-JS-RPN Calc 2</h1>
-
-    <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="origin"
-       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">View
-        Options...</a>
-</div>
-<!-- /header -->
 
 <div data-role="content">
 
@@ -53,9 +42,6 @@
             </fieldset>
         </div>
     </form>
-</div>
-
-<div data-role="popup" id="popupEditor" data-theme="a" class="ui-corner-all">
     <p>
         <a href="#options">Goto editor</a>
         <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
@@ -268,28 +254,37 @@
 
         <p class="rowA">2.098</p>
 
-        <p class="rowB"><b>12322.22098</b></p>
+        <!--<p class="rowB"><b>12322.22098</b></p>-->
 
-        <p class="rowA">55</p>
+        <!--<p class="rowA">55</p>-->
 
-        <p class="rowB"><b>43</b></p>
+        <!--<p class="rowB"><b>43</b></p>-->
 
-        <p class="rowA">2055</p>
+        <!--<p class="rowA">2055</p>-->
 
         <p class="rowB"><b>{'a':100, 'b':[2,3,4,4,5]}</b></p>
 
-        <p class="rowA">155</p>
+        <!--<p class="rowA">155</p>-->
 
-        <p class="rowB"><b>143</b></p>
+        <!--<p class="rowB"><b>143</b></p>-->
 
-        <p class="rowA">255</p>
+        <!--<p class="rowA">255</p>-->
 
-        <p class="rowB"><b>243</b></p>
+        <!--<p class="rowB"><b>243</b></p>-->
 
 
     </div>
-    <div id="cmd" class="chartreuse widget">
-        <input type="text" id="current"/>
+    <div id="cmd" class="chartreuse">
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <input type="text" id="current"/>
+            </div>
+            <div class="ui-block-b">
+                <a href="#popupViewOptions" data-rel="popup" data-transition="pop" data-position-to="origin"
+                   class="ui-btn-icon-notext ui-btn ui-corner-all ui-icon-gear ui-btn-a"></a>
+            </div>
+        </div>
+
     </div>
     <div id="canvas" class="orange widget">Canvas</div>
     <div id="keypad" class="cyan widget">
@@ -368,9 +363,7 @@
         </div>
 
     </div>
-    <div id="custom" class="pink widget">Custom Buttons etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc
-        maybe some widgets here too etc etc etc etc and lots more buttons potentially etc etc etc etc etc etc etc etc
-        etc etc etc etc etc etc etc etc
+    <div id="custom" class="pink widget">
         <button class="ui-btn ui-mini ui-btn-inline">Custom Button</button>
         <button class="ui-btn ui-mini ui-btn-inline">Pi</button>
         <button class="ui-btn ui-mini ui-btn-inline">Another Button</button>

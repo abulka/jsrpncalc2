@@ -7,7 +7,7 @@ myApp.controller('ViewOptionsController', function ($scope, $rootScope, layout_m
     $scope.show_debug = false;
     $scope.tape_mode = false;   // true, false
     $scope.viewoptions = {
-        layout_mode: "full",    // full, stackonly, canvasonly
+        layout_mode: "stackonly",    // full, stackonly, canvasonly
         num_cols: 1             // 1,2,3
     };
 
