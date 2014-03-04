@@ -40,4 +40,5 @@ div#debug_area {background: #97d8fc; padding: 0.5em;}
 /* overall */
 @media (max-width: 600px) {
     div .ui-content { padding: 0; }
+    div .ui-body { padding: 0; }
 }
