@@ -30,9 +30,13 @@ a { padding-right:25px; margin-bottom:100px; background-color:yellow; }
 div#debug_area {background: #97d8fc; padding: 0.5em;}
 
 /* cmd input area */
-#cmd .ui-block-a { width: 90% !important;  }
-#cmd .ui-block-b { width: 10% !important; }
-#cmd a { height: 2em; width: 2em }
+#cmd .ui-block-a { width: 85% !important;  }
+#cmd .ui-block-b { width: 15% !important; }
+#cmd a { height: 2em; width: 2em;
+    /* centre the gear button */
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* custom buttons */
 #custom .ui-btn { margin-left: 5px; margin-right: 0px; }

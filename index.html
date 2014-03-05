@@ -31,20 +31,20 @@
 
                 <input type="radio" name="A" id="radio-choice-stack_only" ng-model="viewoptions.layout_mode"
                        value="stackonly">
-                <label for="radio-choice-stack_only">stack_only</label>
+                <label for="radio-choice-stack_only">stack only</label>
 
                 <input type="radio" name="A" id="radio-choice-canvas_only" ng-model="viewoptions.layout_mode"
                        value="canvasonly">
-                <label for="radio-choice-canvas_only">canvas_only</label>
+                <label for="radio-choice-canvas_only">canvas only</label>
 
                 <input type="checkbox" id="checkbox-printout_tape" ng-model="tape_mode" data-mini="true">
-                <label for="checkbox-printout_tape">printout_tape</label>
+                <label for="checkbox-printout_tape">tape</label>
             </fieldset>
         </div>
     </form>
     <p>
-        <a href="#options">Goto editor</a>
-        <a href="#" ng-click="show_debug = !show_debug">debug toggle</a>
+        <a href="#options">Programming Editor</a>
+        <a href="#" ng-click="show_debug = !show_debug">Debug toggle</a>
     </p>
 </div>
 
@@ -81,6 +81,19 @@
 </div>
 <!-- debug area -->
 
+<div data-role="popup" id="popupRpnCmds" data-theme="a" class="ui-corner-all">
+    <form>
+        <div style="padding:10px 20px;">
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">X<>Y</button>
+                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">Drop</button>
+                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">RUP</button>
+                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">RDN</button>
+                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">ROT</button>
+            </fieldset>
+        </div>
+    </form>
+</div>
 
 <div class="layout_templates">
 
@@ -354,7 +367,9 @@
                     <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_dot">.</a>
                 </div>
                 <div class="ui-block-c">
-                    <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_rs">R/S</a>
+                    <a href="#popupRpnCmds" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_rpn"
+                            data-rel="popup" data-transition="pop" data-position-to="origin">RPN</a>
+
                 </div>
                 <div class="ui-block-d">
                     <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_add">+</a>

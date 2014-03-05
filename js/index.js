@@ -46,8 +46,8 @@ $(document).ready(function () {
     });
 
     // Misc
-    $('#hide_custom').on('click', function (e) {
-        $('#custom_keys').hide();
+    $('.popupRpnCmds').on('click', function (e) {
+        //$( "#popupRpnCmds" ).popup( "close" );
     });
 
 });
