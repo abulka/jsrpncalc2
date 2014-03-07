@@ -1,0 +1,36 @@
+/* *************************** RPN STACK FORMATTING
+  Each element is
+	<li>"hello"<span class="stack_val_type">string</span><span class="stack_comment"></span></li>  */
+
+ul#rpnstack2 {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+#rpnstack2
+{
+	/* make the list scrollable within a max height */
+	height: 5.5em;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+#rpnstack2 li {
+	/* set the background color, and shift in from the left */
+	background:#d8f5b8;
+	color: black;
+	font-size: 1.1em;
+	margin-left: 3px;
+	margin-right: 3px;
+	padding-left: 2px;
+}
+
+ul#rpnstack2 li {
+	/* get rid of bold in screen display */
+	text-shadow: 0 0;    /* .ui-body-a */
+}
+
+#rpnstack2 li span.stack_val_type {
+	/* get rid of my type/comment info in the stack item */
+	display:none;
+}
