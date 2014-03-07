@@ -1,7 +1,5 @@
 var $root_dom = $('#col_layouts');  // wish Angular could detect this and pass it in
 
-var myApp = angular.module('myApp', []);
-
 myApp.controller('ViewOptionsController', function ($scope, $rootScope, layout_mode_mgr, column_config) {
 
     $scope.show_debug = false;
