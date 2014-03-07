@@ -26,11 +26,12 @@
     <div data-role="content" ng-controller="RpnStackController">
         <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all" ng-click="enter()">enter</a>
         <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all" ng-click="drop()">drop</a>
+        <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all" ng-click="dup()">dup</a>
 
         I have {{stack.length}} elements in the stack. They are:
         <ul class="example-animate-container">
             <li class="animate-repeat" ng-repeat="item in stack">
-                [{{$index + 1}}] {{item.name}} which is of type {{item.type}}.
+                [{{stack.length - $index}}] {{item.val}} which is of type {{item.type}}.
             </li>
         </ul>
 
