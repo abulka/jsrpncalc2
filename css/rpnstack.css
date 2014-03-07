@@ -30,7 +30,9 @@ ul#rpnstack2 li {
 	text-shadow: 0 0;    /* .ui-body-a */
 }
 
+/*
+TODO one day possibly use a directove to render a span for the 'type' of stack element ?
 #rpnstack2 li span.stack_val_type {
-	/* get rid of my type/comment info in the stack item */
 	display:none;
 }
+*/

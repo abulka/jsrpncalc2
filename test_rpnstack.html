@@ -32,9 +32,18 @@
         <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all" ng-click="rup()">rup</a>
 
         I have {{stack.length}} elements in the stack. They are:
+
+        <ul id="rpnstack2" class="">
+            <li class="animate-repeat" ng-repeat="item in stack">
+                [{{stack.length - $index}}] {{item.val}}  [{{item.type}}]
+            </li>
+        </ul>
+
+        <hr>
+
         <ul class="example-animate-container">
             <li class="animate-repeat" ng-repeat="item in stack">
-                [{{stack.length - $index}}] {{item.val}} which is of type {{item.type}}.
+                [{{stack.length - $index}}] {{item.val}}  [{{item.type}}]
             </li>
         </ul>
 
