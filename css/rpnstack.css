@@ -6,12 +6,12 @@
 /*}*/
 #rpnstack2 {
     height: 5.75em;
+    background-color: #d8f5b8;
     overflow-y: scroll;
     overflow-x: hidden;
 
     /* COMMENT bottom align the ul - part 1 of 2*/
     /* NOTE the position relative seems harmless in and of itself .*/
-    /*background-color: #d8f5b8;*/
     /*position: relative;*/
 }
 
