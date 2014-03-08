@@ -4,7 +4,7 @@
 
 myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_dom) {
     $scope.stack = [];
-    $scope.stack_height = 5;
+    $scope.stack_height = 8;
     $scope.push = function (val) {
         $scope.stack.push({'val': val, 'type': typeof val});
     }

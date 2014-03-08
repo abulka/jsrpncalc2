@@ -1,16 +1,36 @@
 /**** RPN STACK FORMATTING ****/
 
+/*#rpnstack_outer {*/
+    /*overflow-y: scroll;*/
+
+/*}*/
 #rpnstack2 {
-    /* make the list scrollable within a max height */
     height: 5.75em;
-    overflow: scroll;
+    overflow-y: scroll;
     overflow-x: hidden;
+
+    /* COMMENT bottom align the ul - part 1 of 2*/
+    /* NOTE the position relative seems harmless in and of itself .*/
+    /*background-color: #d8f5b8;*/
+    /*position: relative;*/
 }
 
-ul#rpnstack2 {
+#rpnstack2 ul {
     list-style: none;
     margin: 0;
     padding: 0;
+
+    /*experimental - yes it works but we can't afford to fix the height of ul*/
+    /*height: 5.75em;*/
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+
+    /*COMMENT bottom align the ul - part 2 of 2*/
+    /* NOTE the position absolute clips the li items.*/
+    /* NOTE the bottom 0 prevents scrolling using the mouse*/
+    /*background-color: pink;*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
 }
 
 #rpnstack2 li {
