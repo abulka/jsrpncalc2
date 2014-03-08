@@ -4,7 +4,7 @@
 
 myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_dom) {
     $scope.stack = [];
-    $scope.stack_height = 5.75;
+    $scope.stack_height = 5;
     $scope.push = function (val) {
         $scope.stack.push({'val': val, 'type': typeof val});
     }
@@ -52,7 +52,8 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
     $scope.decrease_visible_stack = function () {
         $scope.stack_height -= 1;
     },
-    $scope.$watch('stack_height', function () {
+    $scope.$watch('stack_height', function (val, old) {
+        $scope.stack_height = parseInt(val);  // correct the slider string setting back to a number.  Thankfully the watch doesn't retrigger.
         rpnstack_dom.set_stack_height($scope.stack_height);
     }, true);
 
@@ -76,7 +77,8 @@ myApp.factory('rpnstack_dom', function () {
     }
 
     function set_stack_height(n) {
-        $('#rpnstack2').height(n.toString()+'em');
+        var new_height = (n+0.75).toString()+'em';
+        $('#rpnstack2').height(new_height);
     }
 
     return {

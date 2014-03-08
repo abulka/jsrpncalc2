@@ -32,13 +32,18 @@
         <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all" ng-click="rup()">rup</a>
         <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all" ng-click="increase_visible_stack()">increase visible stack</a>
         <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all" ng-click="decrease_visible_stack()">decrease visible stack</a>
-        <input type="text" name="text-1" id="text-1" ng-model="stack_height" value="">
+        <input type="range" name="slider-1" id="slider-1" min="2" max="15" ng-model="stack_height" step="1" ng-change="update()" data-popup-enabled="true">
+        <!--<form>-->
+            <!--<label for="slider-1">Slider:</label>-->
+            <!--<input type="range" name="slider-2" id="slider-2" min="0" max="15" ng-model="stack_height" value="5">-->
 
+        <!--</form>-->
+        <input type="range" name="slider-3" id="slider-3" data-role="none" min=2 max=15 ng-model="stack_height">
         I have {{stack.length}} elements in the stack. They are:
 
         <ul id="rpnstack2" class="">
             <li class="animate-repeat" ng-repeat="item in stack">
-                [{{stack.length - $index}}] {{item.val}}  [{{item.type}}]
+                <span class="stack_index">[{{stack.length - $index}}]</span> {{item.val}}  [{{item.type}}]
             </li>
         </ul>
 

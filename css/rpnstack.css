@@ -23,3 +23,7 @@ ul#rpnstack2 {
     padding-left: 2px;
 }
 
+span.stack_index {
+    color: darkgrey;
+
+}
