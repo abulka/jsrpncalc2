@@ -35,14 +35,12 @@
         <input type="range" name="slider-3" id="slider-3" data-role="none" min=2 max=20 ng-model="stack_height">
         I have {{stack.length}} elements in the stack. They are:
 
-        <div id="rpnstack_outer">
         <div id="rpnstack2">
             <ul>
                 <li ng-repeat="item in stack">
                     <span class="stack_index">[{{stack.length - $index}}]</span> {{item.val}}  [{{item.type}}]
                 </li>
             </ul>
-        </div>
         </div>
 
         <hr>
