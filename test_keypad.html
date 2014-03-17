@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+    <title>test keypad</title>
+
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />-->
+
+    <link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
+</head>
+<body ng-app="myApp">
+
+<div data-role="page" id="rpnstacktest">
+
+    <div data-role="header">
+        <h1>test keypad</h1>
+    </div>
+    <!-- /header -->
+
+    <div data-role="content" ng-controller="KeyPad">
+
+        <div id="cmd">
+            <input type="text" id="current"/>
+        </div>
+
+        <div id="keypad" class="cyan widget">
+            <div class="ui-body ui-body-d">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="clickEnter">ENTER</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <div class="ui-grid-a">
+                            <div class="ui-block-a">
+                                <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="clickAC">AC</a>
+                            </div>
+                            <div class="ui-block-b">
+                                <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="clickC">C</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click7">7</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click8">8</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click9">9</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_divide">/</a>
+                    </div>
+                </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click4">4</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click5">5</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click6">6</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_times">*</a>
+                    </div>
+                </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click1">1</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click2">2</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click3">3</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_minus">-</a>
+                    </div>
+                </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click0">0</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_dot">.</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#popupRpnCmds" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_rpn"
+                                data-rel="popup" data-transition="pop" data-position-to="origin">RPN</a>
+
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ui-btn ui-mini ui-shadow ui-corner-all" id="click_add">+</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /content -->
+
+    <div data-role="popup" id="popupRpnCmds" data-theme="a" class="ui-corner-all">
+        Nothing to see here.
+    </div>
+
+    <div data-role="footer">
+        <h4>My Footer</h4>
+    </div>
+    <!-- /footer -->
+
+</div>
+<!-- /page -->
+
+<script src="phonegap.js"></script>
+<script src="js/jquery-2.1.0.js"></script>
+<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
+<script src="js/angular-1.2.9.min.js"></script>
+<script type="text/javascript">
+
+    //app.initialize();
+    var myApp = angular.module('myApp', []);
+
+</script>
+<script src="js/keypad.js"></script>
+
+</body>
+</html>
