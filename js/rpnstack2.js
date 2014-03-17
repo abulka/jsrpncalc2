@@ -20,6 +20,12 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
 
     // See also talking between controllers - http://stackoverflow.com/questions/14502006/scope-emit-and-on-angularjs
     $rootScope.$on('push', function(event, val) {
+        console.log('on push', val);
+        $scope.push(val);
+        rpnstack_dom.scroll_to_bottom();
+    });
+    $scope.$on('push', function(event, val) {
+        console.log('on push (non root)', val);
         $scope.push(val);
         rpnstack_dom.scroll_to_bottom();
     });
@@ -33,6 +39,7 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
     $rootScope.$on('decrease_visible_stack', function() { $scope.decrease_visible_stack(); });
 
     $scope.push = function (val) {
+        console.log('push', val);
         $scope.stack.push({'val': val, 'type': typeof val});
     }
     $scope.enter = function () {
@@ -90,7 +97,7 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
     $scope.push("welcome to rpn calc");
     $scope.push({1: 'a', 2: 'b'});
     $scope.push([1, 2, 3, 4, "hi"]);
-    rpnstack_dom.scroll_to_bottom();
+            rpnstack_dom.scroll_to_bottom();
 });
 
 myApp.factory('rpnstack_dom', function () {

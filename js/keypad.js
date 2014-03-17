@@ -20,6 +20,28 @@ $(document).ready(function () {
             current_in.val('');
     });
 
+    $('#clickEnter').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+
+//        console.log(event.target.text, current_in.val());
+
+        // talk to stack
+        var scope = angular.element($('#stack')).scope();
+        if (current_in.val() == '')
+            scope.$apply(scope.enter());  // need apply so that events trigger
+        else {
+//            scope.$apply(scope.push(current_in.val()));  // need apply so that events trigger
+
+            // talk to stack - try using events too -  works - but only if stack controller intercepts scope.on NOT rootScope.on
+            var scope2 = angular.element($('#keypad_outer')).scope();
+            console.log('scope2', scope2);
+            scope2.$apply(scope2.$broadcast('push', current_in.val()));
+        }
+        
+        current_in.val('');
+    });
+
+
     // Misc
     $('.popupRpnCmds').on('click', function (e) {
         //$( "#popupRpnCmds" ).popup( "close" );
@@ -27,27 +49,9 @@ $(document).ready(function () {
 
 });
 
-myApp.controller('KeyPad', function ($scope, $rootScope, xxxx) {
+myApp.controller('KeyPad', function ($scope, $rootScope) {
+//    $scope.enter = function () { $scope.$emit('push', 10); }
 });
 
-myApp.factory('xxxx', function () {
-    function scroll_to_bottom() {
-        setTimeout(function() {
-            var $stackgui = $('#stack');
-            $stackgui.scrollTop(
-              $stackgui[0].scrollHeight - $stackgui.height()
-            );
-        }, 0);
-    }
 
-    function set_stack_height(n) {
-        var new_height = (n+0.75).toString()+'em';
-        $('#stack').height(new_height);
-    }
-
-    return {
-        scroll_to_bottom: scroll_to_bottom,
-        set_stack_height: set_stack_height
-    }
-});
 
