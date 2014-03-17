@@ -2,9 +2,36 @@
  * Created by Andy on 7/03/14.
  */
 
+myApp.controller('RpnStackKeypadController', function ($scope, $rootScope) {
+    $scope.push = function () { $scope.$emit('push', 10); }
+    $scope.enter = function () { $scope.$emit('enter'); }
+    $scope.drop = function () { $scope.$emit('drop'); }
+    $scope.dup = function () { $scope.$emit('dup'); }
+    $scope.swap = function () { $scope.$emit('swap'); }
+    $scope.rdn = function () { $scope.$emit('rdn'); }
+    $scope.rup = function () { $scope.$emit('rup'); }
+    $scope.increase_visible_stack = function () { $scope.$emit('increase_visible_stack'); }
+    $scope.decrease_visible_stack = function () { $scope.$emit('decrease_visible_stack'); }
+});
+
 myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_dom) {
     $scope.stack = [];
     $scope.stack_height = 8;
+
+    // See also talking between controllers - http://stackoverflow.com/questions/14502006/scope-emit-and-on-angularjs
+    $rootScope.$on('push', function(event, val) {
+        $scope.push(val);
+        rpnstack_dom.scroll_to_bottom();
+    });
+    $rootScope.$on('enter', function() { $scope.enter(); });
+    $rootScope.$on('drop', function() { $scope.drop(); });
+    $rootScope.$on('dup', function() { $scope.dup(); });
+    $rootScope.$on('swap', function() { $scope.swap(); });
+    $rootScope.$on('rdn', function() { $scope.rdn(); });
+    $rootScope.$on('rup', function() { $scope.rup(); });
+    $rootScope.$on('increase_visible_stack', function() { $scope.increase_visible_stack(); });
+    $rootScope.$on('decrease_visible_stack', function() { $scope.decrease_visible_stack(); });
+
     $scope.push = function (val) {
         $scope.stack.push({'val': val, 'type': typeof val});
     }
@@ -69,7 +96,7 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
 myApp.factory('rpnstack_dom', function () {
     function scroll_to_bottom() {
         setTimeout(function() {
-            var $stackgui = $('#rpnstack2');
+            var $stackgui = $('#stack');
             $stackgui.scrollTop(
               $stackgui[0].scrollHeight - $stackgui.height()
             );
@@ -78,7 +105,7 @@ myApp.factory('rpnstack_dom', function () {
 
     function set_stack_height(n) {
         var new_height = (n+0.75).toString()+'em';
-        $('#rpnstack2').height(new_height);
+        $('#stack').height(new_height);
     }
 
     return {

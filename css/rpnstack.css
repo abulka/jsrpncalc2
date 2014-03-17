@@ -1,6 +1,6 @@
 /**** RPN STACK FORMATTING ****/
 
-#rpnstack2 {
+#stack {
     height: 5.75em;
     background-color: #d8f5b8;
     overflow-y: scroll;
@@ -11,7 +11,7 @@
     /*position: relative;*/
 }
 
-#rpnstack2 ul {
+#stack ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -29,7 +29,7 @@
     /*bottom: 0;*/
 }
 
-#rpnstack2 li {
+#stack li {
     /* set the background color, and shift in from the left */
     background: #d8f5b8;
     color: black;

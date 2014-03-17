@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/rpnstack.css">
+
 </head>
 <body ng-app="myApp">
 
@@ -81,18 +83,25 @@
 </div>
 <!-- debug area -->
 
-<div data-role="popup" id="popupRpnCmds" data-theme="a" class="ui-corner-all">
+<div data-role="popup" id="popupRpnCmds" ng-controller="RpnStackKeypadController" data-theme="a" class="ui-corner-all">
     <form>
         <div style="padding:10px 20px;">
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">X<>Y</button>
-                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">Drop</button>
-                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">RUP</button>
-                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">RDN</button>
-                <button class="popupRpnCmds ui-btn ui-mini ui-btn-inline">ROT</button>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="push(10)">push(10)</a>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="enter()">random num</a>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="drop()">drop</a>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="dup()">dup</a>
+                <br>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="swap()">swap</a>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="rdn()">rdn</a>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="rup()">rup</a>
+                <br>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="increase_visible_stack()">increase visible stack</a>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="decrease_visible_stack()">decrease visible stack</a>
             </fieldset>
         </div>
     </form>
+
 </div>
 
 <div class="layout_templates">
@@ -260,33 +269,14 @@
 <div class="hidden_holding_area">
     <div class="holding_area"></div>
 
-    <div id="stack" class="yellow widget">
-        <p class="rowA">100</p>
-
-        <p class="rowB"><b>[1,2,3,4,5,100]</b></p>
-
-        <p class="rowA">2.098</p>
-
-        <!--<p class="rowB"><b>12322.22098</b></p>-->
-
-        <!--<p class="rowA">55</p>-->
-
-        <!--<p class="rowB"><b>43</b></p>-->
-
-        <!--<p class="rowA">2055</p>-->
-
-        <p class="rowB"><b>{'a':100, 'b':[2,3,4,4,5]}</b></p>
-
-        <!--<p class="rowA">155</p>-->
-
-        <!--<p class="rowB"><b>143</b></p>-->
-
-        <!--<p class="rowA">255</p>-->
-
-        <!--<p class="rowB"><b>243</b></p>-->
-
-
+    <div id="stack" ng-controller="RpnStackController" class="widget">
+        <ul>
+            <li ng-repeat="item in stack">
+                <span class="stack_index">[{{stack.length - $index}}]</span> {{item.val}}  [{{item.type}}]
+            </li>
+        </ul>
     </div>
+
     <div id="cmd" class="chartreuse">
         <div class="ui-grid-a">
             <div class="ui-block-a">
@@ -469,8 +459,8 @@
 
     app.initialize();
 
-
 </script>
+<script src="js/rpnstack2.js"></script>
 
 </body>
 </html>
