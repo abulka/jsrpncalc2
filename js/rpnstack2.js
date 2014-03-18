@@ -89,6 +89,10 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
         var top_val = list.shift().val;
         $scope.push(top_val);
     },
+    $scope.clear = function () {
+        $scope.stack = [];
+    },
+
     $scope.increase_visible_stack = function () {
         $scope.stack_height += 1;
     },
