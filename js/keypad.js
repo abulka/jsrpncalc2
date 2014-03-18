@@ -28,16 +28,18 @@ $(document).ready(function () {
         // talk to stack
         var scope = angular.element($('#stack')).scope();
         if (current_in.val() == '')
-            scope.$apply(scope.enter());  // need apply so that events trigger
+            scope.$apply(scope.random_num());  // need apply so that events trigger
         else {
 //            scope.$apply(scope.push(current_in.val()));  // need apply so that events trigger
 
             // talk to stack - try using events too -  works - but only if stack controller intercepts scope.on NOT rootScope.on
-            var scope2 = angular.element($('#keypad_outer')).scope();
-            console.log('scope2', scope2);
-            scope2.$apply(scope2.$broadcast('push', current_in.val()));
+//            var scope2 = angular.element($('#keypad')).scope();
+//            console.log('scope2', scope2);
+//            scope2.$apply(scope2.$broadcast('push', current_in.val()));
+//            scope.$apply(scope.$broadcast('push', current_in.val()));
+            scope.$apply(scope.push(current_in.val()));
         }
-        
+
         current_in.val('');
     });
 
@@ -49,9 +51,9 @@ $(document).ready(function () {
 
 });
 
-myApp.controller('KeyPad', function ($scope, $rootScope) {
-//    $scope.enter = function () { $scope.$emit('push', 10); }
-});
+//myApp.controller('KeyPadController', function ($scope, $rootScope) {
+////    $scope.enter = function () { $scope.$emit('push', 10); }
+//});
 
 
 

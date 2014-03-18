@@ -2,47 +2,56 @@
  * Created by Andy on 7/03/14.
  */
 
-myApp.controller('RpnStackKeypadController', function ($scope, $rootScope) {
-    $scope.push = function () { $scope.$emit('push', 10); }
-    $scope.enter = function () { $scope.$emit('enter'); }
-    $scope.drop = function () { $scope.$emit('drop'); }
-    $scope.dup = function () { $scope.$emit('dup'); }
-    $scope.swap = function () { $scope.$emit('swap'); }
-    $scope.rdn = function () { $scope.$emit('rdn'); }
-    $scope.rup = function () { $scope.$emit('rup'); }
-    $scope.increase_visible_stack = function () { $scope.$emit('increase_visible_stack'); }
-    $scope.decrease_visible_stack = function () { $scope.$emit('decrease_visible_stack'); }
+myApp.controller('RpnStackManipulation', function ($scope, $rootScope) {
+    // This controller just redirects commands to the main rpn stack controller
+    //
+    // The only way we can send messages between sibling controllers is via $rootScope.$broadcast
+    // (well we could find the other controller's scope via
+    //     var scope = angular.element($('#stack')).scope();
+    // and call methods directly, but that would probably be a bit nasty).
+    //
+    // Oh and by the way, we need two controllers because the stack and popup keypad are different divs
+    //     and we can't have the same controller on two divs.
+
+    $scope.push = function (n) { $rootScope.$broadcast('push', n); }
+    $scope.random_num = function () { $rootScope.$broadcast('random_num'); }
+    $scope.drop = function () { $rootScope.$broadcast('drop'); }
+    $scope.dup = function () { $rootScope.$broadcast('dup'); }
+    $scope.swap = function () { $rootScope.$broadcast('swap'); }
+    $scope.rdn = function () { $rootScope.$broadcast('rdn'); }
+    $scope.rup = function () { $rootScope.$broadcast('rup'); }
+    $scope.increase_visible_stack = function () { $rootScope.$broadcast('increase_visible_stack'); }
+    $scope.decrease_visible_stack = function () { $rootScope.$broadcast('decrease_visible_stack'); }
 });
 
 myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_dom) {
     $scope.stack = [];
     $scope.stack_height = 8;
 
-    // See also talking between controllers - http://stackoverflow.com/questions/14502006/scope-emit-and-on-angularjs
-    $rootScope.$on('push', function(event, val) {
-        console.log('on push', val);
-        $scope.push(val);
-        rpnstack_dom.scroll_to_bottom();
-    });
-    $scope.$on('push', function(event, val) {
-        console.log('on push (non root)', val);
-        $scope.push(val);
-        rpnstack_dom.scroll_to_bottom();
-    });
-    $rootScope.$on('enter', function() { $scope.enter(); });
-    $rootScope.$on('drop', function() { $scope.drop(); });
-    $rootScope.$on('dup', function() { $scope.dup(); });
-    $rootScope.$on('swap', function() { $scope.swap(); });
-    $rootScope.$on('rdn', function() { $scope.rdn(); });
-    $rootScope.$on('rup', function() { $scope.rup(); });
-    $rootScope.$on('increase_visible_stack', function() { $scope.increase_visible_stack(); });
-    $rootScope.$on('decrease_visible_stack', function() { $scope.decrease_visible_stack(); });
+    // See talking between controllers - http://stackoverflow.com/questions/14502006/scope-emit-and-on-angularjs
+    // Basically: 
+    //  - emit sends even upwards to parent controllers, 
+    //  - broadcast sends down to child controllers
+    //  - and best trick is to broadcast on $rootScope to send down to all controllers no matter where.
 
+    // Event support
+    $scope.$on('push', function(event, val) { $scope.push(val); });
+    $scope.$on('drop', function() { $scope.drop(); });
+    $scope.$on('random_num', function() { $scope.random_num(); });
+    $scope.$on('dup', function() { $scope.dup(); });
+    $scope.$on('swap', function() { $scope.swap(); });
+    $scope.$on('rdn', function() { $scope.rdn(); });
+    $scope.$on('rup', function() { $scope.rup(); });
+    $scope.$on('increase_visible_stack', function() { $scope.increase_visible_stack(); });
+    $scope.$on('decrease_visible_stack', function() { $scope.decrease_visible_stack(); });
+
+    // Actual functionality
     $scope.push = function (val) {
         console.log('push', val);
         $scope.stack.push({'val': val, 'type': typeof val});
+        rpnstack_dom.scroll_to_bottom();
     }
-    $scope.enter = function () {
+    $scope.random_num = function () {
         $scope.push(Math.random());
         rpnstack_dom.scroll_to_bottom();
     }

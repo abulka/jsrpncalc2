@@ -83,12 +83,12 @@
 </div>
 <!-- debug area -->
 
-<div data-role="popup" id="popupRpnCmds" ng-controller="RpnStackKeypadController" data-theme="a" class="ui-corner-all">
+<div data-role="popup" id="popupRpnCmds" ng-controller="RpnStackManipulation" data-theme="a" class="ui-corner-all">
     <form>
         <div style="padding:10px 20px;">
             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                 <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="push(10)">push(10)</a>
-                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="enter()">random num</a>
+                <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="random_num()">random num</a>
                 <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="drop()">drop</a>
                 <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="dup()">dup</a>
                 <br>
@@ -289,7 +289,9 @@
         </div>
 
     </div>
+
     <div id="canvas" class="orange widget">Canvas</div>
+
     <div id="keypad" class="cyan widget">
         <div class="ui-body ui-body-d">
             <div class="ui-grid-a">

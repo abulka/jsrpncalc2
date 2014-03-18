@@ -24,7 +24,7 @@
     </div>
     <!-- /header -->
 
-    <div id="keypad_outer" data-role="content" ng-controller="KeyPad">
+    <div data-role="content">
 
         <div id="stack" ng-controller="RpnStackController">
             <ul>
@@ -120,8 +120,22 @@
     </div>
     <!-- /content -->
 
-    <div data-role="popup" id="popupRpnCmds" data-theme="a" class="ui-corner-all">
-        Nothing to see here.
+    <div data-role="popup" id="popupRpnCmds" data-theme="a" class="ui-corner-all" ng-controller="RpnStackManipulation">
+        RPN Stack Manipulation:
+        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="push(10)">push(10)</a>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="random_num()">random num</a>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="drop()">drop</a>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="dup()">dup</a>
+            <br>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="swap()">swap</a>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="rdn()">rdn</a>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="rup()">rup</a>
+            <br>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="increase_visible_stack()">increase visible stack</a>
+            <a href="#" class="ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all" ng-click="decrease_visible_stack()">decrease visible stack</a>
+        </fieldset>
+
     </div>
 
     <div data-role="footer">
