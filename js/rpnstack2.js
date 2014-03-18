@@ -47,16 +47,34 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
 
     // Actual functionality
     $scope.push = function (val) {
-        console.log('push', val);
-        $scope.stack.push({'val': val, 'type': typeof val});
+//        console.log('push', val);
+
+        function _convert_to_proper_type() {
+            var o;
+            if (!isNaN(val))
+                o = parseFloat(val);
+            else {
+                try {
+                    o = eval(val)
+                }
+                catch (err) {
+                    // Could check for err.message e.g. "sdf is not defined"
+                    o = val;
+                }
+            }
+            return o;
+        }
+        var o = _convert_to_proper_type();
+//        console.log('conversion resulted in', o);
+        $scope.stack.push({'val': o, 'type': typeof o});
         rpnstack_dom.scroll_to_bottom();
     }
     $scope.random_num = function () {
         $scope.push(Math.random());
-        rpnstack_dom.scroll_to_bottom();
     }
     $scope.drop = function () {
         $scope.stack.pop();
+        rpnstack_dom.scroll_to_bottom();
     }
     $scope.dup = function () {
         if ($scope.stack.length == 0)
@@ -73,7 +91,6 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
         var second_bottom_val = list.pop(0).val;
         $scope.push(bottom_val);
         $scope.push(second_bottom_val);
-        rpnstack_dom.scroll_to_bottom();
     },
     $scope.rdn = function () {
         var list = $scope.stack;
@@ -110,7 +127,8 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
     $scope.push("welcome to rpn calc");
     $scope.push({1: 'a', 2: 'b'});
     $scope.push([1, 2, 3, 4, "hi"]);
-            rpnstack_dom.scroll_to_bottom();
+
+    rpnstack_dom.scroll_to_bottom();
 });
 
 myApp.factory('rpnstack_dom', function () {

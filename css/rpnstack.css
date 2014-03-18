@@ -41,5 +41,8 @@
 
 span.stack_index {
     color: darkgrey;
-
+}
+span.stack_item_type {
+    color: darkgrey;
+    font-size: 0.9em;
 }

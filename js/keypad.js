@@ -5,13 +5,13 @@
 
 $(document).ready(function () {
     // executes when HTML-Document is loaded and DOM is ready
-    LegacyKeyPad();
+    LegacyFastKeyPad();
 });
 
-function LegacyKeyPad() {
+function LegacyFastKeyPad() {
     // Wire up the non angular buttons and input box
     var current_in = $('#current');
-    var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9');
+    var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9,#click0,#click_dot');
     var stack_controller = angular.element($('#stack')).scope();
 
     function appendDigit(s) {

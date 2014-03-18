@@ -272,7 +272,7 @@
     <div id="stack" ng-controller="RpnStackController" class="widget">
         <ul>
             <li ng-repeat="item in stack">
-                <span class="stack_index">[{{stack.length - $index}}]</span> {{item.val}}  [{{item.type}}]
+                <span class="stack_index">[{{stack.length - $index}}]</span> {{item.val}}  <span class="stack_item_type">[{{item.type}}]</span>
             </li>
         </ul>
     </div>
