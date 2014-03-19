@@ -36,6 +36,42 @@ function LegacyFastKeyPad() {
             appendDigit(event.target.text);
     });
 
+    $('#click_divide').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        appendDigit(event.target.text);
+    });
+    $('#click_times').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        appendDigit(event.target.text);
+    });
+    $('#click_minus').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        appendDigit(event.target.text);
+    });
+    $('#click_add').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+
+        if (current_in.val() != '') {
+            stack_controller.$apply(stack_controller.push(current_in.val()));
+            current_in.val('');
+        }
+
+        var l = stack_controller.len();
+        var stack = stack_controller.getStack();
+        if (l >= 2) {
+            var val1 = stack[l-1];
+            var val2 = stack[l-2];
+
+            // Add two numbers
+            if (val1.type == 'number' && val2.type == 'number') {
+                var val1 = stack_controller.pop();
+                var val2 = stack_controller.pop();
+                var result = val1.val + val2.val;
+                stack_controller.$apply(stack_controller.push(result));
+            }
+        }
+    });
+
     $('#clickEnter').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
 

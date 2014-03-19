@@ -69,6 +69,19 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
         $scope.stack.push({'val': o, 'type': typeof o});
         rpnstack_dom.scroll_to_bottom();
     }
+
+    // More subtle stuff
+    $scope.pop = function () {
+        return $scope.stack.pop();
+    }
+    $scope.len = function () {
+        return $scope.stack.length;
+    }
+    $scope.getStack = function () {
+        return $scope.stack;
+    }
+
+    // Core stuff
     $scope.random_num = function () {
         $scope.push(Math.random());
     }
