@@ -66,7 +66,14 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
         }
         var o = _convert_to_proper_type();
 //        console.log('conversion resulted in', o);
-        $scope.stack.push({'val': o, 'type': typeof o});
+
+        var type;
+        console.log('o.constructor', o.constructor);
+        if (o.constructor == Array)
+            type = 'array';
+        else
+            type = typeof o;
+        $scope.stack.push({'val': o, 'type': type});
         rpnstack_dom.scroll_to_bottom();
     }
 

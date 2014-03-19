@@ -69,6 +69,12 @@ function LegacyFastKeyPad() {
                 var result = val1.val + val2.val;
                 stack_controller.$apply(stack_controller.push(result));
             }
+            else if (val1.type == 'array' && val2.type == 'array') {
+                var val1 = stack_controller.pop();
+                var val2 = stack_controller.pop();
+                var result = val1.val.concat(val2.val);
+                stack_controller.$apply(stack_controller.push(result));
+            }
         }
     });
 
