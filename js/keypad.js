@@ -36,26 +36,41 @@ function LegacyFastKeyPad() {
             appendDigit(event.target.text);
     });
 
-    $('#click_divide').on('vmousedown', function (event) {
-        event.preventDefault();  // prevent ghost clicks
-        appendDigit(event.target.text);
-    });
-    $('#click_times').on('vmousedown', function (event) {
-        event.preventDefault();  // prevent ghost clicks
-        appendDigit(event.target.text);
-    });
-    $('#click_minus').on('vmousedown', function (event) {
-        event.preventDefault();  // prevent ghost clicks
-        appendDigit(event.target.text);
-    });
-    $('#click_add').on('vmousedown', function (event) {
-        event.preventDefault();  // prevent ghost clicks
+    // Util
 
+    function flush_cmd_to_stack() {
         if (current_in.val() != '') {
             stack_controller.$apply(stack_controller.push(current_in.val()));
             current_in.val('');
         }
+    }
 
+    // * / - +
+
+    $('#click_divide').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        appendDigit(event.target.text);
+    });
+
+    $('#click_times').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        appendDigit(event.target.text);
+    });
+
+    $('#click_minus').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        flush_cmd_to_stack();
+        if (stack_has_same_type('number')) {
+            var val1 = stack_controller.pop();
+            var val2 = stack_controller.pop();
+            var result = val2.val - val1.val;
+            stack_controller.$apply(stack_controller.push(result));
+        }
+    });
+
+    $('#click_add').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        flush_cmd_to_stack();
         var l = stack_controller.len();
         var stack = stack_controller.getStack();
         if (l >= 2) {
@@ -77,6 +92,18 @@ function LegacyFastKeyPad() {
             }
         }
     });
+
+    function stack_has_same_type(type) {
+        var stack = stack_controller.getStack();
+        var l = stack_controller.len();
+        if (l >= 2) {
+            var val1 = stack[l-1];
+            var val2 = stack[l-2];
+            return val1.type == type && val2.type == type;
+        }
+        else
+            return false;
+    }
 
     $('#clickEnter').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks

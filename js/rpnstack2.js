@@ -68,7 +68,7 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
 //        console.log('conversion resulted in', o);
 
         var type;
-        console.log('o.constructor', o.constructor);
+        //console.log('o.constructor', o.constructor);
         if (o.constructor == Array)
             type = 'array';
         else
