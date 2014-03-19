@@ -36,19 +36,6 @@ function LegacyFastKeyPad() {
             appendDigit(event.target.text);
     });
 
-    // Util
-
-    function appendDigit(s) {
-        current_in.val(current_in.val() + s).keyup();
-    }
-
-    function flush_cmd_to_stack() {
-        if (current_in.val() != '') {
-            stack_controller.$apply(stack_controller.push(current_in.val()));
-            current_in.val('');
-        }
-    }
-
     // * / - +
 
     $('#click_divide').on('vmousedown', function (event) {
@@ -89,17 +76,8 @@ function LegacyFastKeyPad() {
         }
     });
 
-    function stack_has_same_type(type) {
-        var stack = stack_controller.getStack();
-        var l = stack_controller.len();
-        if (l >= 2) {
-            var val1 = stack[l-1];
-            var val2 = stack[l-2];
-            return val1.type == type && val2.type == type;
-        }
-        else
-            return false;
-    }
+
+    // ENTER
 
     $('#clickEnter').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
@@ -112,6 +90,9 @@ function LegacyFastKeyPad() {
         }
         current_in.val('');
     });
+
+
+    // Clear
 
     $('#clickC').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
@@ -129,6 +110,31 @@ function LegacyFastKeyPad() {
             current_in.val('');
     });
 
+    
+    // Util
+
+    function appendDigit(s) {
+        current_in.val(current_in.val() + s).keyup();
+    }
+
+    function flush_cmd_to_stack() {
+        if (current_in.val() != '') {
+            stack_controller.$apply(stack_controller.push(current_in.val()));
+            current_in.val('');
+        }
+    }
+
+    function stack_has_same_type(type) {
+        var stack = stack_controller.getStack();
+        var l = stack_controller.len();
+        if (l >= 2) {
+            var val1 = stack[l-1];
+            var val2 = stack[l-2];
+            return val1.type == type && val2.type == type;
+        }
+        else
+            return false;
+    }
 
 }
 
