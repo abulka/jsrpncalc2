@@ -11,7 +11,7 @@ $(document).ready(function () {
 function LegacyFastKeyPad() {
     // Wire up the non angular buttons and input box
     var current_in = $('#current');
-    var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9,#click0,#click_dot');
+    var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9,#click0');
     var stack_controller = angular.element($('#stack')).scope();
 
     function appendDigit(s) {
@@ -27,6 +27,13 @@ function LegacyFastKeyPad() {
         // Debug, self clearing cmd for testing only
         if (current_in.val().length > 25)
             current_in.val('');
+    });
+
+     $('#click_dot').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+
+        if (current_in.val().indexOf('.') == -1)  // don't allow more than one dot
+            appendDigit(event.target.text);
     });
 
     $('#clickEnter').on('vmousedown', function (event) {

@@ -34,7 +34,7 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
     //  - broadcast sends down to child controllers
     //  - and best trick is to broadcast on $rootScope to send down to all controllers no matter where.
 
-    // Event support
+    // Incoming Event support
     $scope.$on('push', function(event, val) { $scope.push(val); });
     $scope.$on('drop', function() { $scope.drop(); });
     $scope.$on('random_num', function() { $scope.random_num(); });
