@@ -40,22 +40,25 @@ function LegacyFastKeyPad() {
 
     $('#click_divide').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
-        appendDigit(event.target.text);
+        flush_cmd_to_stack();
+        if (stack_has_same_type('number')) {
+            OP2(function(valy,valx){ return valy.val / valx.val});
+        }
     });
 
     $('#click_times').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
-        appendDigit(event.target.text);
+        flush_cmd_to_stack();
+        if (stack_has_same_type('number')) {
+            OP2(function(valy,valx){ return valy.val * valx.val});
+        }
     });
 
     $('#click_minus').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
         flush_cmd_to_stack();
         if (stack_has_same_type('number')) {
-            var val1 = stack_controller.pop();
-            var val2 = stack_controller.pop();
-            var result = val2.val - val1.val;
-            stack_controller.$apply(stack_controller.push(result));
+            OP2(function(valy,valx){ return valy.val - valx.val});
         }
     });
 
@@ -63,18 +66,21 @@ function LegacyFastKeyPad() {
         event.preventDefault();  // prevent ghost clicks
         flush_cmd_to_stack();
         if (stack_has_same_type('number') || stack_has_same_type('string')) {
-            var val1 = stack_controller.pop();
-            var val2 = stack_controller.pop();
-            var result = val2.val + val1.val;
-            stack_controller.$apply(stack_controller.push(result));
+            OP2(function(valy,valx){ return valy.val + valx.val});
         }
         else if (stack_has_same_type('array')) {
-            var val1 = stack_controller.pop();
-            var val2 = stack_controller.pop();
-            var result = val1.val.concat(val2.val);
-            stack_controller.$apply(stack_controller.push(result));
+            OP2(function(valy,valx){ return valy.val.concat(valx.val)});
         }
     });
+
+    // Handy util for applying a function to the two top atgs of the stack and pushes result back on to stack
+
+    function OP2(f) {
+        var valx = stack_controller.pop();
+        var valy = stack_controller.pop();
+        var result = f(valy, valx);
+        stack_controller.$apply(stack_controller.push(result));
+    }
 
 
     // ENTER
