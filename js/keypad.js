@@ -101,12 +101,25 @@ function LegacyFastKeyPad() {
 
     function enter() {
         // talk to stack
-        if (current_in.val() == '')
-            stack_controller.$apply(stack_controller.random_num());  // need apply so that events trigger
+        if (current_in.val() == '') {
+
+            // Random number behaviour
+            // stack_controller.$apply(stack_controller.random_num());  // need apply so that events trigger
+
+            // Normal duplication behaviour
+            stack_controller.$apply(stack_controller.dup());  // need apply so that events trigger
+        }
+
+
         else {
             stack_controller.$apply(stack_controller.push(current_in.val()));
         }
         current_in.val('');
+    }
+
+    function backspace() {
+        str = current_in.val().substring(0, current_in.val().length - 1);
+        current_in.val(str);
     }
 
     function digit(val) {
@@ -140,9 +153,7 @@ function LegacyFastKeyPad() {
 
     $('#clickC').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
-
-        str = current_in.val().substring(0, current_in.val().length - 1);
-        current_in.val(str);
+        backspace();
     });
 
     $('#clickAC').on('vmousedown', function (event) {
@@ -190,9 +201,35 @@ function LegacyFastKeyPad() {
 //            return true;
 //    });
 
+    $(document).keydown(function (e) {
+        var keycode = e.which;
+//        console.log('doc keydown', keycode);
+
+        if (e.keyCode == 8) {  // DELETE
+            backspace();
+            return false;     // prevent document navigation backwards
+        }
+
+        // Arrow keys
+        switch (e.which) {
+            case 38: // UP
+                stack_controller.$apply(stack_controller.rup());
+                break;
+            case 40: // DOWN
+                stack_controller.$apply(stack_controller.rdn());
+                break;
+            case 39: // RIGHT
+                stack_controller.$apply(stack_controller.swap());
+                break;
+            case 37: // LEFT
+                backspace();
+                break;
+        }
+    });
+
     $(document).keypress(function (e) {
         var keycode = e.which;
-        console.log('doc keypress', keycode);
+//        console.log('doc keypress', keycode);
         switch (e.which) {
             case 13: // enter
                 enter();
