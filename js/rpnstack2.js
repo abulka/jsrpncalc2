@@ -14,6 +14,7 @@ myApp.controller('RpnStackManipulation', function ($scope, $rootScope) {
     //     and we can't have the same controller on two divs.
 
     $scope.push = function (n) { $rootScope.$broadcast('push', n); }
+    $scope.chs = function () { $rootScope.$broadcast('chs'); }
     $scope.random_num = function () { $rootScope.$broadcast('random_num'); }
     $scope.drop = function () { $rootScope.$broadcast('drop'); }
     $scope.dup = function () { $rootScope.$broadcast('dup'); }
@@ -36,6 +37,7 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
 
     // Incoming Event support
     $scope.$on('push', function(event, val) { $scope.push(val); });
+    $scope.$on('chs', function(event) { $scope.chs(); });
     $scope.$on('drop', function() { $scope.drop(); });
     $scope.$on('random_num', function() { $scope.random_num(); });
     $scope.$on('dup', function() { $scope.dup(); });
@@ -87,8 +89,30 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
     $scope.getStack = function () {
         return $scope.stack;
     }
+    $scope.chs = function () {
+        var x = $scope.getTop();
+        if (x != undefined && x.type == 'number') {
+            var v = $scope.pop();
+            var new_v = - v.val;
+            $scope.push(new_v);
+        }
+    }
+
+//    function _flush_cmd_to_stack() {
+//        if (current_in.val() != '') {
+//            stack_controller.$apply(stack_controller.push(current_in.val()));
+//            current_in.val('');
+//        }
+//    }
+
 
     // Core stuff
+    $scope.getTop = function() {
+        if ($scope.stack.length > 0)
+            return $scope.stack[$scope.stack.length-1];
+        else
+            return undefined;
+    }
     $scope.random_num = function () {
         $scope.push(Math.random());
     }
@@ -147,6 +171,8 @@ myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_do
     $scope.push("welcome to rpn calc");
     $scope.push({1: 'a', 2: 'b'});
     $scope.push([1, 2, 3, 4, "hi"]);
+    $scope.push(200);
+    $scope.push(8);
 
     rpnstack_dom.scroll_to_bottom();
 });

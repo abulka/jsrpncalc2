@@ -110,7 +110,7 @@ function LegacyFastKeyPad() {
             current_in.val('');
     });
 
-    
+
     // Util
 
     function appendDigit(s) {
