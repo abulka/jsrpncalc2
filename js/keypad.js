@@ -85,9 +85,7 @@ function LegacyFastKeyPad() {
 
     // ENTER
 
-    $('#clickEnter').on('vmousedown', function (event) {
-        event.preventDefault();  // prevent ghost clicks
-
+    function enter() {
         // talk to stack
         if (current_in.val() == '')
             stack_controller.$apply(stack_controller.random_num());  // need apply so that events trigger
@@ -95,6 +93,11 @@ function LegacyFastKeyPad() {
             stack_controller.$apply(stack_controller.push(current_in.val()));
         }
         current_in.val('');
+    }
+
+    $('#clickEnter').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        enter();
     });
 
 
@@ -141,6 +144,16 @@ function LegacyFastKeyPad() {
         else
             return false;
     }
+
+    // Keyboard
+
+    current_in.on("keyup", function(e) {
+        if (e.keyCode == 13) {
+            enter();
+            return false;
+        } else
+            return true;
+    });
 
 }
 
