@@ -193,17 +193,47 @@ function LegacyFastKeyPad() {
 
     // Keyboard
 
-//    current_in.on("keyup", function(e) {
-//        if (e.keyCode == 13) {
-//            enter();
-//            return false;
-//        } else
-//            return true;
-//    });
+    function global_keys_on() {
+        $(document).on('keydown', on_arrow_keys);
+        $(document).on('keypress', on_digit_keys);
+    }
 
-    $(document).keydown(function (e) {
+    function global_keys_off() {
+        $(document).off('keydown', on_arrow_keys);
+        $(document).off('keypress', on_digit_keys);
+    }
+
+    current_in.on( "focus", function () {
+        console.log("Handler for .focus() called.");
+        global_keys_off();
+    });
+
+    current_in.on( "focusout", function () {
+        console.log("Handler for focusout called.");
+        global_keys_on();
+    });
+
+    // Always on
+    $(document).on('keypress', on_enter_key);
+    $(document).on('keydown', on_esc_key);
+
+    // Init on, but can be switched off when cmd gets input
+    $(document).on('keydown', on_arrow_keys);
+    $(document).on('keypress', on_digit_keys);
+
+    function on_enter_key(e){
+        if (e.which == 13)  // enter
+            enter();
+    }
+
+    function on_esc_key(e){
+        if (e.which == 27)  // esc
+            current_in.blur();  // why can't I call focusout ?  Oh well, blur works.
+    }
+
+    function on_arrow_keys(e) {
         var keycode = e.which;
-//        console.log('doc keydown', keycode);
+        //console.log('doc keydown', keycode);
 
         if (e.keyCode == 8) {  // DELETE
             backspace();
@@ -225,15 +255,11 @@ function LegacyFastKeyPad() {
                 backspace();
                 break;
         }
-    });
-
-    $(document).keypress(function (e) {
+    }
+    function on_digit_keys(e){
         var keycode = e.which;
-//        console.log('doc keypress', keycode);
+        //console.log('doc keypress', keycode);
         switch (e.which) {
-            case 13: // enter
-                enter();
-                break;
             case 43: // +
                 plus();
                 break;
@@ -253,7 +279,7 @@ function LegacyFastKeyPad() {
         }
         else if (keycode == 46)
             dot();
-    });
+    }
 
 }
 
