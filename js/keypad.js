@@ -213,13 +213,22 @@ function LegacyFastKeyPad() {
         global_keys_on();
     });
 
-    // Always on
-    $(document).on('keypress', on_enter_key);
-    $(document).on('keydown', on_esc_key);
+    function wire_main_page_global_keys_on() {
+        // Always on, on the main calc page
+        $(document).on('keypress', on_enter_key);
+        $(document).on('keydown', on_esc_key);
 
-    // Init on, but can be switched off when cmd gets input
-    $(document).on('keydown', on_arrow_keys);
-    $(document).on('keypress', on_digit_keys);
+        // Init on, but can be switched off when cmd gets input
+        $(document).on('keydown', on_arrow_keys);
+        $(document).on('keypress', on_digit_keys);
+    }
+    function wire_main_page_global_keys_off() {
+        $(document).off('keypress', on_enter_key);
+        $(document).off('keydown', on_esc_key);
+        $(document).off('keydown', on_arrow_keys);
+        $(document).off('keypress', on_digit_keys);
+
+    }
 
     function on_enter_key(e){
         if (e.which == 13)  // enter
@@ -281,6 +290,14 @@ function LegacyFastKeyPad() {
             dot();
     }
 
+    $(document).on("pageshow","#options",function(){ // When entering pagetwo
+        wire_main_page_global_keys_off();
+    });
+    $(document).on("pageshow","#col_layouts",function(){ // When entering pagetwo
+        wire_main_page_global_keys_on();
+    });
+
+    wire_main_page_global_keys_on();
 }
 
 
