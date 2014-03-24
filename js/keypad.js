@@ -290,14 +290,21 @@ function LegacyFastKeyPad() {
             dot();
     }
 
-    $(document).on("pageshow","#options",function(){ // When entering pagetwo
-        wire_main_page_global_keys_off();
-    });
-    $(document).on("pageshow","#col_layouts",function(){ // When entering pagetwo
+    // Handle broadcasted events (normal javascript custom events)
+
+    $(document).on('boot', function (e) {
+        //console.log('boot', e.target);
         wire_main_page_global_keys_on();
     });
 
-    wire_main_page_global_keys_on();
+    $(document).on('wire_global_keys', function (e, enable) {
+        //console.log('wire_global_keys', e.target, 'enabled=', enable);
+        if (enable)
+            wire_main_page_global_keys_on();
+        else
+            wire_main_page_global_keys_off();
+    });
+
 }
 
 

@@ -34,5 +34,17 @@ $(window).load(function () {
         onResize();
     }, 10);
 
+
+    // Global events
+
+    $(document).trigger( "boot" );
+
+    $(document).on("pageshow", "#col_layouts", function() { // When entering main calc page
+        $(document).trigger( 'wire_global_keys', true );
+    });
+    $(document).on("pageshow", "#options", function() { // When entering pagetwo
+        $(document).trigger( 'wire_global_keys', false );
+    });
+
 });
 

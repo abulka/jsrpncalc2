@@ -23,6 +23,9 @@ myApp.controller('RpnStackManipulation', function ($scope, $rootScope) {
     $scope.rup = function () { $rootScope.$broadcast('rup'); }
     $scope.increase_visible_stack = function () { $rootScope.$broadcast('increase_visible_stack'); }
     $scope.decrease_visible_stack = function () { $rootScope.$broadcast('decrease_visible_stack'); }
+
+    // My secret access to rootscope broadcasting and thus access to every controller - unused
+    $scope.please_broadcast = function(event_str) { $rootScope.$broadcast(event_str); }
 });
 
 myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_dom) {
