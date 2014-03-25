@@ -11,7 +11,7 @@ $(document).ready(function () {
 function LegacyFastKeyPad() {
     // fast click magic technique
 
-    var current_in = $('#current');
+    var current_in = $('#current_cmd');
     var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9,#click0');
     var stack_controller = angular.element($('#stack')).scope();
 
@@ -118,7 +118,7 @@ function LegacyFastKeyPad() {
     }
 
     function backspace() {
-        str = current_in.val().substring(0, current_in.val().length - 1);
+        var str = current_in.val().substring(0, current_in.val().length - 1);
         current_in.val(str);
     }
 

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // executes when HTML-Document is loaded and DOM is ready
     // Wire up the non angular buttons and input box
-    var current_in = $('#current');
+    var current_in = $('#current_cmd');
     var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9');
 
     function appendDigit(s) {
