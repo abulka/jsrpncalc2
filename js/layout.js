@@ -2,6 +2,7 @@ var $root_dom = $('#col_layouts');  // wish Angular could detect this and pass i
 
 myApp.controller('ViewOptionsController', function ($scope, $rootScope, layout_mode_mgr, column_config) {
 
+    $scope.show_keypad = true;
     $scope.show_debug = false;
     $scope.tape_mode = false;   // true, false
     $scope.viewoptions = {
@@ -23,6 +24,10 @@ myApp.controller('ViewOptionsController', function ($scope, $rootScope, layout_m
         //console.log('$watch viewoptions');
         layout_mode_mgr.achieve_layout($scope.viewoptions.num_cols, $scope.viewoptions.layout_mode);
     }, true);
+
+    $scope.$watch('show_keypad', function () {
+        layout_mode_mgr.achieve_keypad_visibility($scope.show_keypad);
+    }, false);
 
     $scope.$watch('tape_mode', function () {
         //console.log('angular watch tape');
@@ -109,6 +114,13 @@ myApp.factory('layout_mode_mgr', function () {
             $root_dom.find('td.tape').hide();
     }
 
+    function achieve_keypad_visibility(show_keypad) {
+        if (show_keypad)
+            $("#keypad").collapsible( "expand" );
+        else
+            $("#keypad").collapsible( "collapse" );
+    }
+
     function show_all_debug() {
         move_widgets_out();
         $root_dom.find('.spacer').show();
@@ -120,6 +132,7 @@ myApp.factory('layout_mode_mgr', function () {
         move_widgets_out: move_widgets_out,
         achieve_layout: achieve_layout,
         achieve_tape: achieve_tape,
+        achieve_keypad_visibility: achieve_keypad_visibility,
         show_all_debug: show_all_debug
     }
 });
