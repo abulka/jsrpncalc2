@@ -81,6 +81,7 @@ function JsParser(code_textarea, lineWrapping_bool, lineNumbers_bool)
   }
   
   var doeval = function(params_dict) {
+    console.log('doeval, params_dict=', params_dict);
     var function_to_call =  params_dict['function_to_call'];
     var num_params =        params_dict['num_params'];
     var params =            params_dict['params'];
@@ -108,7 +109,7 @@ function JsParser(code_textarea, lineWrapping_bool, lineNumbers_bool)
     // Build the final user function command to call
     var cmd = function_to_call + "(" + p + ");"
     console.log(cmd);
-    log(cmd);
+//    log(cmd);
     var result = eval(cmd);
     
     if (result != undefined) {

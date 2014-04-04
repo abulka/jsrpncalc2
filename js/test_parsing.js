@@ -19,8 +19,11 @@ $(window).load(function () {
         return s;
     }
     var clicksound = undefined;
-    var log = undefined;
-    var custom_button_mgr = new CustomButtonsMgr(jsparser, persister, clicksound, log);
+    var log = function(o) { console.log(o); }  // later remap this to tape
+    var rpn = {}
+    rpn.popper = function() { return 100; }
+    rpn.pusher = function(val) { console.log('pushed val', val); }
+    var custom_button_mgr = new CustomButtonsMgr(jsparser, persister, clicksound, log, rpn);
 
     $("#btnReparse").on('click', function(event, ui) {
         custom_button_mgr.rebuild_custom_buttons();
