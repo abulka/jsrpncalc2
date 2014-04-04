@@ -24,8 +24,48 @@ myApp.controller('RpnStackManipulation', function ($scope, $rootScope) {
     $scope.increase_visible_stack = function () { $rootScope.$broadcast('increase_visible_stack'); }
     $scope.decrease_visible_stack = function () { $rootScope.$broadcast('decrease_visible_stack'); }
 
+//    // Not re-broadcasting.  Just a dumping spot for extra functionality
+//    $scope.blah1 = function () {  }
+//    $scope.blah2 = function () {  }
+
+
     // My secret access to rootscope broadcasting and thus access to every controller - unused
     $scope.please_broadcast = function(event_str) { $rootScope.$broadcast(event_str); }
+});
+
+// Fix for faster anglular clicks - works! See https://github.com/angular/angular.js/issues/2548
+myApp.directive("ngClick", function () {
+    return {
+        restrict: "A",
+        link: function (scope, element, attr) {
+            var applyAttribute, touchBroken, touchMoveCounter;
+            touchBroken = false;
+            touchMoveCounter = 0;
+            applyAttribute = function () {
+                if (!touchBroken) {
+                    return scope.$apply(attr['ngClick']);
+                }
+            };
+            element.on('touchend', function (event) {
+                touchMoveCounter = 0;
+                event.preventDefault();
+                applyAttribute();
+                touchBroken = false;
+                return touchMoveCounter = 0;
+            });
+            return element.on('touchmove', function (event) {
+                if (touchBroken) {
+                    return;
+                }
+                if (!touchBroken) {
+                    touchMoveCounter++;
+                }
+                if (touchMoveCounter > 2) {
+                    return touchBroken = true;
+                }
+            });
+        }
+    };
 });
 
 myApp.controller('RpnStackController', function ($scope, $rootScope, rpnstack_dom) {

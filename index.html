@@ -41,6 +41,9 @@
 
                 <input type="checkbox" id="checkbox-printout_tape" ng-model="tape_mode" data-mini="true">
                 <label for="checkbox-printout_tape">tape</label>
+
+                <input type="checkbox" id="checkbox-show_keypad" ng-model="show_keypad" data-mini="true">
+                <label for="checkbox-show_keypad">keypad</label>
             </fieldset>
         </div>
     </form>
@@ -293,7 +296,7 @@
 
     <div id="canvas" class="orange widget">Canvas</div>
 
-    <div id="keypad" class="cyan widget">
+    <div id="keypad" class="cyan widget" data-role="collapsible" data-collapsed="false">
         <div class="ui-body ui-body-d">
             <div class="ui-grid-a">
                 <div class="ui-block-a">
@@ -369,8 +372,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
     <div id="custom" class="pink widget">
         <button class="ui-btn ui-mini ui-btn-inline">Custom Button</button>
         <button class="ui-btn ui-mini ui-btn-inline">Pi</button>
