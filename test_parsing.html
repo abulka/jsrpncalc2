@@ -9,9 +9,17 @@
 <!--<body ng-app="myApp">-->
 
 <div id="ngDiv" ng-app>
+    <a id="btnReparse" data-role="button" data-inline=true data-mini="true" data-theme="b">Re-Parse</a>
     <div id="someDiv">
+        ENTER YOUR CODE HERE:
         <textarea id="code" name="code" data-role="none" style="height: 40em; width: 30em;">
+function fred() {}
+function mary() {}
         </textarea>
+    </div>
+
+    <h3>Custom Buttons</h3>
+    <div class='item' id='customKeysPage'>
     </div>
 </div>
 
@@ -35,6 +43,7 @@
 <!--<script type='text/javascript' src="scripts/other/codemirror-3.0/codemirror.javascript.js"></script>-->
 
 
+<script src="js/custom_button_mgr2.js"></script>
 <script src="js/test_parsing.js"></script>
 
 <script type="text/javascript">
