@@ -1,10 +1,10 @@
 
-function CustomButtonsMgr(jsparser, persister, clicksound, log_f, rpn)
+function CustomButtonsMgr(jsparser, persister, clicksound, log_f, rpn)  // should be better ways to pass these
 {
 //  // PRIVATE
 
   function buttonBuilder(params, $attachto) {
-      console.log('buttonBuilder, params=', params);
+      // console.log('buttonBuilder, params=', params);
       var element = $('<a>'+params['function_name']+'</a>');
       element.attr('data-role', "button").attr('data-mini', true).attr('data-inline', true).attr('data-theme', "a");
 //      element.button(); // give jqm a chance to style it.

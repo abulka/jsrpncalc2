@@ -35,16 +35,16 @@ function JsParser(code_textarea, lineWrapping_bool, lineNumbers_bool)
   // Public Methods -------------------------
 
   // UNUSED AT THE MOMENT - TODO
-  function re_init_editor(lineWrapping_bool2, lineNumbers_bool2) {
-      editor = CodeMirror.fromTextArea(code_textarea, {
-          lineNumbers: lineNumbers_bool2,
-          matchBrackets: true,
-          tabSize: 2,
-          mode: {name: "javascript", json: true},
-          autoClearEmptyLines: true,
-          lineWrapping: lineWrapping_bool2
-      });
-  }
+//  function re_init_editor(lineWrapping_bool2, lineNumbers_bool2) {
+//      editor = CodeMirror.fromTextArea(code_textarea, {
+//          lineNumbers: lineNumbers_bool2,
+//          matchBrackets: true,
+//          tabSize: 2,
+//          mode: {name: "javascript", json: true},
+//          autoClearEmptyLines: true,
+//          lineWrapping: lineWrapping_bool2
+//      });
+//  }
   
   function get_buttons_tobuild_spec() { return buttons_tobuild_spec; }
   
