@@ -1,14 +1,9 @@
-function JsParser(code_textarea, lineWrapping_bool, lineNumbers_bool)
+function JsParser(editor)
 {
   var syntax;
-  var lineWrapping = lineWrapping_bool;
-  var lineNumbers = lineNumbers_bool;
-  
+
   var buttons_tobuild_spec = [];
   //var custom_buttons_enabled_info = [];
-  
-  if (lineWrapping == undefined) lineWrapping = false;
-  if (lineNumbers == undefined) lineNumbers = false;
   
   var last_function_call_params = undefined;
   
@@ -22,14 +17,14 @@ function JsParser(code_textarea, lineWrapping_bool, lineNumbers_bool)
           eval.call(null, src);
   }
   
-  var editor = CodeMirror.fromTextArea(code_textarea, {
-      lineNumbers: lineNumbers,
-      matchBrackets: true,
-      tabSize: 2,
-      mode: {name: "javascript", json: true},
-      autoClearEmptyLines: true,
-      lineWrapping: lineWrapping
-  });
+//  var editor = CodeMirror.fromTextArea(code_textarea, {
+//      lineNumbers: lineNumbers,
+//      matchBrackets: true,
+//      tabSize: 2,
+//      mode: {name: "javascript", json: true},
+//      autoClearEmptyLines: true,
+//      lineWrapping: lineWrapping
+//  });
 
 
   // Public Methods -------------------------
@@ -123,7 +118,7 @@ function JsParser(code_textarea, lineWrapping_bool, lineNumbers_bool)
 
   return {
     parse:parse,
-    editor:editor,
+//    editor:editor,
     get_buttons_tobuild_spec:get_buttons_tobuild_spec,
     //re_init_editor:re_init_editor,
     execute_function_from_button_info:doeval,

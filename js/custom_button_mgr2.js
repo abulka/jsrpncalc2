@@ -42,7 +42,7 @@ function CustomButtonsMgr(jsparser, persister, clicksound, log_f, rpn)  // shoul
   function rebuild_custom_buttons() {
       var first_time = false;
       
-      jsparser.editor.setValue(persister.get_editor_text());
+//      jsparser.editor.setValue(persister.get_editor_text());
       
       var btb = jsparser.parse();
       //console.log('btb', btb);

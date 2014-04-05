@@ -7,16 +7,21 @@ $(document).ready(function () {
 $(window).load(function () {
     // executes when complete page is fully loaded (all frames, objects and images)
 
-    var want_word_wrap = false;
-    var want_line_numbers = true;
-    var textarea = $("#code")[0];
-    var jsparser = new JsParser(textarea, want_word_wrap, want_line_numbers);
+    var code_textarea = $("#code")[0];
+
+    var editor = CodeMirror.fromTextArea(code_textarea, {
+        lineNumbers: true,
+        matchBrackets: true,
+        tabSize: 4,
+        mode: {name: "javascript", json: true},
+        autoClearEmptyLines: true,
+        lineWrapping: false
+    });
+    var jsparser = new JsParser(editor);
 
     var persister = {};
     persister.get_editor_text = function() {
-        var s = jsparser.editor.getValue();
-        console.log('getting editor text', s);
-        return s;
+        return editor;
     }
     var clicksound = undefined;
     var log = function(o) { console.log(o); }  // later remap this to tape
