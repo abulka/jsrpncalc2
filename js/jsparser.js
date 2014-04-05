@@ -1,6 +1,6 @@
 function JsParser(editor) {
     var syntax;
-    var buttons_tobuild_spec = [];
+    var buttons_to_build = [];
     var last_function_call_params = undefined;
 
     // Private Methods ------------------------
@@ -15,12 +15,12 @@ function JsParser(editor) {
 
     // Public Methods -------------------------
 
-    function get_buttons_tobuild_spec() {
-        return buttons_tobuild_spec;
+    function getButtonsToBuild() {
+        return buttons_to_build;
     }
 
     function parse(code) {
-        buttons_tobuild_spec = [];
+        buttons_to_build = [];
 
         if (code == undefined)
             var code = editor.getValue();
@@ -35,14 +35,14 @@ function JsParser(editor) {
                 'num_params': el.params.length,
                 'params': jQuery.extend({}, el.params) // shallow copy
             }
-            buttons_tobuild_spec.push(button_building_params);
+            buttons_to_build.push(button_building_params);
         }
 
         // Make sure javascript knows about everything in the code,
         // so that later evals work correctly
         globalEval(code);
 
-        return buttons_tobuild_spec;
+        return buttons_to_build;
     }
 
     var executeAgain = function () {
@@ -93,7 +93,7 @@ function JsParser(editor) {
 
     return {
         parse: parse,
-        get_buttons_tobuild_spec: get_buttons_tobuild_spec,
+        getButtonsToBuild: getButtonsToBuild,
         execute: execute,
         executeAgain: executeAgain
     }
