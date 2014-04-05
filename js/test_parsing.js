@@ -19,16 +19,12 @@ $(window).load(function () {
     });
     var jsparser = new JsParser(editor);
 
-    var persister = {};
-    persister.get_editor_text = function() {
-        return editor;
-    }
     var clicksound = undefined;
     var log = function(o) { console.log(o); }  // later remap this to tape
     var rpn = {}
     rpn.popper = function() { return 100; }
     rpn.pusher = function(val) { console.log('pushed val', val); }
-    var custom_button_mgr = new CustomButtonsMgr(jsparser, persister, clicksound, log, rpn);
+    var custom_button_mgr = new CustomButtonsMgr(jsparser, clicksound, log, rpn);
 
     $("#btnReparse").on('click', function(event, ui) {
         custom_button_mgr.rebuild_custom_buttons();

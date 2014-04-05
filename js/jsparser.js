@@ -17,30 +17,8 @@ function JsParser(editor)
           eval.call(null, src);
   }
   
-//  var editor = CodeMirror.fromTextArea(code_textarea, {
-//      lineNumbers: lineNumbers,
-//      matchBrackets: true,
-//      tabSize: 2,
-//      mode: {name: "javascript", json: true},
-//      autoClearEmptyLines: true,
-//      lineWrapping: lineWrapping
-//  });
-
-
   // Public Methods -------------------------
 
-  // UNUSED AT THE MOMENT - TODO
-//  function re_init_editor(lineWrapping_bool2, lineNumbers_bool2) {
-//      editor = CodeMirror.fromTextArea(code_textarea, {
-//          lineNumbers: lineNumbers_bool2,
-//          matchBrackets: true,
-//          tabSize: 2,
-//          mode: {name: "javascript", json: true},
-//          autoClearEmptyLines: true,
-//          lineWrapping: lineWrapping_bool2
-//      });
-//  }
-  
   function get_buttons_tobuild_spec() { return buttons_tobuild_spec; }
   
   function parse(s) {
@@ -70,12 +48,12 @@ function JsParser(editor)
     return buttons_tobuild_spec;
   }
 
-  var redoeval = function() {
+  var executeAgain = function() {
     if (last_function_call_params != undefined)
-      doeval(last_function_call_params);
+      execute(last_function_call_params);
   }
   
-  var doeval = function(params_dict) {
+  var execute = function(params_dict) {
     console.log('doeval, params_dict=', params_dict);
     var function_to_call =  params_dict['function_to_call'];
     var num_params =        params_dict['num_params'];
@@ -118,11 +96,9 @@ function JsParser(editor)
 
   return {
     parse:parse,
-//    editor:editor,
     get_buttons_tobuild_spec:get_buttons_tobuild_spec,
-    //re_init_editor:re_init_editor,
-    execute_function_from_button_info:doeval,
-    redoeval:redoeval
+    execute:execute,
+    executeAgain:executeAgain
   }
 
 };

@@ -1,5 +1,5 @@
 
-function CustomButtonsMgr(jsparser, persister, clicksound, log_f, rpn)  // should be better ways to pass these
+function CustomButtonsMgr(jsparser, clicksound, log_f, rpn)  // should be better ways to pass these
 {
 //  // PRIVATE
 
@@ -21,7 +21,7 @@ function CustomButtonsMgr(jsparser, persister, clicksound, log_f, rpn)  // shoul
 
   function doclickeval(event) {
       console.log('doclickeval this', this);
-      jsparser.execute_function_from_button_info({
+      jsparser.execute({
 //          'function_to_call': $(this).find('.ui-btn-text').text(), // button text nested a within a few spans in jqm
           'function_to_call': $(this).data("function_name"),
           // go off button name for now
@@ -41,8 +41,6 @@ function CustomButtonsMgr(jsparser, persister, clicksound, log_f, rpn)  // shoul
 
   function rebuild_custom_buttons() {
       var first_time = false;
-      
-//      jsparser.editor.setValue(persister.get_editor_text());
       
       var btb = jsparser.parse();
       //console.log('btb', btb);
