@@ -11,7 +11,7 @@ function CustomButtonsMgr(jsparser, clicksound, log_f, rpn)  // should be better
 
       //element.on('vmousedown', function() { clicksound.play(); });  // click sound during carousel swipe is confusing, so don't do it.
 
-      element.on("click dblclick", doclickeval);  // Wire up event handler for our new custom button.
+      element.on("click dblclick", onClickDoExecute);  // Wire up event handler for our new custom button.
                                                   // Note we don't listen for swipe, since custom buttons on the carousel
                                                   // are likely to be swiped and the intent is for the carousel to move
       $attachto.append(element);
@@ -19,18 +19,15 @@ function CustomButtonsMgr(jsparser, clicksound, log_f, rpn)  // should be better
       return element;
   }
 
-  function doclickeval(event) {
-      console.log('doclickeval this', this);
-      jsparser.execute({
-//          'function_to_call': $(this).find('.ui-btn-text').text(), // button text nested a within a few spans in jqm
-          'function_to_call': $(this).data("function_name"),
-          // go off button name for now
-          'num_params': $(this).data("num_params"),
-          // custom attr for any dom element - see http://api.jquery.com/jQuery.data/
-          'params': $(this).data("params"),
-          'rpnstack': rpn,
-          'log': log_f
-      });
+  function onClickDoExecute(event) {
+      var data = {};
+      data.function_to_call = $(this).data("function_name");
+      data.num_params = $(this).data("num_params");
+      data.params = $(this).data("params");
+      data.rpnstack = rpn;
+      data.log = log_f;
+
+      jsparser.execute(data);
   }
 
   function clear_custom_buttons() {
