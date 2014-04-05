@@ -56,7 +56,7 @@ function CustomButtonsMgr(jsparser, clicksound, log_f, rpn)  // should be better
           element.data("function_name", current_function);  //function name - don't trust button text
           element.data("num_params", btb[i].num_params);  // Add custom data to the button re what function it represents
           element.data("params", btb[i].params);          // and what parameters that function takes.
-          console.log('buttonBuilder AUGMENTED element with params info:', element);
+          //console.log('buttonBuilder AUGMENTED element with params info:', element);
 
       }
   }

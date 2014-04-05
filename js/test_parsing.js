@@ -22,7 +22,9 @@ $(window).load(function () {
     var clicksound = undefined;
     var log = function(o) { console.log(o); }  // later remap this to tape
     var rpn = {}
-    rpn.popper = function() { return 100; }
+    rpn.popper = function() { console.log('popper called');
+        return { 'val' : 100, 'val_type' : typeof 100 }
+    }
     rpn.pusher = function(val) { console.log('pushed val', val); }
     var custom_button_mgr = new CustomButtonsMgr(jsparser, clicksound, log, rpn);
 

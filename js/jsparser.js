@@ -1,26 +1,21 @@
 function JsParser(editor) {
     var syntax;
-    var buttons_to_build = [];
-    var last_function_call_params = undefined;
+    var last_execute_info = undefined;
 
     // Private Methods ------------------------
 
-    // See http://weblogs.java.net/blog/driscoll/archive/2009/09/08/eval-javascript-global-context
-    var globalEval = function (src) {
-        if (window.execScript) // eval in global scope for IE
-            window.execScript(src);
-        else // other browsers
-            eval.call(null, src);
+    var evalGlobal = function (code) {
+        if (window.execScript)          // eval in global scope for IE, See http://weblogs.java.net/blog/driscoll/archive/2009/09/08/eval-javascript-global-context
+            window.execScript(code);
+        else                            // other browsers
+            eval.call(null, code);
     }
 
     // Public Methods -------------------------
 
-    function getButtonsToBuild() {
-        return buttons_to_build;
-    }
-
     function parse(code) {
-        buttons_to_build = [];
+        // Returns array of buttons to build
+        var buttons_to_build = [];
 
         if (code == undefined)
             var code = editor.getValue();
@@ -40,25 +35,26 @@ function JsParser(editor) {
 
         // Make sure javascript knows about everything in the code,
         // so that later evals work correctly
-        globalEval(code);
+        evalGlobal(code);
 
         return buttons_to_build;
     }
 
     var executeAgain = function () {
-        if (last_function_call_params != undefined)
-            execute(last_function_call_params);
+        if (last_execute_info != undefined)
+            execute(last_execute_info);
     }
 
-    var execute = function (params_dict) {
-        console.log('doeval, params_dict=', params_dict);
-        var function_to_call = params_dict['function_to_call'];
-        var num_params = params_dict['num_params'];
-        var params = params_dict['params'];
-        var rpn = params_dict['rpnstack'];  // even though rpn and log are available globally (for now)
-        var log = params_dict['log'];       // best we explicitly get them passed in.
+    var execute = function (data) {
+        console.log('execute,', data);
+        
+        var function_to_call = data.function_to_call;
+        var num_params = data.num_params;
+        var params = data.params;
+        var rpn = data.rpnstack;  // even though rpn and log are available globally (for now)
+        var log = data.log;       // best we explicitly get them passed in.
 
-        last_function_call_params = params_dict;
+        last_execute_info = data;
 
         // Build parameters string.
         // There must be a better way than this e.g. by using the argument array.
@@ -89,11 +85,8 @@ function JsParser(editor) {
 
     }
 
-    // Return interface -----------------------
-
     return {
         parse: parse,
-        getButtonsToBuild: getButtonsToBuild,
         execute: execute,
         executeAgain: executeAgain
     }
