@@ -125,7 +125,7 @@ function JsParser(code_textarea, lineWrapping_bool, lineNumbers_bool)
     parse:parse,
     editor:editor,
     get_buttons_tobuild_spec:get_buttons_tobuild_spec,
-    re_init_editor:re_init_editor,
+    //re_init_editor:re_init_editor,
     execute_function_from_button_info:doeval,
     redoeval:redoeval
   }
