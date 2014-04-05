@@ -29,9 +29,9 @@ $(window).load(function () {
     var custom_button_mgr = new CustomButtonsMgr(jsparser, clicksound, log, rpn);
 
     $("#btnReparse").on('click', function(event, ui) {
-        custom_button_mgr.rebuild_custom_buttons();
+        custom_button_mgr.rebuildAllButtons();
     });
 
-    custom_button_mgr.rebuild_custom_buttons();
+    custom_button_mgr.rebuildAllButtons();
 
 });

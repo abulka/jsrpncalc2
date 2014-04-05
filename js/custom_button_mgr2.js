@@ -3,8 +3,8 @@ function CustomButtonsMgr(jsparser, clicksound, log_f, rpn)  // should be better
 {
 //  // PRIVATE
 
-  function buttonBuilder(params, $attachto) {
-      // console.log('buttonBuilder, params=', params);
+  function buildButton(params, $attachto) {
+      // console.log('buildButton, params=', params);
       var element = $('<a>'+params['function_name']+'</a>');
       element.attr('data-role', "button").attr('data-mini', true).attr('data-inline', true).attr('data-theme', "a");
 //      element.button(); // give jqm a chance to style it.
@@ -15,7 +15,7 @@ function CustomButtonsMgr(jsparser, clicksound, log_f, rpn)  // should be better
                                                   // Note we don't listen for swipe, since custom buttons on the carousel
                                                   // are likely to be swiped and the intent is for the carousel to move
       $attachto.append(element);
-      console.log('buttonBuilder built element:', element);
+      console.log('buildButton built element:', element);
       return element;
   }
 
@@ -30,38 +30,33 @@ function CustomButtonsMgr(jsparser, clicksound, log_f, rpn)  // should be better
       jsparser.execute(data);
   }
 
-  function clear_custom_buttons() {
+  function clearButtons() {
       $("#customKeysPage").html('');
   }
   
   // PUBLIC
 
-  function rebuild_custom_buttons() {
-      var first_time = false;
-      
-      var btb = jsparser.parse();
+  function rebuildAllButtons() {
+      var buttons_to_build = jsparser.parse();
+      var btb = buttons_to_build;
       //console.log('btb', btb);
 
-      // Re-Build buttons
-      
-      clear_custom_buttons();   // Clear old buttons from swipe carousel
+      clearButtons();   // Clear old buttons
 
       for (var i=0; i < btb.length; i++) {
           var current_function = btb[i].function_name;
           
-          var element = buttonBuilder(btb[i], $('#customKeysPage'));
+          var element = buildButton(btb[i], $('#customKeysPage'));
           element.data("function_name", current_function);  //function name - don't trust button text
           element.data("num_params", btb[i].num_params);  // Add custom data to the button re what function it represents
           element.data("params", btb[i].params);          // and what parameters that function takes.
-          //console.log('buttonBuilder AUGMENTED element with params info:', element);
+          //console.log('buildButton AUGMENTED element with params info:', element);
 
       }
   }
   
-  // Return interface -----------------------
-
   return {
-    rebuild_custom_buttons:rebuild_custom_buttons,
+    rebuildAllButtons:rebuildAllButtons,
   }
 
 };
