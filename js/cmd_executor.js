@@ -1,4 +1,4 @@
-function CmdExecutor(rpn, tape) {
+function CmdExecutor(rpn, tape, cmd_controller) {
     var last_execute_info = undefined;
 
     var executeAgain = function () {
@@ -10,20 +10,7 @@ function CmdExecutor(rpn, tape) {
         tape.log(cmd);
         last_execute_info = cmd;
 
-        // Need to call
-        // flush_cmd_to_stack(); - but how?  its inside keypad.js
-        // which is not even an instance, it just runs.
-        // HACK for now
-        var current_in = $('#current_cmd');
-        var stack_controller = angular.element($('#stack')).scope();
-        function flush_cmd_to_stack() {
-            if (current_in.val() != '') {
-                stack_controller.$apply(stack_controller.push(current_in.val()));
-                current_in.val('');
-            }
-        }
-        flush_cmd_to_stack();
-        // END HACK
+        cmd_controller.flush_cmd_to_stack();
 
         // Build parameters string.
         // There must be a better way than this e.g. by using the argument array.

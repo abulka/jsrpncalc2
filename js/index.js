@@ -45,12 +45,11 @@ function Rpn()
     }
 };
 
+
 // Globals - thus accessible from inside scripts too!
 var rpn;
 var tape;
 
-// Globals for wiring
-var cmd_controller;
 
 // TIP: document.ready mean DOM ready.  Later, window.onload fires when images are loaded.
 
@@ -59,8 +58,8 @@ app.initialize();  // wires up the deviceready event listening.  TODO: put all s
 $(document).ready(function () {
     // executes when HTML-Document is loaded and DOM is ready.
 
-    cmd_controller = CmdController();
-    console.log('cmd_controller during ready', cmd_controller);
+    var cmd_controller = CmdController();
+
     LegacyFastKeyPad(cmd_controller);  // receives 'boot event'
 
     // Global events
@@ -96,7 +95,7 @@ $(document).ready(function () {
     tape = {};
     tape.log = function(s) { console.log(s); };
 
-    var cmd_executor = CmdExecutor(rpn, tape);
+    var cmd_executor = CmdExecutor(rpn, tape, cmd_controller);
     var custom_button_mgr = CustomButtonsMgr(jsparser, $('#customKeysPage'), cmd_executor, true, clicksound);
 
     $("#btnReparse").on('click', function(event, ui) {
