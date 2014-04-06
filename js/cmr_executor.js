@@ -19,8 +19,8 @@ function CmdExecutor(rpn, tape) {
                 p += ", ";
 
             // Pop a needed parameter off the stack
-            var parameter = rpn.popper();
-            if (parameter.val_type == "string")
+            var parameter = rpn.popper();  // returns an object e.g. { 'val' : 100, 'type' : typeof 100 }
+            if (parameter.type == "string")  // 'type' here is our own invented property
                 p += '"' + parameter.val + '"';
             else
                 p += JSON.stringify(parameter.val);//.toString();

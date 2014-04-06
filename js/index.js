@@ -24,6 +24,28 @@ var app = {
     }
 };
 
+function Rpn()
+{
+    // Wraps access to the rpn stack controller
+
+    var stack_controller = angular.element($('#stack')).scope();
+
+    function pusher(val) {
+        stack_controller.$apply(stack_controller.push(val));  // need apply so that events trigger
+    }
+    function popper() {
+        var result = stack_controller.pop();
+        stack_controller.$apply();  // update dom in angular land - since we popped a value.  Doing the pop inside the apply doesn't give us a return value, so we do it in two steps
+        return result;
+    }
+
+    return {
+        pusher: pusher,
+        popper: popper
+    }
+};
+
+
 $(window).load(function () {
     // executes when complete page is fully loaded (all frames, objects and images)
 
@@ -61,9 +83,7 @@ $(window).load(function () {
 
     var clicksound = undefined;
 
-    var rpn = {}
-    rpn.popper = function() { return { 'val' : 100, 'val_type' : typeof 100 } };
-    rpn.pusher = function(val) { console.log('pushed val', val); };
+    var rpn = Rpn();  // new instance
 
     var tape = {};
     tape.log = function(s) { console.log(s); };

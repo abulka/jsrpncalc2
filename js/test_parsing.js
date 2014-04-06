@@ -22,7 +22,7 @@ $(window).load(function () {
     var clicksound = undefined;
 
     var rpn = {}
-    rpn.popper = function() { return { 'val' : 100, 'val_type' : typeof 100 } };
+    rpn.popper = function() { return { 'val' : 100, 'type' : typeof 100 } };
     rpn.pusher = function(val) { console.log('pushed val', val); };
 
     var tape = {};
