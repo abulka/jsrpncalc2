@@ -27,7 +27,6 @@ function JsParser(editor) {
             var el = syntax.body[i];
             var button_building_params = {
                 'function_name': el.id.name,
-                'num_params': el.params.length,
                 'params': jQuery.extend({}, el.params) // shallow copy
             }
             buttons_to_build.push(button_building_params);
@@ -49,7 +48,6 @@ function JsParser(editor) {
         console.log('execute,', data);
         
         var function_to_call = data.function_to_call;
-        var num_params = data.num_params;
         var params = data.params;
         var rpn = data.rpnstack;  // even though rpn and log are available globally (for now)
         var log = data.log;       // best we explicitly get them passed in.
