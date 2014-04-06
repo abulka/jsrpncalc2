@@ -76,6 +76,11 @@ $(window).load(function () {
     });
 
     custom_button_mgr.rebuildAllButtons();
+
+    $('#go_editor').on('vmousedown', function (event) {
+        event.preventDefault();  // prevent ghost clicks
+        $.mobile.changePage("#options", "flip", true, false);
+    });
 });
 
 app.initialize();
