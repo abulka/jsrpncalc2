@@ -49,14 +49,19 @@ function Rpn()
 var rpn;
 var tape;
 
-$(window).load(function () {
-    // executes when complete page is fully loaded (all frames, objects and images)
+// Globals for wiring
+var cmd_controller;
 
-    // introduce a slight delay to allow widgets to settle and the width values more reliable
-    setTimeout(function () {
-        onResize();
-    }, 10);
+// TIP: document.ready mean DOM ready.  Later, window.onload fires when images are loaded.
 
+app.initialize();  // wires up the deviceready event listening.  TODO: put all startup events in the app object
+
+$(document).ready(function () {
+    // executes when HTML-Document is loaded and DOM is ready.
+
+    cmd_controller = CmdController();
+    console.log('cmd_controller during ready', cmd_controller);
+    LegacyFastKeyPad(cmd_controller);  // receives 'boot event'
 
     // Global events
 
@@ -116,4 +121,29 @@ $(window).load(function () {
 
 });
 
-app.initialize();
+$(window).load(function () {
+    // executes when complete page is fully loaded (all frames, objects and images)
+
+    // introduce a slight delay to allow widgets to settle and the width values more reliable
+    setTimeout(function () {
+        onResize();
+    }, 10);
+
+});
+
+function CmdController() {
+    var current_in = $('#current_cmd');
+    var stack_controller = angular.element($('#stack')).scope();
+
+    function flush_cmd_to_stack() {
+        if (current_in.val() != '') {
+            stack_controller.$apply(stack_controller.push(current_in.val()));
+            current_in.val('');
+        }
+    }
+
+    return {
+        flush_cmd_to_stack:flush_cmd_to_stack
+    }
+}
+

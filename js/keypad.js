@@ -3,17 +3,14 @@
 // We don't have an angular controller for the numeric keypad because its too slow.  So we just use regular 'legacy'
 // javascript/jquery.  When needed, we invoke functions on the angular stack controller e.g. enter.
 
-$(document).ready(function () {
-    // executes when HTML-Document is loaded and DOM is ready
-    LegacyFastKeyPad();
-});
-
-function LegacyFastKeyPad() {
+function LegacyFastKeyPad(cmd_controller) {
     // fast click magic technique
 
     var current_in = $('#current_cmd');
     var btns = $('#click1,#click2,#click3,#click4,#click5,#click6,#click7,#click8,#click9,#click0');
     var stack_controller = angular.element($('#stack')).scope();
+
+    var flush_cmd_to_stack = cmd_controller.flush_cmd_to_stack;
 
     // 1 2 3 4 5 6 7 8 9 0
 
@@ -172,13 +169,13 @@ function LegacyFastKeyPad() {
         current_in.val(current_in.val() + s).keyup();
     }
 
-    function flush_cmd_to_stack() {
-        if (current_in.val() != '') {
-            stack_controller.$apply(stack_controller.push(current_in.val()));
-            current_in.val('');
-        }
-    }
-
+//    function flush_cmd_to_stack() {
+//        if (current_in.val() != '') {
+//            stack_controller.$apply(stack_controller.push(current_in.val()));
+//            current_in.val('');
+//        }
+//    }
+//
     function stack_has_same_type(type) {
         var stack = stack_controller.getStack();
         var l = stack_controller.len();
