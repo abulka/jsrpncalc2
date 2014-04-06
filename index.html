@@ -375,6 +375,8 @@
     </div>
 
     <div id="custom" class="pink widget">
+        <div class='item' id='customKeysPage'>
+        </div>
         <button class="ui-btn ui-mini ui-btn-inline">Custom Button</button>
         <button class="ui-btn ui-mini ui-btn-inline">Pi</button>
         <button class="ui-btn ui-mini ui-btn-inline">Another Button</button>
@@ -416,33 +418,23 @@
     <!-- /header -->
 
     <div role="main" class="ui-content">
-        <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that
-            references my id is being clicked.</p>
 
         <p><a href="#col_layouts">Back to Calc</a></p>
+
+        <a id="btnReparse" data-role="button" data-inline=true data-mini="true" data-theme="b">Re-Parse</a>
+        <div id="someDiv">
+            ENTER YOUR CODE HERE:
+            <textarea id="code" name="code" data-role="none" style="height: 40em; width: 30em;">
+function fred() {}
+function mary() {alert('hi there'); }
+function sam(a) { var x = 200; alert(x+a); }
+            </textarea>
+        </div>
 
         <form>
             <label for="slider-0">Input slider:</label>
             <input type="range" name="slider" id="slider-0" value="25" min="0" max="100"/>
         </form>
-
-        <div class="ui-grid-a">
-            <div class="ui-block-a">
-                <div class="ui-bar ui-bar-a" style="height:60px">Block A</div>
-            </div>
-            <div class="ui-block-b">
-                <div class="ui-bar ui-bar-a" style="height:60px">Block B</div>
-            </div>
-        </div>
-        <!-- /grid-a -->
-
-        <div class="ui-grid-b ui-responsive">
-            <div class="ui-block-a"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-arrow-l">Back
-                to order</a></div>
-            <div class="ui-block-b"><input type="button" data-icon="plus" value="Add products"></div>
-            <div class="ui-block-c"><input type="button" data-icon="check" data-iconpos="right" value="Confirm order">
-            </div>
-        </div>
 
     </div>
     <!-- /content -->
@@ -458,16 +450,32 @@
 <script src="phonegap.js"></script>
 <script src="js/jquery-2.1.0.js"></script>
 <script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
+
+<!-- Angular -->
 <script src="js/angular-1.2.9.min.js"></script>
-<script src="js/index.js"></script>
-<script src="js/layout.js"></script>
 <script type="text/javascript">
-
-    app.initialize();
-
+    var myApp = angular.module('myApp', []);
 </script>
+
+<script src="js/layout.js"></script>
 <script src="js/rpnstack2.js"></script>
 <script src="js/keypad.js"></script>
+
+<!-- Syntax Highlighting ver 2.3 -->
+<script type='text/javascript' src="js/codemirror-2.34/codemirror.js"></script>
+<link rel="stylesheet" type="text/css" href="js/codemirror-2.34/codemirror.css">
+<script type='text/javascript' src="js/codemirror-2.34/codemirror.javascript.js"></script>
+
+<!-- Javascript parsing -->
+<script type='text/javascript' src="js/esprima.js"></script>
+<script type='text/javascript' src="js/jsparser2.js"></script>
+
+<!--Button building and executing-->
+<script src="js/custom_button_mgr2.js"></script>
+<script src="js/cmr_executor.js"></script>
+
+<!-- Main -->
+<script src="js/index.js"></script>
 
 </body>
 </html>

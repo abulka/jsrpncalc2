@@ -5,12 +5,15 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
     var _custom_keys_page = custom_keys_page;
 
     function buildButton(params, $attachto) {
-        var element = $('<a>' + params['function_name'] + '</a>');
 
         if (is_jqm) {
-            element.attr('data-role', "button").attr('data-mini', true).attr('data-inline', true).attr('data-theme', "a");
+            var element = $('<button>' + params['function_name'] + '</a>');
+            element.attr('class', "ui-btn ui-mini ui-btn-inline");
             element.button(); // give jqm a chance to style it.
         }
+        else
+            var element = $('<a>' + params['function_name'] + '</a>');
+
         if (clicksound != undefined) {
             element.on('vmousedown', function() { clicksound.play(); });
         }
