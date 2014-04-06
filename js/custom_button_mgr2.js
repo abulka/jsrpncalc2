@@ -1,4 +1,4 @@
-function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, clicksound)
+function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clicksound)
 {
     // PRIVATE
 
@@ -6,16 +6,21 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, clicksound)
 
     function buildButton(params, $attachto) {
         var element = $('<a>' + params['function_name'] + '</a>');
-        element.attr('data-role', "button").attr('data-mini', true).attr('data-inline', true).attr('data-theme', "a");
-//      element.button(); // give jqm a chance to style it.
 
-        //element.on('vmousedown', function() { clicksound.play(); });  // click sound during carousel swipe is confusing, so don't do it.
+        if (is_jqm) {
+            element.attr('data-role', "button").attr('data-mini', true).attr('data-inline', true).attr('data-theme', "a");
+            element.button(); // give jqm a chance to style it.
+        }
+        if (clicksound != undefined) {
+            element.on('vmousedown', function() { clicksound.play(); });
+        }
 
         element.on("click dblclick", onClickDoExecute);  // Wire up event handler for our new custom button.
         // Note we don't listen for swipe, since custom buttons on the carousel
         // are likely to be swiped and the intent is for the carousel to move
+
         $attachto.append(element);
-        console.log('buildButton built element:', element);
+        //console.log('buildButton built element:', element);
         return element;
     }
 
