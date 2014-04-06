@@ -45,6 +45,9 @@ function Rpn()
     }
 };
 
+// Globals - thus accessible from inside scripts too!
+var rpn;
+var tape;
 
 $(window).load(function () {
     // executes when complete page is fully loaded (all frames, objects and images)
@@ -83,9 +86,9 @@ $(window).load(function () {
 
     var clicksound = undefined;
 
-    var rpn = Rpn();  // new instance
-
-    var tape = {};
+    // Initialise globals
+    rpn = Rpn();  // new instance
+    tape = {};
     tape.log = function(s) { console.log(s); };
 
     var cmd_executor = CmdExecutor(rpn, tape);
