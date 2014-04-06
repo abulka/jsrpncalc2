@@ -11,7 +11,7 @@
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
     <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />-->
 
-    <link rel="stylesheet" href="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
+    <link rel="stylesheet" href="js/lib/jquery.mobile-1.4.0/jquery.mobile-1.4.0.css">
     <link rel="stylesheet" href="css/rpnstack.css">
 
 </head>
@@ -148,17 +148,26 @@
 <!-- /page -->
 
 <script src="phonegap.js"></script>
-<script src="js/jquery-2.1.0.js"></script>
-<script src="js/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
+<script src="js/lib/jquery-2.1.0.js"></script>
+<script src="js/lib/jquery.mobile-1.4.0/jquery.mobile-1.4.0.js"></script>
 <script src="js/angular-1.2.9.min.js"></script>
 <script type="text/javascript">
-
     //app.initialize();
     var myApp = angular.module('myApp', []);
-
 </script>
 <script src="js/rpnstack2.js"></script>
 <script src="js/keypad.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // executes when HTML-Document is loaded and DOM is ready.
+
+        // Fake
+        var cmd_controller = {};
+        cmd_controller.flush_cmd_to_stack = function() {};
+
+        LegacyFastKeyPad(cmd_controller);  // receives 'boot event'
+    });
+</script>
 
 </body>
 </html>
