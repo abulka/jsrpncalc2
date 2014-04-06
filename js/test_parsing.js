@@ -28,7 +28,10 @@ $(window).load(function () {
     var tape = {};
     tape.log = function(s) { console.log(s); };
 
-    var cmd_executor = CmdExecutor(rpn, tape);
+    var cmd_controller = {};
+    cmd_controller.flush_cmd_to_stack = function() {};
+
+    var cmd_executor = CmdExecutor(rpn, tape, cmd_controller);
     var custom_button_mgr = CustomButtonsMgr(jsparser, $('#customKeysPage'), cmd_executor, false, clicksound);
 
     $("#btnReparse").on('click', function(event, ui) {
