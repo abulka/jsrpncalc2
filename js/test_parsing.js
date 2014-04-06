@@ -21,12 +21,16 @@ $(window).load(function () {
 
     var clicksound = undefined;
     var log = function(o) { console.log(o); }  // later remap this to tape
+
     var rpn = {}
-    rpn.popper = function() { console.log('popper called');
-        return { 'val' : 100, 'val_type' : typeof 100 }
-    }
-    rpn.pusher = function(val) { console.log('pushed val', val); }
-    var custom_button_mgr = new CustomButtonsMgr(jsparser, clicksound, log, rpn);
+    rpn.popper = function() { return { 'val' : 100, 'val_type' : typeof 100 } };
+    rpn.pusher = function(val) { console.log('pushed val', val); };
+
+    var tape = {};
+    tape.log = function(s) { console.log(s); };
+
+    var cmd_executor = CmdExecutor(rpn, tape);
+    var custom_button_mgr = new CustomButtonsMgr(jsparser, $('#customKeysPage'), cmd_executor, clicksound);
 
     $("#btnReparse").on('click', function(event, ui) {
         custom_button_mgr.rebuildAllButtons();
