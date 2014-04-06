@@ -82,17 +82,17 @@ $(window).load(function () {
         autoClearEmptyLines: true,
         lineWrapping: false
     });
-    var jsparser = new JsParser(editor);
+    var jsparser = JsParser(editor);
 
     var clicksound = undefined;
 
     // Initialise globals
-    rpn = Rpn();  // new instance
+    rpn = Rpn();
     tape = {};
     tape.log = function(s) { console.log(s); };
 
     var cmd_executor = CmdExecutor(rpn, tape);
-    var custom_button_mgr = new CustomButtonsMgr(jsparser, $('#customKeysPage'), cmd_executor, true, clicksound);
+    var custom_button_mgr = CustomButtonsMgr(jsparser, $('#customKeysPage'), cmd_executor, true, clicksound);
 
     $("#btnReparse").on('click', function(event, ui) {
         custom_button_mgr.rebuildAllButtons();

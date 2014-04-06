@@ -17,7 +17,7 @@ $(window).load(function () {
         autoClearEmptyLines: true,
         lineWrapping: false
     });
-    var jsparser = new JsParser(editor);
+    var jsparser = JsParser(editor);
 
     var clicksound = undefined;
 
@@ -29,7 +29,7 @@ $(window).load(function () {
     tape.log = function(s) { console.log(s); };
 
     var cmd_executor = CmdExecutor(rpn, tape);
-    var custom_button_mgr = new CustomButtonsMgr(jsparser, $('#customKeysPage'), cmd_executor, false, clicksound);
+    var custom_button_mgr = CustomButtonsMgr(jsparser, $('#customKeysPage'), cmd_executor, false, clicksound);
 
     $("#btnReparse").on('click', function(event, ui) {
         custom_button_mgr.rebuildAllButtons();
