@@ -77,10 +77,20 @@ $(window).load(function () {
 
     custom_button_mgr.rebuildAllButtons();
 
+    // Editor navigation
+    
     $('#go_editor').on('vmousedown', function (event) {
         event.preventDefault();  // prevent ghost clicks
         $.mobile.changePage("#options", "flip", true, false);
     });
+
+    // Prevent first time no display bug
+    $('#options').on('pageshow',function(){
+      $('.CodeMirror').each(function(i, el){
+          el.CodeMirror.refresh();
+      });
+    });
+
 });
 
 app.initialize();
