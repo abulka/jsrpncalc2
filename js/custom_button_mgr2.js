@@ -4,15 +4,24 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
 
     var _custom_keys_page = custom_keys_page;
 
-    function buildButton(params, $attachto) {
+    function buildButton(btn_spec, $attachto) {
+
+        var params = "";
+        $.each(btn_spec.params, function (index, value) {
+            if (params != "")
+                params += ", ";
+            params += value.name;
+        });
+        if (params != '')
+            params = "(" + params + ")"
 
         if (is_jqm) {
-            var element = $('<button>' + params['function_name'] + '</a>');
+            var element = $('<button>' + btn_spec['function_name'] + params + '</a>');
             element.attr('class', "ui-btn ui-mini ui-btn-inline");
             element.button(); // give jqm a chance to style it.
         }
         else
-            var element = $('<a>' + params['function_name'] + '</a>');
+            var element = $('<a>' + btn_spec['function_name'] + params + '</a>');
 
         if (clicksound != undefined) {
             element.on('vmousedown', function() { clicksound.play(); });
