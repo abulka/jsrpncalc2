@@ -18,7 +18,7 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
             element.on('vmousedown', function() { clicksound.play(); });
         }
 
-        element.on("click dblclick", onClickDoExecute);  // Wire up event handler for our new custom button.
+        element.on("click", onClickDoExecute);  // Wire up event handler for our new custom button.
         // Note we don't listen for swipe, since custom buttons on the carousel
         // are likely to be swiped and the intent is for the carousel to move
 
