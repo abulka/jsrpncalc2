@@ -441,7 +441,12 @@ function randy1() { return Math.random(); }
 function lenarray(lzt) { return lzt.length; }
 function gen(n) { var arra=[]; for (i=1;i<=n;i++) { arra.push(i); } console.log(arra); return arra;}
 function gen5() { return gen(5); }
-
+function obb() {
+  var o = { 'a': 100,
+            'b': function() { return 200; }
+          };
+  return o;
+}
             </textarea>
         </div>
 
