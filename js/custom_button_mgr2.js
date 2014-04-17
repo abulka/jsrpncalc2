@@ -48,6 +48,21 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
 
 //            element.slider(); // give jqm a chance to style it.
             $attachto.append(element);
+
+
+    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+    $attachto.append(toggle_button);
+    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+    $attachto.append(toggle_button);
+    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+    $attachto.append(toggle_button);
+    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+    $attachto.append(toggle_button);
+    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+    $attachto.append(toggle_button);
+    $('select').slider();
+
+
         }
     }
 
