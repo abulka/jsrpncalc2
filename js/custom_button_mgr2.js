@@ -91,9 +91,9 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
             element.data('cmd', { function_to_call: btb[i].function_name,
                 params: btb[i].params });
         }
-        var element1 = buildSlider(btb[i], _custom_keys_page);
-        var element2 = buildToggle(btb[i], _custom_keys_page);
-        _custom_keys_page.trigger( "create" );  // tell jqm to style all the widgets
+//        var element1 = buildSlider(btb[i], _custom_keys_page);
+//        var element2 = buildToggle(btb[i], _custom_keys_page);
+//        _custom_keys_page.trigger( "create" );  // tell jqm to style all the widgets
 
     }
 
