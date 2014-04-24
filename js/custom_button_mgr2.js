@@ -73,10 +73,15 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
 
             for (var i = 0; i < 5; i++) {
                 $attachto
-                    .append('<label><input type="radio" name="radios" id="radio' + i + '" />Radio ' + i + '</label>')
-                    .append('<label><input type="checkbox" id="checkbox ' + i + '" />Checkbox' + i + '</label>')
-                    .append('<a href="#" class="ui-btn ui-btn-b ui-btn-icon-left ui-icon-check" id="button ' + i + '">button ' + i + '</a>')
-                    .append('<select data-role="flipswitch" data-mini="true" id="fs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select>');
+                    .append('<select data-role="flipswitch" data-mini="true" id="abcfs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select>');
+            }
+            for (var i = 0; i < 5; i++) {
+                $attachto
+                    .append('<div class="ui-field-contain"><label for="axbcfs1' + i + '">Flip:</label><select data-role="flipswitch" data-mini="true" id="axbcfs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select></div>');
+            }
+            for (var i = 0; i < 5; i++) {
+                $attachto
+                    .append('<label><input type="checkbox" data-mini="true" id="checkbox ' + i + '" />Checkbox' + i + '</label>')
             }
         }
     }
