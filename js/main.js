@@ -98,7 +98,7 @@ $(document).ready(function () {
     });
 
     // Add some programmatic stuff
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 5; i++) {
         $('#CG-demo')
             .controlgroup("container")
             .append('<label><input type="radio" name="radios" id="radio' + i + '" />Radio ' + i + '</label>')

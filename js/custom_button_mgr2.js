@@ -50,17 +50,17 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
             $attachto.append(element);
 
 
-    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-    $attachto.append(toggle_button);
-    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-    $attachto.append(toggle_button);
-    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-    $attachto.append(toggle_button);
-    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-    $attachto.append(toggle_button);
-    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-    $attachto.append(toggle_button);
-    $('select').slider();
+//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+//    $attachto.append(toggle_button);
+//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+//    $attachto.append(toggle_button);
+//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+//    $attachto.append(toggle_button);
+//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+//    $attachto.append(toggle_button);
+//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
+//    $attachto.append(toggle_button);
+//    $('select').slider();
 
 
         }
@@ -70,6 +70,14 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
         if (is_jqm) {
             var f1 = '<select data-role="flipswitch" data-mini="true" name="turboMode-select" id="turboMode-select"> <option value="off">Off</option> <option value="on" selected>On</option> </select>';
             $attachto.append(f1);
+
+            for (var i = 0; i < 5; i++) {
+                $attachto
+                    .append('<label><input type="radio" name="radios" id="radio' + i + '" />Radio ' + i + '</label>')
+                    .append('<label><input type="checkbox" id="checkbox ' + i + '" />Checkbox' + i + '</label>')
+                    .append('<a href="#" class="ui-btn ui-btn-b ui-btn-icon-left ui-icon-check" id="button ' + i + '">button ' + i + '</a>')
+                    .append('<select data-role="flipswitch" data-mini="true" id="fs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select>');
+            }
         }
     }
 
@@ -91,9 +99,9 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
             element.data('cmd', { function_to_call: btb[i].function_name,
                 params: btb[i].params });
         }
-//        var element1 = buildSlider(btb[i], _custom_keys_page);
-//        var element2 = buildToggle(btb[i], _custom_keys_page);
-//        _custom_keys_page.trigger( "create" );  // tell jqm to style all the widgets
+        var element1 = buildSlider(btb[i], _custom_keys_page);
+        var element2 = buildToggle(btb[i], _custom_keys_page);
+        _custom_keys_page.trigger( "create" );  // tell jqm to style all the widgets
 
     }
 

@@ -38,8 +38,7 @@ div#debug_area {background: #97d8fc; padding: 0.5em;}
     margin-right: auto;
 }
 
-/* custom buttons - yikes the next line makes flip switches and slider behave badly !!! */
-/*#custom .ui-btn { margin-left: 5px; margin-right: 0px; }*/
+/* add a margin around the custom buttons etc. */
 #custom_inner { margin: 0 5px; }
 
 /* overall */
