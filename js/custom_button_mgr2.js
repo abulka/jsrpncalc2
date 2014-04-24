@@ -68,18 +68,38 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
 
     function buildToggle(toggle_spec, $attachto) {
         if (is_jqm) {
-            var f1 = '<select data-role="flipswitch" data-mini="true" name="turboMode-select" id="turboMode-select"> <option value="off">Off</option> <option value="on" selected>On</option> </select>';
+            var f1 = '<select data-role="flipswitch" data-mini="true" name="turboMode-select" id="turboMode-select"> <option value="off">N</option> <option value="on" selected>Y</option> </select>';
             $attachto.append(f1);
 
-            for (var i = 0; i < 5; i++) {
+            // pure flipswitch
+            for (var i = 0; i < 6; i++) {
                 $attachto
                     .append('<select data-role="flipswitch" data-mini="true" id="abcfs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select>');
             }
-            for (var i = 0; i < 5; i++) {
+            // flipswitch inside simple div
+            for (var i = 0; i < 3; i++) {
+                $attachto
+                    .append('<div><select data-role="flipswitch" data-mini="true" id="abczfs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select></div>');
+            }
+            // flipswitch inside div field contain, with label
+            for (var i = 0; i < 2; i++) {
                 $attachto
                     .append('<div class="ui-field-contain"><label for="axbcfs1' + i + '">Flip:</label><select data-role="flipswitch" data-mini="true" id="axbcfs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select></div>');
             }
-            for (var i = 0; i < 5; i++) {
+
+            // flipswitch with label above - not sure how its done, probably by leaving off the field container div
+            var s;
+            for (var i = 0; i < 2; i++) {
+                s = '<label for="zslider-flip-m' + i + '">Mini flip switch:</label>' +
+                    '<select name="slider-flip-m" id="zslider-flip-m' + i + '" data-role="slider" data-mini="true">' +
+                    '<option value="off">No</option>' +
+                    '<option value="on" selected="">Yes</option>' +
+                    '</select>'
+                $attachto.append(s);
+            }
+            
+            // Checkbox
+            for (var i = 0; i < 2; i++) {
                 $attachto
                     .append('<label><input type="checkbox" data-mini="true" id="checkbox ' + i + '" />Checkbox' + i + '</label>')
             }
