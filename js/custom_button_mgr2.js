@@ -38,9 +38,6 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
 
     function buildSlider(slider_spec, $attachto) {
         if (is_jqm) {
-            //var element = $('<button>' + btn_spec['function_name'] + params + '</a>');
-//            var element = $('<label for="slider-0">Input slider:</label>' +
-//                            '<input type="range" name="slider" id="slider-0" data-mini="true" value="25" min="0" max="100"/>');
             var element = $('<form>' +
                             '<label for="slider-0">Input slider:</label>' +
                             '<input type="range" name="slider" id="slider-0" value="25" min="0" max="100"/>' +
@@ -48,20 +45,6 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
 
 //            element.slider(); // give jqm a chance to style it.
             $attachto.append(element);
-
-
-//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-//    $attachto.append(toggle_button);
-//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-//    $attachto.append(toggle_button);
-//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-//    $attachto.append(toggle_button);
-//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-//    $attachto.append(toggle_button);
-//    var toggle_button = '<select data-role="slider"><option value="off">Off</option><option value="on">On</option></select>';
-//    $attachto.append(toggle_button);
-//    $('select').slider();
-
 
         }
     }
@@ -81,13 +64,13 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
                 $attachto
                     .append('<div><select data-role="flipswitch" data-mini="true" id="abczfs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select></div>');
             }
-            // flipswitch inside div field contain, with label
+            // flipswitch inside div of class field contain, with label.  The ui-field-contain puts the label and flipswitch SIDE BY SIDE
             for (var i = 0; i < 2; i++) {
                 $attachto
                     .append('<div class="ui-field-contain"><label for="axbcfs1' + i + '">Flip:</label><select data-role="flipswitch" data-mini="true" id="axbcfs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select></div>');
             }
 
-            // flipswitch with label above - not sure how its done, probably by leaving off the field container div
+            // flipswitch with label above - by leaving off the field container div
             var s;
             for (var i = 0; i < 2; i++) {
                 s = '<label for="zslider-flip-m' + i + '">Mini flip switch:</label>' +
@@ -97,7 +80,7 @@ function CustomButtonsMgr(jsparser, custom_keys_page, cmd_executor, is_jqm, clic
                     '</select>'
                 $attachto.append(s);
             }
-            
+
             // Checkbox
             for (var i = 0; i < 2; i++) {
                 $attachto

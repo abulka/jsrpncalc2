@@ -97,7 +97,8 @@ $(document).ready(function () {
       });
     });
 
-    // Add some programmatic stuff
+    // Add some programmatic jqm widgets, with latest technique for refreshing programmatic widgets so that they render correctly
+    // though in custom_button_mgr2.js I simply do _custom_keys_page.trigger( "create" ); and it seems to work ok.
     for (var i = 0; i < 5; i++) {
         $('#CG-demo')
             .controlgroup("container")
