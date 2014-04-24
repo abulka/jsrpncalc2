@@ -22,7 +22,7 @@
 
 <div data-role="content">
 
-
+<!--these format ok, and they are inside the content div-->
 <select data-role="flipswitch" data-mini="true" id="fs2"> <option value="off">Off</option> <option value="on" selected>On</option> </select>
 <select data-role="flipswitch" data-mini="true" id="fs3"> <option value="off">Off</option> <option value="on" selected>On</option> </select>
 <form>
@@ -383,6 +383,7 @@
     </div>
 
     <div id="custom" class="pink widget">
+      <div id="custom_inner" class="pink">
         <button id="go_editor" class="ui-btn ui-mini ui-btn-inline" data-theme="b">Editor</button>
         <a href="#options" class="ui-btn-icon-notext ui-btn ui-corner-all ui-icon-gear ui-btn-a ui-btn-inline"></a>
 
@@ -408,12 +409,18 @@
         <button class="ui-btn ui-mini ui-btn-inline">Exp</button>
 
         <select data-role="flipswitch" data-mini="true" id="fs1"> <option value="off">Off</option> <option value="on" selected>On</option> </select>
+        <select data-role="flipswitch" data-mini="true" id="fs1a"> <option value="off">Off</option> <option value="on" selected>On</option> </select>
+        <select data-role="flipswitch" data-mini="true" id="fs1b"> <option value="off">Off</option> <option value="on" selected>On</option> </select>
         <form>
             <label for="slider-01">Input slider:</label>
             <input type="range" name="slider" id="slider-01" value="25" min="0" max="100"/>
         </form>
 
-    </div>
+        <form>
+            <div data-role="controlgroup" id="CG-demo"></div>
+        </form>
+      </div> <!-- custom_inner -->
+    </div> <!-- custom -->
 </div>
 <!-- hidden_holding_area -->
 

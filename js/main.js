@@ -97,6 +97,20 @@ $(document).ready(function () {
       });
     });
 
+    // Add some programmatic stuff
+    for (var i = 0; i < 20; i++) {
+        $('#CG-demo')
+            .controlgroup("container")
+            .append('<label><input type="radio" name="radios" id="radio' + i + '" />Radio ' + i + '</label>')
+            .append('<label><input type="checkbox" id="checkbox ' + i + '" />Checkbox' + i + '</label>')
+            .append('<a href="#" class="ui-btn ui-btn-b ui-btn-icon-left ui-icon-check" id="button ' + i + '">button ' + i + '</a>')
+            .append('<select data-role="flipswitch" data-mini="true" id="fs1' + i + '"> <option value="off">Off</option> <option value="on" selected>On</option> </select>');
+
+    }
+    $("#CG-demo")
+        .enhanceWithin()
+        .controlgroup("refresh");
+
 });
 
 $(window).load(function () {
